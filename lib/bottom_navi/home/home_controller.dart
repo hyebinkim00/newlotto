@@ -48,10 +48,13 @@ class HomeController extends GetxController{
     String windResult = element!.text;
     String numText = windResult.replaceAll('회', '');
     int seral = int.parse(numText);
-    lastSerial.value = seral;
-    // MainContol
-    retro(seral);
-    updateList(seral);
+    print('lateee${lastSerial}');
+    if (lastSerial.value != seral){
+      lastSerial.value = seral;
+      retro(seral);
+      updateList(seral);
+    }
+
   }
 
   Future<void> retro(int dd) async {
@@ -93,12 +96,15 @@ class HomeController extends GetxController{
     List<Loto> list = [];
     // 저장되어 있는 값 확인
     list = await DBHelper().getLoto();
+
     if (list.isEmpty) {
       for (int i = 0; i <= 20; i++) {
         // 20개 저장 (마지막 회차가 변경되어서 db 추가할때 id 순서를 바꿀수 없으니 내림차순으로 저장)
         await listDbsave(serial - i);
       }
     } else {
+
+      print('LLLL${list}');
       // 최신 번호 바귀면 한개 저장
     }
   }

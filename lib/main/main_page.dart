@@ -19,11 +19,11 @@ class MainPage extends GetView<MainController> {
             items: [
               BottomNavigationBarItem(
                 icon: Icon(Icons.calendar_month_rounded),
-                label: '달력보',
+                label: '달력확인',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.numbers),
-                label: '당첨기록',
+                icon: Icon(Icons.bar_chart),
+                label: '당첨번호',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),

@@ -50,31 +50,6 @@ class DBHelper {
     );
   }
 
-  //SelfPage 에서 저장한 번호 리스트 String 으로 저장 (사용안함)
-  Future<void> insertNumberListString(List<int> numbers) async {
-    final db = await database; // 데이터베이스 인스턴스 가져오기
-    final String numbersString = numbers.join(',');
-    print('HBBBB' + numbersString);
-    await db.insert(
-      'numbers',
-      {'valueList': numbersString},
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-  }
-
-  // SelfPage에서 String으로 저장한 리스트 get (사용안함)
-  Future<List<List<int>>> queryAllLists() async {
-    final db = await database;
-    // Query all rows in the 'numbers' table
-    final List<Map<String, dynamic>> maps = await db.query('numbers');
-    // Convert each row to a List<int>
-    return maps.map((map) {
-      final String numbersString = map['valueList'];
-      return numbersString.split(',').map((e) => int.parse(e)).toList();
-    }).toList();
-  }
-
-  // SelfController 저장하는 버전 2
   Future<void> insertDataList(selfNum list) async {
     final db = await database; // 데이터베이스 인스턴스 가져오기
     await db.insert(
