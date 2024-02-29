@@ -42,6 +42,7 @@ class MyPage extends StatelessWidget {
                               },
                               icon: Icon(Icons.arrow_circle_left)),
                           Text(
+                            // 회차 정보
                             controller.currentIndex.value == 0
                                 ? '${controller.Selfserial}'
                                 : '${controller.Qrserial}',
@@ -67,18 +68,21 @@ class MyPage extends StatelessWidget {
         ));
   }
 
+  // Self 와 QrScan 탭 리스트
   List<Widget> tabViweList(MyPageController controller) {
     return [
+      // Self 에서 저장한 번호
       Center(
-        child: Container(child: Obx(() =>
+        child: Container(
+          child: Obx(() =>
             ListView.builder(
-                itemCount: controller.dblist.length,
+                itemCount: controller.selfList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Center(
                     child: Column(children: [
-                      Text(('${controller.dblist[index].serial}')), // 회차
+                      Text(('${controller.selfList[index].serial}')), // 회차
                       FutureBuilder(
-                          future: controller.getResults(controller.dblist[index]),
+                          future: controller.getTEST(1102,controller.qrtest[index].myNum??[]),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
@@ -93,7 +97,7 @@ class MyPage extends StatelessWidget {
                                   'No data available'); // 데이터가 없는 경우에 대한 처리를 추가합니다.
                             } else if (snapshot.data != null &&
                                 snapshot.hasData) {
-                              numBox = snapshot.data;
+                              // numBox = snapshot.data;
                             }
                             return Container(
                               color: Colors.grey,
@@ -110,12 +114,11 @@ class MyPage extends StatelessWidget {
                                               left: 5, right: 5),
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: snapshot.data![indexs].color,
+                                            color: snapshot.data![index][indexs].color,
                                           ),
                                           child: Center(
                                               child: Text(
-                                                '${snapshot.data![indexs]
-                                                    .number}',
+                                                '${snapshot.data![index][indexs].number}',
                                                 style: TextStyle(
                                                   color: Colors.black,
                                                   // 텍스트 색상 설정
@@ -132,6 +135,7 @@ class MyPage extends StatelessWidget {
                   );
                 })),),
       ),
+      //   QR에서 저장한 번호
       Center(
         child:  Container(
           child: Obx(()=>
@@ -152,7 +156,7 @@ class MyPage extends StatelessWidget {
                     Text('${controller.qrtest[index].serial}'),
                     FutureBuilder(
                       // controller.qrtest 안에 serial , List<QRInfo> 리스트 (DB 리스트)
-                        future: controller.getTEST(1102,controller.qrtest[index].myNum??[]),
+                        future: controller.getTEST(controller.Qrserial.value,controller.qrtest[index].myNum??[]),
                         builder: (context,snapshot){
                           if (snapshot.connectionState == ConnectionState.waiting) {
                             // return CircularProgressIndicator();// 데이터를 기다리는 동안 로딩 인디케이터를 표시합니다.
@@ -164,6 +168,7 @@ class MyPage extends StatelessWidget {
                           }
                           else if (snapshot.data != null && snapshot.hasData) {
                             print('SSSSBBB${snapshot.data}');
+                            print('SSSlllB${snapshot.data!.length}');
 
                             //controller.QRballLists.value = snapshot.data!;
                           }

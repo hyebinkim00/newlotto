@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:newlotto/model/myNums.dart';
+import '../../db/dbhelper.dart';
 import '../../model/loto.dart';
 
 class SelfController extends GetxController {
@@ -20,8 +22,7 @@ class SelfController extends GetxController {
 
   @override
   void onInit() {
-    // var last = Get.arguments['lastSerial'];
-    // serial.value = last;
+
     super.onInit();
   }
 
@@ -48,9 +49,34 @@ class SelfController extends GetxController {
     isSelectedList.sort();
 
     print('GFFFFF__S${selectLists.toString()}_____${isSelectedList.toString()}');
+    print('ddd_${selectLists[0]}');
   }
 
 
+
+
+  void save() async {
+    // 2024 02 29
+    // 리스트 별로 null 값이랑 0 처리해야댐
+
+
+    List<NumInfo> numInfoList = [];
+
+    for(int i = 0; i < selectLists.length; i++){
+      RxList<int> currentList = selectLists[i]!;
+      NumInfo numInfo = NumInfo(num1: currentList[0], num2 : currentList[1], num3: currentList[2], num4:currentList[3],num5: currentList[4], num6: currentList[5]);
+      numInfoList.add(numInfo);
+    }
+
+    MyNums nums = MyNums(serial: 1108,myNum: numInfoList);
+    MyNums nums2 = MyNums(serial: 1107,myNum: numInfoList);
+    print('GG__ ${selectLists.length}');
+    print('GG__ ${selectLists.toString()}');
+    await DBHelper().insertData(nums);
+    await DBHelper().insertData(nums2);
+
+
+  }
 
   Widget items(int index) {
     // isSelectedLists.add(List.generate(45, (index) => false).obs); // 새로운 위젯에 대한 isSelected 목록을 추가

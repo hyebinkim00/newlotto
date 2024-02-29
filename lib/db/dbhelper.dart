@@ -1,3 +1,4 @@
+import 'package:newlotto/model/myNums.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -38,12 +39,19 @@ class DBHelper {
         );
 
         // SelfPage 에서 입력한 번호 6개 리스트 + 회차 선택 넣어야 됨
+        // await db.execute(
+        //   'CREATE TABLE selfNum(id INTEGER PRIMARY KEY, serial INTEGER, num1 INTEGER, num2 INTEGER, num3 INTEGER, num4 INTEGER, num5 INTEGER, num6 INTEGER)',
+        // );
+
+        // MyNums 저장
         await db.execute(
-          'CREATE TABLE selfNum(id INTEGER PRIMARY KEY, serial INTEGER, num1 INTEGER, num2 INTEGER, num3 INTEGER, num4 INTEGER, num5 INTEGER, num6 INTEGER)',
+          'CREATE TABLE qrInfo(id INTEGER PRIMARY KEY, serial INTEGER, myNum TEXT)',
         );
 
+        // Mynums 저장
+        // selfNum
         await db.execute(
-          'CREATE TABLE qrInfo(id INTEGER PRIMARY KEY, serial TEXT, myNum TEXT)',
+          'CREATE TABLE selfNum(id INTEGER PRIMARY KEY, serial INTEGER, myNum TEXT)',
         );
 
       },
@@ -72,16 +80,31 @@ class DBHelper {
   }
 
 // self 저장 리스트중 제일 큰 회차수 가져오기
- Future<List<selfNum>> getselfLastserial() async {
+ Future<List<MyNums>> getselfLastserial() async {
     List<selfNum> lists = [];
     final db = await database; // 데이터베이스 인스턴스 가져오기
     List<Map<String, dynamic>> maps = await db.query('selfNum',orderBy: 'serial DESC');
+    return List.generate(maps.length, (index) {
+      return MyNums.fromMap(maps[index]);
+    });
+    // for (var map in maps) {
+    //   lists.add(selfNum.fromMap(map));
+    //   print('hbs'+lists[0].toString());
+    // }
+    // return lists;
+  }
+
+  Future<List<selfNum>> getQrLastserial() async {
+    List<selfNum> lists = [];
+    final db = await database; // 데이터베이스 인스턴스 가져오기
+    List<Map<String, dynamic>> maps = await db.query('qrInfo',orderBy: 'serial DESC');
     for (var map in maps) {
       lists.add(selfNum.fromMap(map));
       print('hbs'+lists[0].toString());
     }
     return lists;
   }
+
 
   //MainController에서 회차별 정보 저장
   Future addLoto(Loto loto) async {
@@ -91,7 +114,7 @@ class DBHelper {
   }
 
   //MainController에서 회차별 정보 저장한 리스트 가져오기
-  // SelfConto
+  // MyPage, 당첨목록 에서도 씀
   Future<List<Loto>> getLoto() async {
     List<Loto> lists = [];
     final db = await database; // 데이터베이스 인스턴스 가져오기
@@ -103,7 +126,7 @@ class DBHelper {
     return lists;
   }
 
-  Future<List<selfNum>> queryByColumnSelf(int? targetSerial) async {
+  Future<List<MyNums>> queryByColumnSelf(int? targetSerial) async {
     List<selfNum> lists = [];
     Database dbClient = await database;
     final List<Map<String, dynamic>> maps  =  await dbClient.query(
@@ -111,13 +134,12 @@ class DBHelper {
       where: 'serial = ?',
       whereArgs: [targetSerial],
     );
-    for (var map in maps) {
-      lists.add(selfNum.fromMap(map));
-    }
-    return lists;
+    return List.generate(maps.length, (index) {
+      return MyNums.fromMap(maps[index]);
+    });
   }
 
-  // MyPageController 에서 회차 번호 별
+  // MyPageController 에서 회차 번호 (drwNo)에 해당하는 당첨번호 반환
   Future<List<int>> queryByColumnDrwno(int? targetValue) async {
     List<int> list = [];
     Database dbClient = await database;
@@ -135,21 +157,22 @@ class DBHelper {
   }
 
 
-  Future<void> insertData(qrInfo qrInfo) async {
+  // Self 번호 여러개 저장 ()
+  Future<void> insertData(MyNums mynums) async {
     final db = await database; // 데이터베이스 인스턴스 가져오기
     await db.insert(
-      'qrInfo', // 데이터를 추가할 테이블 이름
-      qrInfo.toMap(), // 추가할 데이터
+      'selfNum', // 데이터를 추가할 테이블 이름
+      mynums.toMap(), // 추가할 데이터
       conflictAlgorithm: ConflictAlgorithm.replace, // 중복 데이터 처리 방법 설정
     );
   }
 
-
-  Future<List<qrInfo>> getAllNumLists() async {
+  // Self 저장된 리스트
+  Future<List<MyNums>> getAllNumLists() async {
     Database db = await database;
-    List<Map<String, dynamic>> maps = await db.query('qrInfo');
+    List<Map<String, dynamic>> maps = await db.query('selfNum');
     return List.generate(maps.length, (index) {
-      return qrInfo.fromMap(maps[index]);
+      return MyNums.fromMap(maps[index]);
     });
   }
 

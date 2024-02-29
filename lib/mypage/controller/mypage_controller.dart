@@ -2,6 +2,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:newlotto/model/myNums.dart';
 
 import '../../db/dbhelper.dart';
 import '../../model/newNum.dart';
@@ -14,44 +15,43 @@ class MyPageController extends GetxController
     with GetSingleTickerProviderStateMixin{
   // RxList<List<NumData>> QRballLists = <List<NumData>>[].obs;
 
-
   RxInt Selfserial = 0.obs;
   RxInt Qrserial = 0.obs;
-  late RxInt rxValue = 100.obs;
+
   RxInt currentIndex = 0.obs;
 
   late TabController tabController;
 
-  RxList<qrInfo> qrtest =  <qrInfo>[].obs;
-  RxList<selfNum> dblist = <selfNum>[].obs;
+  RxList<MyNums> qrtest =  <MyNums>[].obs;
+  RxList<MyNums> selfList = <MyNums>[].obs;
 
 
   @override
   void onInit() {
     super.onInit();
-    // rxValue = Get.arguments['lastSerial'];
     tabController = TabController(length: 2, vsync: this);
+
     getSerial();
-    getQrcodeList();
+    // getQrcodeList();
   }
 
 
   Future<void> getSerial() async {
-    // MainController mainController = Get.find<MainController>();
-    // print('ggg+${mainController.lastSerial}');
-    Qrserial.value = rxValue.value;
 
-    // 저장 된 리스트중 제일 큰 회차로 시작
-    List<selfNum> dbListf = await DBHelper().getselfLastserial();
-    Selfserial.value = dbListf[0].serial!;
-    print('ddfdf${dbListf[0].serial}');
-    getSelfList(dbListf[0].serial!);
-  }
 
-  // DB(selfNum)에 저장된 값 불러오기 ListView 테이블 한 행씩
-  Future<void> getSelfList(int serial) async {
-    List<selfNum> dbList = await DBHelper().queryByColumnSelf(serial);
-    dblist.value = dbList;
+    // 2024 02 29
+    // qr 쪽ㅇ이 맞으니까 Tab 0일때 뷰바꾸고 로직 동일하게
+
+    // Self 저장 된 리스트중 제일 큰 회차로 시작
+    List<MyNums> selfListOrigin = await DBHelper().getselfLastserial();
+    Selfserial.value = selfListOrigin[0].serial!;
+    print('ddfdf${selfListOrigin[0].serial}');
+    Qrserial.value =  selfListOrigin[0].serial!;
+
+    List<MyNums> dbListsf = await DBHelper().queryByColumnSelf(Qrserial.value);
+    selfList.value  = dbListsf;
+    qrtest.value = dbListsf;
+
   }
 
 
@@ -73,41 +73,50 @@ class MyPageController extends GetxController
   }
 
 
-  Future<void> getQrcodeList() async {
-    List<qrInfo> qr = await DBHelper().getAllNumLists();
-    print('sgsgsg+${qr.length}');
-    for(qrInfo info in qr) {
-      List<newNum> numInfoList = info.myNum ?? [];
-      print('sgsgsg___${numInfoList.length}');
-    }
-    qrtest.value = qr;
-  }
+  // Future<void> getQrcodeList() async {
+  //   // 각 항목 저장된 리스트
+  //   List<MyNums> qr = await DBHelper().getAllNumLists();
+  //   print('sgsgsg+${qr.toString()}');
+  //
+  //   for(MyNums info in qr) {
+  //     List<NumInfo> numInfoList = info.myNum ?? [];
+  //     print('sgsgsg___${numInfoList.length}');
+  //   }
+  //   qrtest.value = qr;
+  //   print('gg__${qrtest.length}');
+  // }
 
-  Future<List<List<NumData>>> getTEST(int ser, List<newNum> mynums) async {
+  Future<List<List<selforigin>>> getTEST(int ser, List<NumInfo> mynums) async {
+    // 회차(ser) 에 대한 당첨번호 (loto 테이블)
     List<int> winNums =  await DBHelper().queryByColumnDrwno(ser);
 
-    List<List<NumData>> nus = [];
+    List<List<selforigin>> nus = [];
     int sx = mynums.length;
     print('hbhb__my${sx}');
     // sx ( mynums 갯수만큼 반복)
 
     for (int i = 0 ; i < sx ; i++){
-      List<NumData>  n = [];
-      List<String> m = [mynums[i].num1??'0' , mynums[i].num2??'0', mynums[i].num3??'0',
-        mynums[i].num4??'0', mynums[i].num5??'0',mynums[i].num6??'0'];
+      List<selforigin>  n = [];
+      List<int> m = [mynums[i].num1??0, mynums[i].num2??0, mynums[i].num3??0, mynums[i].num4??0, mynums[i].num5??0,mynums[i].num6??0];
+
       print('hbhb__mmm${m.toString()}');
 
       for(var i in m){
+        print('ddddddd${m.toString()}');
+
         if(winNums.contains(i)){
-          n.add(NumData(color:getColors(i as int),number: i));
+          n.add(selforigin(color:getColors(i as int),number: i));
         } else{
-          n.add(NumData(color: Colors.grey,number: i));
+          n.add(selforigin(color: Colors.grey,number: i));
         }
         print('nnnnnnnnnn${n}');
       }
+
       nus.add(n);
     }
 
+
+    print('nus${nus.toString()}');
     return nus;
     // QRINFO 리스트 개수 , 공 리스트
   }
@@ -133,21 +142,24 @@ class MyPageController extends GetxController
   }
 
 
-  void serialMinus() {
+  void serialMinus() async{
     //  최대보다 안올라가게
+
     print('tttaabb_${tabController.index}');
    if(tabController.index==0){
      Selfserial.value--;
-     getSelfList(Selfserial.value);
+     // List<MyNums> dbListsf = await DBHelper().queryByColumnSelf(Selfserial.value);
+     // selfList.value  = dbListsf;
    }else{
      Qrserial.value--;
+     List<MyNums> dbListsf = await DBHelper().queryByColumnSelf(Qrserial.value);
+     qrtest.value = dbListsf;
    }
   }
 
   void serialPlus() {
     if(tabController.index==0){
       Selfserial.value++;
-      getSelfList(Selfserial.value);
     }else{
       Qrserial.value--;
     }

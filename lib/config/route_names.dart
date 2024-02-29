@@ -1,4 +1,5 @@
 class RouteNames{
+
   static const String HOME = "/home";
   static const String MAIN = "/main";
   static const String RANDOM = "/random";
@@ -7,6 +8,5 @@ class RouteNames{
   static const String MYPAGE = "/mypage";
   static const String NOTI = "/noti";
   static const String SPINNING = "/spin";
-
 
 }

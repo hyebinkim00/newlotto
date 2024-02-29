@@ -68,6 +68,10 @@ class SelfPage extends GetView<SelfController> {
                         foregroundColor: Colors.white,
                       ),
                       onPressed: () {
+
+                        // 2024 02 29
+                        // 테스트 하려고 여기다 넣은거지 Qr 처럼 다이어로그 거기서 저장누르면 저장
+                        controller.save();
                       },
                       child: Text('확인하기'),
                     ),
