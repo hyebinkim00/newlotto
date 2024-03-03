@@ -31,8 +31,6 @@ class QrscanPage extends GetView<QrscanController> {
                   )),
               Obx(() => Text('${controller.totalResponse}')),
 
-
-
               TextButton(
                   onPressed: () {
                     controller.qrViewController!.pauseCamera();
@@ -69,33 +67,4 @@ class QrscanPage extends GetView<QrscanController> {
     });
   }
 
-  void showAlert(BuildContext context, String ss) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('로또 결과'),
-            content: Text('몇회 + 번호 + 결과'),
-            actions: <Widget>[
-              Container(
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(); //창 닫기
-                  },
-                  child: Text("저장하기"),
-                ),
-              ),
-              Container(
-                child: ElevatedButton(
-                  onPressed: () {
-                    controller.totalResponse.value="";
-                    Navigator.of(context).pop(); //창 닫기
-                  },
-                  child: Text("다시 스캔하기"),
-                ),
-              ),
-            ],
-          );
-        });
-  }
 }

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class qrScan{
-  String? serial;
+  int? serial;
   String? date;
   List<NumData>? winnerList;
   String? notice;
   //List<List<NumData>>? myNumList;
 
-  List<myNums>? test; // 고른 번호 리스트
-  qrScan({this.serial,this.date,this.winnerList,this.notice,this.test});
+  List<myNums>? selectednums; // 고른 번호 리스트
+  qrScan({this.serial,this.date,this.winnerList,this.notice,this.selectednums});
 }
 
 class myNums{

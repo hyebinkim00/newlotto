@@ -3,8 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:newlotto/main/controller/main_controller.dart';
 
 import '../../config/route_names.dart';
+import '../../ui/dialog_utils.dart';
 import '../controller/self_controller.dart';
 
 class SelfPage extends GetView<SelfController> {
@@ -35,7 +37,7 @@ class SelfPage extends GetView<SelfController> {
                           )),
                       OutlinedButton(
                           onPressed: () {
-                            // DialogUtils.selectSerial(context, controller);
+                            DialogUtils.selectSerial(context, controller);
                           },
                           style: ElevatedButton.styleFrom(
                             side: BorderSide(

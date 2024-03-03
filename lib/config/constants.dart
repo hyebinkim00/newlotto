@@ -4,16 +4,17 @@ import 'package:newlotto/bottom_navi/noti/noti_binding.dart';
 import 'package:newlotto/bottom_navi/noti/noti_page.dart';
 import 'package:newlotto/bottom_navi/record/record_page.dart';
 import 'package:newlotto/config/route_names.dart';
-import 'package:newlotto/main/main_binding.dart';
-import 'package:newlotto/mypage/binding/mypage_binding.dart';
-import 'package:newlotto/mypage/controller/mypage_controller.dart';
-import 'package:newlotto/mypage/view/MyPage.dart';
+import 'package:newlotto/main/binding/main_binding.dart';
+import 'package:newlotto/record_nums/binding/recordnums_binding.dart';
+import 'package:newlotto/record_nums/view/recordnums_page.dart';
 import 'package:newlotto/self/view/self_page.dart';
 
 import '../bottom_navi/home/home_binding.dart';
 import '../bottom_navi/home/home_page.dart';
+import '../bottom_navi/mypage/binding/mypage_binding.dart';
+import '../bottom_navi/mypage/view/mypage_page.dart';
 import '../bottom_navi/record/record_binding.dart';
-import '../main/main_page.dart';
+import '../main/view/main_page.dart';
 import '../qrscan/binding/qrscan_binding.dart';
 import '../qrscan/view/qrscan_page.dart';
 import '../random2/binding/random2_binding.dart';
@@ -49,11 +50,11 @@ class Constants {
       page: () => QrscanPage(),
       binding: QrscanBinding(),
     ),
-    GetPage(
-      name: RouteNames.MYPAGE,
-      page: () => MyPage(),
-      binding: MyPageBinding(),
-    ),
+    // GetPage(
+    //   name: RouteNames.RECORDNUM,
+    //   page: () => RecordNumsPage(),
+    //   binding: RecordNumsBinding(),
+    // ),
     GetPage(
       name: RouteNames.NOTI,
       page: () => NotiPage(),

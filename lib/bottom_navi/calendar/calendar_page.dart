@@ -1,21 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:newlotto/bottom_navi/calendar/calendar_controller.dart';
 import 'package:newlotto/bottom_navi/record/record_controller.dart';
-import 'package:newlotto/bottom_navi/rule/rule_controller.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../model/Event.dart';
 
-class RulePage extends StatelessWidget {
+class CalendarPage extends StatefulWidget {
 
-  // 달력 페이지로 바꿔야지
+  @override
+  State<CalendarPage> createState() => _CalendarPageState();
+}
+
+class _CalendarPageState extends State<CalendarPage> {
+  DateTime? _selectedDay;
+
+  DateTime _focusedDay = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body:  GetBuilder<RuleController>(
-          init:  RuleController(),
+        body:  GetBuilder<CalendarController>(
+          init:  CalendarController(),
           builder: (controller) {
             return SafeArea(
                 top: true,
@@ -26,9 +33,9 @@ class RulePage extends StatelessWidget {
                     children: [
                       TableCalendar(
                         locale: 'ko_KR',
-                        firstDay: DateTime.utc(2010, 10, 16),
+                        firstDay: DateTime.utc(2012, 01, 01),
                         lastDay: DateTime.utc(2030, 3, 14),
-                        focusedDay: DateTime.now(),
+                        focusedDay: _focusedDay,
                         availableCalendarFormats: const {
                           CalendarFormat.month: 'Month'
                         },
@@ -36,7 +43,7 @@ class RulePage extends StatelessWidget {
                           markerSize: 10.0,
                           markerDecoration: BoxDecoration(
                               color: Colors.red,
-                              shape: BoxShape.circle
+                              shape: BoxShape.circle,
                           ),
                         ),
                         eventLoader: (day) {
@@ -44,8 +51,18 @@ class RulePage extends StatelessWidget {
                             return [Event('DAY!')];
                           }
                           return [];
+                        },
+                        selectedDayPredicate:(day){
+                          return isSameDay(_selectedDay, day);
+                        },
+                        onDaySelected:(selectedDay, focusedDay){
+                          if (!isSameDay(_selectedDay, selectedDay)) {
+                            setState(() {
+                              _selectedDay = selectedDay;
+                              _focusedDay = focusedDay;
+                            });
+                          }
                         } ,
-
                       ),
                     ],
                   ),

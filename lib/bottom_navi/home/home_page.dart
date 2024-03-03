@@ -160,7 +160,7 @@ class HomePage extends StatelessWidget {
                                   }
 
                                   if (index == 3) {
-                                    Get.toNamed(RouteNames.MYPAGE,arguments: {
+                                    Get.toNamed(RouteNames.RECORDNUM,arguments: {
                                       'lastSerial': 1106
                                     });                                  }
                                   print('HBS::: $index');

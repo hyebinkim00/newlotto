@@ -4,10 +4,9 @@ import 'package:get/get.dart';
 
 import '../../model/numInfo.dart';
 import '../../model/selfnum.dart';
-import '../controller/mypage_controller.dart';
+import '../controller/recordnums_controller.dart';
 
-class MyPage extends StatelessWidget {
-  List<numInfo>? numBox = [];
+class RecordNumsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +14,8 @@ class MyPage extends StatelessWidget {
         appBar: AppBar(
           title: Text('저장 목록'),
         ),
-        body: GetBuilder<MyPageController>(
-          init: MyPageController(),
+        body: GetBuilder<RecordNumsController>(
+          init: RecordNumsController(),
           builder: (controller) {
             return SafeArea(
               top: false,
@@ -69,7 +68,7 @@ class MyPage extends StatelessWidget {
   }
 
   // Self 와 QrScan 탭 리스트
-  List<Widget> tabViweList(MyPageController controller) {
+  List<Widget> tabViweList(RecordNumsController controller) {
     return [
       // Self 에서 저장한 번호
       Center(
@@ -78,11 +77,15 @@ class MyPage extends StatelessWidget {
             ListView.builder(
                 itemCount: controller.selfList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Center(
+                  return Container(
+                    margin: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey,width: 1.0)
+                    ),
+                    height: controller.selfList[index].myNum!.length*60,
                     child: Column(children: [
-                      Text(('${controller.selfList[index].serial}')), // 회차
                       FutureBuilder(
-                          future: controller.getTEST(1102,controller.qrtest[index].myNum??[]),
+                          future: RecordNumsController.getDetail(controller.Selfserial.value,controller.selfList[index].myNum??[]),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
@@ -97,21 +100,24 @@ class MyPage extends StatelessWidget {
                                   'No data available'); // 데이터가 없는 경우에 대한 처리를 추가합니다.
                             } else if (snapshot.data != null &&
                                 snapshot.hasData) {
-                              // numBox = snapshot.data;
                             }
-                            return Container(
-                              color: Colors.grey,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .spaceAround,
-                                children: List.generate(snapshot.data!.length,
-                                        (indexs) {
-                                      return Expanded(
-                                        child: Container(
-                                          width: 50.0,
+                            return Expanded(
+                              // 세로 리스트 (NumInfo 갯수)
+                              child: ListView.builder(
+                                itemCount: snapshot.data!.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return  Container(
+                                    width: 200.0,
+                                    height: 50.0,
+                                    child: ListView.builder(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      scrollDirection: Axis.horizontal, // 가로 방향으로 스크롤합니다.
+                                      itemCount: snapshot.data![index].length,
+                                      itemBuilder: (BuildContext context , int indexs){
+                                        return Container(
+                                          width: 30.0,
                                           height: 50.0,
-                                          margin: EdgeInsets.only(
-                                              left: 5, right: 5),
+                                          margin: EdgeInsets.only(left: 5, right: 5),
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: snapshot.data![index][indexs].color,
@@ -125,9 +131,11 @@ class MyPage extends StatelessWidget {
                                                   fontSize: 24.0, // 텍스트 크기 설정
                                                 ),
                                               )),
-                                        ),
-                                      );
-                                    }),
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
                               ),
                             );
                           })
@@ -141,7 +149,7 @@ class MyPage extends StatelessWidget {
           child: Obx(()=>
           // DB 에 저장되어 있는 QR정보들 리스트
           ListView.builder(
-            itemCount: controller.qrtest.length, // 예제로 5개의 항목을 만듭니다.
+            itemCount: controller.qrList.length, // 예제로 5개의 항목을 만듭니다.
             itemBuilder: (BuildContext context, int index) {
               return Container(
                 margin: EdgeInsets.all(10),
@@ -149,14 +157,14 @@ class MyPage extends StatelessWidget {
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey,width: 1.0)
                 ),
-                height: 150, // 각 항목의 높이를 설정합니다.
+                height: 400, // 각 항목의 높이를 설정합니다.
                 // 정보 한개씩 박스 안에 표시
                 child: Column(
                   children: [
-                    Text('${controller.qrtest[index].serial}'),
+                    Text('${controller.qrList[index].serial}'),
                     FutureBuilder(
                       // controller.qrtest 안에 serial , List<QRInfo> 리스트 (DB 리스트)
-                        future: controller.getTEST(controller.Qrserial.value,controller.qrtest[index].myNum??[]),
+                        future: RecordNumsController.getDetail(controller.Qrserial.value,controller.qrList[index].myNum??[]),
                         builder: (context,snapshot){
                           if (snapshot.connectionState == ConnectionState.waiting) {
                             // return CircularProgressIndicator();// 데이터를 기다리는 동안 로딩 인디케이터를 표시합니다.

@@ -5,13 +5,15 @@ import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as htmlParser;
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+import '../../model/myNums.dart';
 import '../../model/newNum.dart';
 import '../../model/qr_scan.dart';
+import '../../ui/dialog_utils.dart';
 
 class QrscanController extends GetxController{
   RxString totalResponse = "".obs;
 
-  late String serialRes;
+  late int serialRes;
   late String dateRes;
   late String winResultRes;
 
@@ -46,7 +48,9 @@ class QrscanController extends GetxController{
       final serial = document.querySelector(
           '#container > div.contents > div.winner_number > h3 > span.key_clr1');
       print('hbhbSer' + serial!.text);
-      serialRes = serial!.text;
+      String numberString = serial!.text.replaceAll('제', '');
+      String d = numberString.replaceAll('회', '') ;
+      serialRes = int.parse(d);
       // 추첨일
       final date = document.querySelector(
           '#container > div.contents > div.winner_number > h3 > span.date');
@@ -85,18 +89,16 @@ class QrscanController extends GetxController{
         final tb = myNumRow.querySelectorAll('span');
 
         for (var myNum in tb) {
-
           nums.add(NumData(number: myNum.text, color: getColor(myNum.className)));
         }
-
         listss.add(myNums(lists: nums,results: td!.text));
       }
 
     }
 
-    qtinfo =qrScan(serial: serialRes, date: dateRes,winnerList: winnerLists,notice: winResultRes,test:listss );
-    // DialogUtils.qrResult(qtinfo);
-    // DialogUtils.qrResult(qtinfo);
+    qtinfo =qrScan(serial: serialRes, date: dateRes,winnerList: winnerLists,notice: winResultRes,selectednums:listss );
+
+    DialogUtils.qrResult(qtinfo);
   }
 
   Color getColor(String num){

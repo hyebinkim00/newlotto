@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:newlotto/bottom_navi/home/home_controller.dart';
+import 'package:newlotto/bottom_navi/home/home_page.dart';
 import 'package:newlotto/model/myNums.dart';
+import 'package:newlotto/ui/dialog_utils.dart';
 import '../../db/dbhelper.dart';
 import '../../model/loto.dart';
 
 class SelfController extends GetxController {
+  HomeController homeController = Get.put(HomeController());
   RxList<Widget> widgets = <Widget>[].obs;
   RxList<RxList<bool>> isSelectedLists = List.generate(5, (_) => List.generate(45, (_) => false).obs).obs; // 위젯마다 isSelected 목록을 저장할 RxList
 
@@ -19,13 +24,11 @@ class SelfController extends GetxController {
     4: <int>[].obs,
   };
 
-
   @override
   void onInit() {
-
+    btnText =homeController.lastSerial;
     super.onInit();
   }
-
 
 
   void toggleSelections(int widgetIndex, int gridIndex) {
@@ -48,7 +51,6 @@ class SelfController extends GetxController {
 
     isSelectedList.sort();
 
-    print('GFFFFF__S${selectLists.toString()}_____${isSelectedList.toString()}');
     print('ddd_${selectLists[0]}');
   }
 
@@ -57,24 +59,44 @@ class SelfController extends GetxController {
 
   void save() async {
     // 2024 02 29
-    // 리스트 별로 null 값이랑 0 처리해야댐
+    bool isValid1 = selectLists.values.every((rxList) => rxList.length == 0);
 
+    bool isValid2 = selectLists.values.every((rxList) => rxList.length == 0 || rxList.length == 6);
 
-    List<NumInfo> numInfoList = [];
+    print('savava_${isValid1}${isValid2}');
 
-    for(int i = 0; i < selectLists.length; i++){
-      RxList<int> currentList = selectLists[i]!;
-      NumInfo numInfo = NumInfo(num1: currentList[0], num2 : currentList[1], num3: currentList[2], num4:currentList[3],num5: currentList[4], num6: currentList[5]);
-      numInfoList.add(numInfo);
+    if(isValid1) {
+      Fluttertoast.showToast(msg: '번호를 입력해주세요.');
+      return;
     }
+    print('savava_next');
 
-    MyNums nums = MyNums(serial: 1108,myNum: numInfoList);
-    MyNums nums2 = MyNums(serial: 1107,myNum: numInfoList);
-    print('GG__ ${selectLists.length}');
-    print('GG__ ${selectLists.toString()}');
-    await DBHelper().insertData(nums);
-    await DBHelper().insertData(nums2);
+    // MyNums nums = MyNums(serial: btnText.value,myNum: numInfoList);
+      // // MyNums nums2 = MyNums(serial: 1107,myNum: numInfoList);
+      // print('GG__ ${selectLists.length}');
+      // print('GG__ ${selectLists.toString()}');
+      // DialogUtils.confirmSelf(nums);
+      //
+      // await DBHelper().insertSelfData(nums);
+      // await DBHelper().insertSelfData(nums2);
+    if (isValid2){
 
+      List<NumInfo> numInfoList = [];
+
+      for(int i = 0; i < selectLists.length; i++) {
+        RxList<int> currentList = selectLists[i]!;
+        if(currentList.length!=0){
+          NumInfo numInfo = NumInfo(num1: currentList[0], num2 : currentList[1], num3: currentList[2], num4:currentList[3],num5: currentList[4], num6: currentList[5]);
+          numInfoList.add(numInfo);
+        }
+      }
+      print('SSSS${numInfoList.toString()}');
+      MyNums nums = MyNums(serial: btnText.value,myNum: numInfoList);
+      DialogUtils.confirmSelf(nums);
+
+    } else {
+      Fluttertoast.showToast(msg: '각 항목당 숫자의 갯수는 0 또는 6 이여야 합니다.');
+   }
 
   }
 
@@ -165,7 +187,7 @@ class SelfController extends GetxController {
                                         top: BorderSide(
                                             color: Colors.transparent),
                                         left: BorderSide(
-                                            color: Colors.transparent),
+                                            color: Colors.white),
                                         right: BorderSide(
                                             color: Colors.white)),
                                     color: isSelectedLists[index][gridIndex]
