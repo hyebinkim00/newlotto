@@ -96,4 +96,9 @@ class Loto {
     drwtNo6 = map?['drwtNo6'];
     bnusNo = map?['bnusNo'];
   }
+
+  @override
+  String toString() {
+    return '{drwtNo6: $drwtNo6, drwtNo4: $drwtNo4, drwtNo5: $drwtNo5, bnusNo: $bnusNo, drwtNo2: $drwtNo2, drwtNo3: $drwtNo3, drwtNo1: $drwtNo1}';
+  }
 }

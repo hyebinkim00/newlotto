@@ -42,8 +42,8 @@ class _CalendarPageState extends State<CalendarPage> {
                     children: [
                       TableCalendar(
                         locale: 'ko_KR',
-                        firstDay: DateTime.utc(2012, 01, 01),
-                        lastDay: DateTime.utc(2030, 3, 14),
+                        firstDay: DateTime.utc(2023, 01, 01),
+                        lastDay: DateTime.utc(2024, 12, 12),
                         focusedDay: _focusedDay,
                         availableCalendarFormats: const {
                           CalendarFormat.month: 'Month'
@@ -57,9 +57,9 @@ class _CalendarPageState extends State<CalendarPage> {
                         ),
                         eventLoader: (day) {
                           //2024-01-27
-                          print('Calend_${day.day}');
                           if (day.weekday == DateTime.saturday){
                             print('ssss');
+                            print('Calend_${day.year}${day.month}${day.day}');
                             return [Event('DAY!')];
                           }
                           return [];
@@ -76,20 +76,20 @@ class _CalendarPageState extends State<CalendarPage> {
                               print('sSSS${selectedDay.year}');
                               DateTime dateTime = DateTime(selectedDay.year, selectedDay.month, selectedDay.day);
 
-                              List <Event> s = _getEventsForDay(dateTime);
+                              List <Event> s = controller.getEventsForDay(dateTime);
 
                               if (s.isEmpty) {
-                                DateTime dateTime = DateTime(selectedDay.year, selectedDay.month, selectedDay.day);
-                                List<Event> e = [
-                                  Event("Event Title1"),
-                                  Event("Event Title2")
-                                ];
-                                if (_events.containsKey(dateTime)) {
-                                  _events[dateTime]!.addAll(e);
-                                } else {
-                                  _events[dateTime] = List.from(e);
-                                }
-                                print('dd___${_events.toString()}');
+                                // DateTime dateTime = DateTime(selectedDay.year, selectedDay.month, selectedDay.day);
+                                // List<Event> e = [
+                                //   Event("Event Title1"),
+                                //   Event("Event Title2")
+                                // ];
+                                // if (_events.containsKey(dateTime)) {
+                                //   _events[dateTime]!.addAll(e);
+                                // } else {
+                                //   _events[dateTime] = List.from(e);
+                                // }
+                                // print('dd___${_events.toString()}');
                               }else{
                                 print('dddd${s.toString()}');
 
