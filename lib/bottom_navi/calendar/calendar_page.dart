@@ -14,9 +14,18 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
+
   DateTime? _selectedDay;
 
   DateTime _focusedDay = DateTime.now();
+
+  Map<DateTime, List<Event>> _events = {};
+
+
+  List<Event> _getEventsForDay(DateTime day) {
+    // Implementation example
+    return _events[day] ?? [];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +56,10 @@ class _CalendarPageState extends State<CalendarPage> {
                           ),
                         ),
                         eventLoader: (day) {
+                          //2024-01-27
+                          print('Calend_${day.day}');
                           if (day.weekday == DateTime.saturday){
+                            print('ssss');
                             return [Event('DAY!')];
                           }
                           return [];
@@ -60,6 +72,29 @@ class _CalendarPageState extends State<CalendarPage> {
                             setState(() {
                               _selectedDay = selectedDay;
                               _focusedDay = focusedDay;
+
+                              print('sSSS${selectedDay.year}');
+                              DateTime dateTime = DateTime(selectedDay.year, selectedDay.month, selectedDay.day);
+
+                              List <Event> s = _getEventsForDay(dateTime);
+
+                              if (s.isEmpty) {
+                                DateTime dateTime = DateTime(selectedDay.year, selectedDay.month, selectedDay.day);
+                                List<Event> e = [
+                                  Event("Event Title1"),
+                                  Event("Event Title2")
+                                ];
+                                if (_events.containsKey(dateTime)) {
+                                  _events[dateTime]!.addAll(e);
+                                } else {
+                                  _events[dateTime] = List.from(e);
+                                }
+                                print('dd___${_events.toString()}');
+                              }else{
+                                print('dddd${s.toString()}');
+
+                              }
+
                             });
                           }
                         } ,

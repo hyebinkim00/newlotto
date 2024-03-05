@@ -3,7 +3,6 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 import '../../model/numInfo.dart';
-import '../../model/selfnum.dart';
 import '../controller/recordnums_controller.dart';
 
 class RecordNumsPage extends StatelessWidget {
@@ -82,7 +81,7 @@ class RecordNumsPage extends StatelessWidget {
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey,width: 1.0)
                     ),
-                    height: controller.selfList[index].myNum!.length*60,
+                    height: controller.selfList[index].myNum!.length*50,
                     child: Column(children: [
                       FutureBuilder(
                           future: RecordNumsController.getDetail(controller.Selfserial.value,controller.selfList[index].myNum??[]),

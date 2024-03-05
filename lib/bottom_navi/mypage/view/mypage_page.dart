@@ -6,7 +6,6 @@ import 'package:newlotto/bottom_navi/mypage/controller/mypage_controller.dart';
 import 'package:newlotto/record_nums/view/recordnums_page.dart';
 
 import '../../../config/route_names.dart';
-import '../../../model/selfnum.dart';
 
 class MyPage extends StatelessWidget {
   // 앱바에서 뒤로 버튼

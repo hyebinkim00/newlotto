@@ -11,8 +11,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import '../db/dbhelper.dart';
 import '../model/loto.dart';
 import '../model/newNum.dart';
-import '../model/qrInfo.dart';
-import '../model/qr_scan.dart';
+import '../model/qrScan.dart';
 import '../self/controller/self_controller.dart';
 import 'color_utils.dart';
 

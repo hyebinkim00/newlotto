@@ -5,11 +5,9 @@ import 'package:get/get.dart';
 import 'package:newlotto/model/myNums.dart';
 
 import '../../db/dbhelper.dart';
-import '../../model/newNum.dart';
 import '../../model/numInfo.dart';
-import '../../model/qrInfo.dart';
-import '../../model/qr_scan.dart';
-import '../../model/selfnum.dart';
+
+import '../../model/qrScan.dart';
 
 class RecordNumsController extends GetxController
     with GetSingleTickerProviderStateMixin{
@@ -55,22 +53,6 @@ class RecordNumsController extends GetxController
   }
 
 
-  Future<List<numInfo>> getResults(selfNum se) async {
-    List<numInfo>  n = [];
-    // 해당 회차 당첨 번호 불러옴
-    List<int> winNums =  await DBHelper().queryByColumnDrwno(se.serial);
-    List<int> sl = [se.num1??0,se.num2??0,se.num3??0,se.num4??0,se.num5??0,se.num6??0];
-    print('sew___${sl.length}');
-    for(var i in sl){
-      print('weg$i'+winNums.toString());
-      if(winNums.contains(i)){
-        n.add(numInfo(color:getColors(i),number: i));
-      } else{
-        n.add(numInfo(color: Colors.transparent,number: i));
-      }
-    }
-    return n;
-  }
 
   static Future<List<List<selforigin>>> getDetail(int ser, List<NumInfo> mynums) async {
     // 회차(ser) 에 대한 당첨번호 (loto 테이블)

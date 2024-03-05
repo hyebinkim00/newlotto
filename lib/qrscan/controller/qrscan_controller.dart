@@ -7,7 +7,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../../model/myNums.dart';
 import '../../model/newNum.dart';
-import '../../model/qr_scan.dart';
+import '../../model/qrScan.dart';
 import '../../ui/dialog_utils.dart';
 
 class QrscanController extends GetxController{

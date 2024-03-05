@@ -3,8 +3,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../model/loto.dart';
-import '../model/qrInfo.dart';
-import '../model/selfnum.dart';
+
 
 class DBHelper {
   static final DBHelper _instance = DBHelper._(); // DBHelper의 싱글톤 객체 생성
@@ -56,6 +55,7 @@ class DBHelper {
   Future addLoto(Loto loto) async {
     final db = await database;
     print('dbdb${loto.drwNo}');
+    print('dbdbS${loto.drwNoDate}');
     int s = await db.insert('Lotos', loto.toMap());
   }
 

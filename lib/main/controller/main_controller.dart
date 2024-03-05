@@ -6,6 +6,7 @@ import 'package:newlotto/bottom_navi/noti/noti_page.dart';
 import 'package:newlotto/bottom_navi/record/record_page.dart';
 import 'package:newlotto/bottom_navi/winnig/winning_page.dart';
 
+import '../../bottom_navi/calendar/evnet_page.dart';
 import '../../bottom_navi/mypage/view/mypage_page.dart';
 
 class MainController extends GetxController{
