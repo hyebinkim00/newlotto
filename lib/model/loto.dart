@@ -9,7 +9,7 @@ class Loto {
   int? drwtNo5;
   int? bnusNo;
   int? firstAccumamnt;
-  int? drwNo;
+  int? drwNo; // 회차
   int? drwtNo2;
   int? drwtNo3;
   int? drwtNo1;
@@ -29,6 +29,11 @@ class Loto {
         this.drwtNo2,
         this.drwtNo3,
         this.drwtNo1});
+
+  @override
+  String toString() {
+    return '추첨일 :$drwNoDate, drwtNo6: $drwtNo6, drwtNo4: $drwtNo4, drwtNo5: $drwtNo5, bnusNo: $bnusNo, drwtNo2: $drwtNo2, drwtNo3: $drwtNo3, drwtNo1: $drwtNo1}';
+  }
 
   List<int> getIntValues() {
     return [drwtNo1??0,drwtNo2??0,drwtNo3??0,drwtNo4??0,drwtNo5??0,drwtNo6??0,-1,bnusNo??0];
@@ -97,8 +102,4 @@ class Loto {
     bnusNo = map?['bnusNo'];
   }
 
-  @override
-  String toString() {
-    return '{drwtNo6: $drwtNo6, drwtNo4: $drwtNo4, drwtNo5: $drwtNo5, bnusNo: $bnusNo, drwtNo2: $drwtNo2, drwtNo3: $drwtNo3, drwtNo1: $drwtNo1}';
-  }
 }

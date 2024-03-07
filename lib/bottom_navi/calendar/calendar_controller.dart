@@ -1,8 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:newlotto/model/loto.dart';
 
 import '../../db/dbhelper.dart';
 import '../../model/Event.dart';
+import '../../retrofit/retrofit_client.dart';
 
 class CalendarController extends GetxController {
   Map<DateTime, List<Event>> _events = {};
@@ -17,7 +19,9 @@ class CalendarController extends GetxController {
   void getSaturdayEvent() async {
     // 로또 DB 정보
     List<Loto> lotos = await DBHelper().getLoto();
-    print('Calend_${lotos[0].drwNoDate}');
+    print('Calend_${lotos.length}');
+
+
     for(int i=0; i< lotos.length ; i++) {
       String dateString = lotos[i].drwNoDate.toString();
       List<String> dateParts = dateString.split('-');
@@ -41,20 +45,7 @@ class CalendarController extends GetxController {
     return _events[day] ?? [];
   }
 
-//  if (s.isEmpty) {
-//                                 DateTime dateTime = DateTime(selectedDay.year, selectedDay.month, selectedDay.day);
-//                                 List<Event> e = [
-//                                   Event("Event Title1"),
-//                                   Event("Event Title2")
-//                                 ];
-//                                 if (_events.containsKey(dateTime)) {
-//                                   _events[dateTime]!.addAll(e);
-//                                 } else {
-//                                   _events[dateTime] = List.from(e);
-//                                 }
-//                                 print('dd___${_events.toString()}');
-//                               }else{
-//                                 print('dddd${s.toString()}');
-//
-//                               }
+
+
+
 }

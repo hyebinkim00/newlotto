@@ -31,7 +31,9 @@ class HomePage extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(top:20),
-                        child: Text('이번주 로또발표날까지 일 남았습니다!\nGood Luck!',style: TextStyle(fontSize:20,fontWeight: FontWeight.bold),),
+                        child:
+                          Obx(()=>
+                              Text('이번주 로또발표날까지 ${controller.days}일 남았습니다!\nGood Luck!',style: TextStyle(fontSize:20,fontWeight: FontWeight.bold),),)
                       ),
                       // 맨위 박스 (날짜 + 당첨 번호 + 버튼 2개)
                       Container(

@@ -15,6 +15,7 @@ class HomeController extends GetxController{
 
   // 최근 회차번호
   RxInt lastSerial = 0.obs;
+  RxInt days = 0.obs;
   RxList<String> lists = ['0', '0', '0', '0', '0', '0', '+', '0'].obs;
 
 
@@ -27,6 +28,19 @@ class HomeController extends GetxController{
 
   String getDate() {
     DateTime dateTime = DateTime.now();
+
+    int currentDayOfWeek = dateTime.weekday;
+    // 토요일의 인덱스를 계산합니다 (토요일: 6)
+    int saturdayIndex = DateTime.saturday;
+
+    // 토요일까지 남은 일수를 계산합니다.
+    int daysRemaining = (saturdayIndex - currentDayOfWeek) % 7;
+
+    days.value = daysRemaining;
+
+    print('GETDATE_${daysRemaining}');
+
+
     DateFormat dateFormat = DateFormat('yyyy년 MM월 dd일');
     var today = dateFormat.format(dateTime);
     return today;
@@ -98,14 +112,19 @@ class HomeController extends GetxController{
     list = await DBHelper().getLoto();
 
     if (list.isEmpty) {
-      for (int i = 0; i <= 20; i++) {
+      for (int i = 0; i <= 40; i++) {
         // 20개 저장 (마지막 회차가 변경되어서 db 추가할때 id 순서를 바꿀수 없으니 내림차순으로 저장)
+
         await listDbsave(serial - i);
       }
     } else {
+      print('LLLL${list[0].drwNo}');
 
-      print('LLLL${list}');
-      // 최신 번호 바귀면 한개 저장
+      if(list[0].drwNo!=serial){
+        // 최신 번호 바귀면 한개 저장
+        await listDbsave(serial);
+      }
+
     }
   }
 

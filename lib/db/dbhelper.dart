@@ -55,8 +55,10 @@ class DBHelper {
   Future addLoto(Loto loto) async {
     final db = await database;
     print('dbdb${loto.drwNo}');
-    print('dbdbS${loto.drwNoDate}');
-    int s = await db.insert('Lotos', loto.toMap());
+
+    await db.insert('Lotos', loto.toMap());
+
+    print('Calend_DS${loto.drwNoDate}');
   }
 
   //MainController에서 회차별 정보 저장한 리스트 가져오기

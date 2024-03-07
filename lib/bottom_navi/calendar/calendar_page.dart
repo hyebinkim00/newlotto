@@ -15,6 +15,8 @@ class CalendarPage extends StatefulWidget {
 
 class _CalendarPageState extends State<CalendarPage> {
 
+  late final ValueNotifier<List<Event>> _selectedEvents;
+
   DateTime? _selectedDay;
 
   DateTime _focusedDay = DateTime.now();
@@ -28,8 +30,18 @@ class _CalendarPageState extends State<CalendarPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    _selectedDay = _focusedDay;
+    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // floatingActionButton: FloatingActionButton(
+      // ),
         body:  GetBuilder<CalendarController>(
           init:  CalendarController(),
           builder: (controller) {
@@ -89,8 +101,11 @@ class _CalendarPageState extends State<CalendarPage> {
                                 // } else {
                                 //   _events[dateTime] = List.from(e);
                                 // }
+                                _selectedEvents.value = s;
                                 // print('dd___${_events.toString()}');
                               }else{
+
+                                _selectedEvents.value = s;
                                 print('dddd${s.toString()}');
 
                               }
@@ -98,6 +113,33 @@ class _CalendarPageState extends State<CalendarPage> {
                             });
                           }
                         } ,
+                      ),
+                      const SizedBox(height: 8.0),
+                      Expanded(
+                        child: ValueListenableBuilder<List<Event>>(
+                          valueListenable: _selectedEvents,
+                          builder: (context, value, _) {
+                            return ListView.builder(
+                              itemCount: value.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin: const EdgeInsets.symmetric(
+                                    horizontal: 12.0,
+                                    vertical: 4.0,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(),
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  child: ListTile(
+                                    onTap: () => print('${value[index]}'),
+                                    title: Text('${value[index]}'),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),
