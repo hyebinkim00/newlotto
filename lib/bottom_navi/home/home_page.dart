@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:newlotto/random2/view/random_page.dart';
 
 import '../../config/route_names.dart';
 import '../../ui/color_utils.dart';
@@ -158,6 +159,7 @@ class HomePage extends StatelessWidget {
                                   if(index==0){
                                     Get.toNamed(RouteNames.SPINNING);
                                   }if( index==1){
+                                    // Get.to(RandomPage());
                                     Get.toNamed(RouteNames.RANDOM);
                                   }
 

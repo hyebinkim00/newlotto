@@ -1,11 +1,25 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
 
+import '../random2/controller/random2_controller.dart';
+
 class UtilDialog {
   // 제거 할 숫자 , 포함할 숫자
-  static void selectNumbers(BuildContext context, bool range, List<int> origin, Function(List<int>) nums) {
-    List<int> sle = origin;
+  //   static void selectNumbers(BuildContext context, bool range, List<int> origin, Function(List<int>) nums)
+
+  static void selectNumbers(BuildContext context, bool range) {
+    final Random2Controller randomController = Get.find<Random2Controller>();
+
+    List<int> i = List<int>.from(randomController.includeList);
+    List<int> e = List<int>.from(randomController.excludeList);
+
+    RxBool dd = false.obs;
+    List<int> sle = range ? i : e ;
+
+
     Get.defaultDialog(
         title: range ? '포함 할 숫자를 선택하세요!' : '제외 할 숫자를 선택하세요!',
         content:
@@ -24,7 +38,12 @@ class UtilDialog {
                 ),
                 itemBuilder: (context, index) {
                   int number = index + 1;
-                  bool s = sle.contains(number);
+                  // bool s = sle.contains(number);
+                  bool s =  i.contains(number) || e.contains(number);
+                  // dd.value = range ? i.contains(number) : e.contains(number) ;
+                  //
+                  dd.value =  i.contains(number) ? true :  e.contains(number)? false : true;
+
                   return NumberBall(
                       num: number,
                       initialSelected: s,
@@ -34,7 +53,7 @@ class UtilDialog {
                         } else {
                           sle.remove(number);
                         }
-                      });
+                      }, e: dd,);
                 },
                 itemCount: 45,
               ),
@@ -45,10 +64,12 @@ class UtilDialog {
           Center(
             child: TextButton(
               onPressed: () {
-                print('hbhb____${sle}');
-                // randomController.onSele(sle);
-                nums(sle);
-                Get.back();
+               if(range){
+                 randomController.includeList.value = sle;
+               }else{
+                 randomController.excludeList.value = sle;
+               }
+               Get.back();
               },
               child: Text('선택'),
             ),
@@ -85,14 +106,21 @@ class UtilDialog {
 class NumberBall extends GetWidget {
   Function(RxBool d) onSelect;
   RxBool isSelected = false.obs; // RxBool을 사용하여 상태를 관리
+  RxBool e ; // RxBool을 사용하여 상태를 관리
   int num;
+
+
+  // 공 색상 --->  투명, 파랑, 빨간
+
+  //처음 ㅣㅣ  i에 포함되면 빨간 e 에 포함되면 파란색 아니면 White
+
 
   NumberBall(
       {required this.num,
+        required  this.e,
       required bool initialSelected,
       required this.onSelect})
       : isSelected = initialSelected.obs; // : 는 초기화 한다는뜻
-  List<int> sl = [];
 
   // NumberBall ( 해당 번호 , 원래 선택된 상태인지 )
 
@@ -110,7 +138,8 @@ class NumberBall extends GetWidget {
             height: 70,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: isSelected.value ? Colors.black : Colors.white,
+              color: isSelected.value ? e.value? Colors.blue : Colors.red : Colors.white,
+              // i 에 해당하면 파란 e 에 포함되면 빨간 아니면 White
               border: Border.all(
                 color: Colors.black, // 테두리 색
                 width: 2.0, // 테두리 두께

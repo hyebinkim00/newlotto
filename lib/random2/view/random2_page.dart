@@ -19,44 +19,84 @@ class Random2Page extends GetView<Random2Controller> {
       body: Container(
         height: double.infinity,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Text('로또 번호를 만들어 드릴께요! \n포함하고 싶은 숫자와 제외하고 싶은 숫자를 선택해 주세요.',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center),
             Container(
-              child: TextButton(
-                  onPressed: () {
-                    // _showNumberInputDialog(context);
-                    UtilDialog.selectNumbers(context, false, ss, (select) {
-                      print('Dioalog ${select}');
-                    });
-                  },
-                  child: Text('제거할 숫자')),
+              child: Row(
+                children: [
+                  FilledButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.blue),
+                    ),
+                    child: Text('포함할 숫자'),
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        // _showNumberInputDialog(context);
+
+                        // UtilDialog.selectNumbers(context, true, ss, (select) {
+                        //   print('Dioalog ${select}');
+                        // });
+                        UtilDialog.selectNumbers(context, true);
+
+                      },
+                      child: Text('추가')),
+                ],
+              ),
             ),
             Obx(
               () => Row(
-                children: [Text('${controller.inNum}')],
+                children: [Text('${controller.includeList}')],
+              ),
+            ),
+          Container(
+            child: Row(
+              children: [
+                FilledButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                    backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.blue),
+                  ),
+                  child: Text('포함하지 않을 숫자'),
+                ),
+                TextButton(
+                    onPressed: () {
+                      // _showNumberInputDialog(context);
+                      // UtilDialog.selectNumbers(context, false, ss, (select) {
+                      //   print('Dioalog ${select}');
+                      // });
+                      UtilDialog.selectNumbers(context, false);
+                    },
+                    child: Text('추가')),
+              ],
+            ),
+          ),
+            Obx(
+                  () => Row(
+                children: [Text('${controller.excludeList}')],
+              ),
+            ),
+            Obx(
+              () => ListView.builder(
+                shrinkWrap: true,
+                itemCount: controller.allRandomNumbers.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Center(
+                    child: Text('${controller.allRandomNumbers[index]}'),
+                  );
+                },
               ),
             ),
             TextButton(
                 onPressed: () {
-                  UtilDialog.selectNumbers(context, true, ss, (select) {
-                    print('Dioalog ${select}');
-                  });
-                },
-                child: Text('포함할 숫자')),
-            // Obx(
-            //   () => ListView.builder(
-            //     shrinkWrap: true,
-            //     itemCount: controller.allRandomNumbers.length,
-            //     itemBuilder: (BuildContext context, int index) {
-            //       return Center(
-            //         child: Text('${controller.allRandomNumbers[index]}'),
-            //       );
-            //     },
-            //   ),
-            // ),
-            TextButton(
-                onPressed: () {
-                  controller.generateRandomNumber(excludeNumbers: [3,32], includeNumbers: [4,2]);
+                  controller.generateRandomNumber(
+                      excludeNumbers: [3, 32], includeNumbers: [4, 2]);
                   // controller.create_list();
                 },
                 child: Text('번호 생성하기')),
@@ -71,29 +111,29 @@ class Random2Page extends GetView<Random2Controller> {
             //   },
             // )),
             // 이걸 써야겟다 ( 눌렀을때 번호 공개)
-            Obx(() => GestureDetector(
-                  onTap: () {
-                    controller.onTap2();
-                  },
-                  child: AnimatedContainer(
-                    duration: Duration(milliseconds: 500),
-                    curve: Curves.easeInOut,
-                    transform: Matrix4.rotationY(
-                        controller.angle.value * (3.1415927 / 180)),
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: controller.backgroundColor.value,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Center(
-                      child: Text(
-                        controller.isBack.value ? '' : 'Front',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ))
+            // Obx(() => GestureDetector(
+            //       onTap: () {
+            //         controller.onTap2();
+            //       },
+            //       child: AnimatedContainer(
+            //         duration: Duration(milliseconds: 500),
+            //         curve: Curves.easeInOut,
+            //         transform: Matrix4.rotationY(
+            //             controller.angle.value * (3.1415927 / 180)),
+            //         width: 100,
+            //         height: 100,
+            //         decoration: BoxDecoration(
+            //           color: controller.backgroundColor.value,
+            //           shape: BoxShape.circle,
+            //         ),
+            //         child: Center(
+            //           child: Text(
+            //             controller.isBack.value ? '' : 'Front',
+            //             style: TextStyle(color: Colors.white),
+            //           ),
+            //         ),
+            //       ),
+            //     ))
           ],
         ),
       ),
