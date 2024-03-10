@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:random_text_reveal/random_text_reveal.dart';
 
@@ -17,94 +18,103 @@ class CircleSpinPage extends GetView<CircleSpinController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            '행운의 번호를 뽑아라!',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  _showFortuneWheelDialog(true);
-                },
-                child: Container(
-                    width: 50.0,
-                    height: 50.0,
-                    margin: EdgeInsets.only(left: 5, right: 5),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.black,
-                    ),
-                    child: Obx(
-                      () => Center(
-                          child: Text(
-                        controller.randomVl.value,
-                        style: TextStyle(
-                          color: Colors.white, // 텍스트 색상 설정
-                          fontSize: 24.0, // 텍스트 크기 설정
-                        ),
-                      )),
-                    )),
-              ),
-              GestureDetector(
-                onTap: () {
-                  _showFortuneWheelDialog(false);
-                },
-                child: Container(
-                    width: 50.0,
-                    height: 50.0,
-                    margin: EdgeInsets.only(left: 5, right: 5),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.black,
-                    ),
-                    child: Obx(
-                      () => Center(
-                          child: Text(
-                        controller.randomV2.value,
-                        style: TextStyle(
-                          color: Colors.white, // 텍스트 색상 설정
-                          fontSize: 24.0, // 텍스트 크기 설정
-                        ),
-                      )),
-                    )),
-              )
-            ],
-          ),
-
-          Obx(
-            () => RandomTextReveal(
-              key: controller.globalKey,
-              initialText: '오늘의 숫자는 ?????',
-              shouldPlayOnStart: false,
-              text:
-                  '숫자는 ${controller.randomVl.value} ${controller.randomV2.value} 입니다.',
-              duration: const Duration(seconds: 3),
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.green,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 8,
-              ),
-              randomString: '123455678910',
-              onFinished: () {},
-              curve: Curves.easeIn,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 3,
+      body: SafeArea(
+        top: true,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              '행운의 번호를 뽑아라!',
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
-          ),
-        ],
+            Text(
+              '물음표 공모양을 눌러 돌림판을 돌려보세요!',
+              style: TextStyle(fontSize: 20),
+            ),
+            Obx(
+                  () => RandomTextReveal(
+                key: controller.globalKey,
+                initialText: '오늘 행운의 숫자는 ?',
+                shouldPlayOnStart: false,
+                text:
+                '숫자는 ${controller.randomVl.value} ${controller.randomV2.value} 입니다.',
+                duration: const Duration(seconds: 3),
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.green,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 8,
+                ),
+                randomString: '123455678910',
+                onFinished: () {},
+                curve: Curves.easeIn,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 3,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    _showFortuneWheelDialog(true);
+                  },
+                  child: Container(
+                      width: 50.0,
+                      height: 50.0,
+                      margin: EdgeInsets.only(left: 5, right: 5),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.black,
+                      ),
+                      child: Obx(
+                        () => Center(
+                            child: Text(
+                          controller.randomVl.value,
+                          style: TextStyle(
+                            color: Colors.white, // 텍스트 색상 설정
+                            fontSize: 24.0, // 텍스트 크기 설정
+                          ),
+                        )),
+                      )),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    if(controller.randomVl.value=='?'){
+                      Fluttertoast.showToast(msg: '십의자리 숫자부터 뽑아주세요.');
+                      return;
+                    }
+                    _showFortuneWheelDialog(false);
+                  },
+                  child: Container(
+                      width: 50.0,
+                      height: 50.0,
+                      margin: EdgeInsets.only(left: 5, right: 5),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.black,
+                      ),
+                      child: Obx(
+                        () => Center(
+                            child: Text(
+                          controller.randomV2.value,
+                          style: TextStyle(
+                            color: Colors.white, // 텍스트 색상 설정
+                            fontSize: 24.0, // 텍스트 크기 설정
+                          ),
+                        )),
+                      )),
+                )
+              ],
+            ),
+
+          ],
+        ),
       ),
     );
   }
 }
 
-
-// FortuneWheel을 안에 넣을까 고민중,,,
 
 void _showFortuneWheelDialog(bool frontFlag) {
 
@@ -190,7 +200,7 @@ void _showFortuneWheelDialog(bool frontFlag) {
 
 List<int> getList(int value) {
   if(value == 0){
-    return List.generate(8, (index) => index+1);
+    return List.generate(9, (index) => index+1);
   } else {
     int list = 10;
     if (value == 4) {
@@ -202,7 +212,7 @@ List<int> getList(int value) {
 
 getItem(int value) {
   if(value == 0){
-    return List.generate(8, (index) {
+    return List.generate(9, (index) {
       return FortuneItem(
           style: FortuneItemStyle(
               color: Colors.blue, textAlign: TextAlign.right, borderWidth: 1, borderColor: Colors.white),

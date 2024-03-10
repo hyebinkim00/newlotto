@@ -32,7 +32,6 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   void initState() {
     super.initState();
-
     _selectedDay = _focusedDay;
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
   }
@@ -91,17 +90,11 @@ class _CalendarPageState extends State<CalendarPage> {
                               List <Event> s = controller.getEventsForDay(dateTime);
 
                               if (s.isEmpty) {
-                                // DateTime dateTime = DateTime(selectedDay.year, selectedDay.month, selectedDay.day);
-                                // List<Event> e = [
-                                //   Event("Event Title1"),
-                                //   Event("Event Title2")
-                                // ];
-                                // if (_events.containsKey(dateTime)) {
-                                //   _events[dateTime]!.addAll(e);
-                                // } else {
-                                //   _events[dateTime] = List.from(e);
-                                // }
-                                _selectedEvents.value = s;
+                                if(selectedDay.weekday == DateTime.saturday){
+                                  _selectedEvents.value = [Event("매주 토요일은 로또 추첨날!")];
+                                }else{
+                                  _selectedEvents.value = s;
+                                }
                                 // print('dd___${_events.toString()}');
                               }else{
 

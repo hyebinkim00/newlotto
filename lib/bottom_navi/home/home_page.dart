@@ -10,6 +10,10 @@ import 'home_controller.dart';
 
 class HomePage extends StatelessWidget {
   final List<String> cardText = ['행운의 번호', '랜덤생성', '번호 추첨기', '오늘의 운세'];
+  List<IconData> iconDataList = [
+    Icons.play_circle_rounded,
+    Icons.remove_circle,
+    Icons.edit, Icons.edit];
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,9 @@ class HomePage extends StatelessWidget {
                         padding: const EdgeInsets.only(top:20),
                         child:
                           Obx(()=>
-                              Text('이번주 로또발표날까지 ${controller.days}일 남았습니다!\nGood Luck!',style: TextStyle(fontSize:20,fontWeight: FontWeight.bold),),)
+                              Text('이번주 로또발표날까지 ${controller.days}일 남았습니다!\nGood Luck!',
+                                  textAlign: TextAlign.center,
+                                style: TextStyle(fontSize:20,fontWeight: FontWeight.bold),),)
                       ),
                       // 맨위 박스 (날짜 + 당첨 번호 + 버튼 2개)
                       Container(

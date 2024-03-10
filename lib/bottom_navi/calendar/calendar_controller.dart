@@ -30,7 +30,7 @@ class CalendarController extends GetxController {
       int day = int.parse(dateParts[2]);
 
       DateTime dateTime = DateTime(year, month, day);
-      List<Event> e = [Event(lotos[i].toString()), Event("Event Title2")];
+      List<Event> e = [Event("매주 토요일은 로또 추첨날!"), Event(lotos[i].toString()), ];
       if (_events.containsKey(dateTime)) {
         _events[dateTime]!.addAll(e);
       } else {

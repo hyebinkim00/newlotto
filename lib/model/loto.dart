@@ -32,7 +32,7 @@ class Loto {
 
   @override
   String toString() {
-    return '추첨일 :$drwNoDate, drwtNo6: $drwtNo6, drwtNo4: $drwtNo4, drwtNo5: $drwtNo5, bnusNo: $bnusNo, drwtNo2: $drwtNo2, drwtNo3: $drwtNo3, drwtNo1: $drwtNo1}';
+    return '회차 :$drwNo\n$drwtNo1, $drwtNo2, $drwtNo3, $drwtNo4, $drwtNo5, $drwtNo6 보너스 번호 $bnusNo';
   }
 
   List<int> getIntValues() {

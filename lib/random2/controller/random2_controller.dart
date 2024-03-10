@@ -41,12 +41,10 @@ class Random2Controller extends GetxController{
 
   }
 
-  void generateRandomNumber({required List<int> excludeNumbers, required List<int> includeNumbers}) {
+  void generateRandomNumber() {
     allRandomNumbers.clear();
     Random random = Random();
     // excludeNumbers: [3,32], includeNumbers: [4,2]
-
-
 
     List<int> numberList = List.generate(45, (index) => index + 1);  // 1 ~ 45  숫자 리스트
 

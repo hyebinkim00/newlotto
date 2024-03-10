@@ -1,8 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../ui/util_dialog.dart';
@@ -11,130 +10,260 @@ import '../controller/random2_controller.dart';
 class Random2Page extends GetView<Random2Controller> {
   // 번호추첨 -> 제외 하고 싶은 숫자 , 포함하고 싶은 숫자  , ---> 여섯개 숫자 랜덤 리스트 10개 == > 생성된 번호 저장 가능
   TextEditingController _controller = TextEditingController();
-  List<int> ss = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('로또 번호를 만들어 드릴께요! \n포함하고 싶은 숫자와 제외하고 싶은 숫자를 선택해 주세요.',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center),
+      body: SafeArea(
+        top: true,
+        child: Container(
+          height: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(height:10),
+              Text('로또 번호를 만들어 드릴께요! \n포함하고 싶은 숫자와 제외하고 싶은 숫자를 선택해 주세요.',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center),
+              SizedBox(height:40),
+              Container(
+                color: Colors.grey,
+                height: 60.h,
+                // decoration: BoxDecoration(
+                //   border: Border.all(
+                //     color: Colors.black, // 테두리 선의 색상
+                //     width: 2.0, // 테두리 선의 너비
+                //   ),
+                // ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    FilledButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.blue),
+                      ),
+                      child: Text('포함할 숫자'),
+                    ),
+                    Row(
+                      children: [
+                        TextButton(
+                            onPressed: () {
+                              controller.includeList.clear();
+                            },
+                            child: Text('초기화',style:TextStyle(color: Colors.white) ,)),
+                        TextButton(
+                            onPressed: () {
+                              UtilDialog.selectNumbers(context, true);
+                            },
+                            child: Text('추가',style:TextStyle(color: Colors.white)))
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                color: Colors.black12,
+                height: 80.h,
+                child: Obx(
+                  () => Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: List.generate(controller.includeList.length, (index) {
+                      return Container(
+                        width: 50.h, // 아이템의 고정된 너비
+                        height: 40.h,
+                        margin: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                        ),
+                        child: Container(
+                            width: double.infinity,
+                            child: Center(
+                              child: Text(
+                                '${controller.includeList[index]}',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  // 텍스트 색상 설정
+                                  fontSize: 15.0, // 텍스트 크기 설정
+                                ),
+                              ),
+                            )),
+                      );
+                    },),
+                  ),
+                ),
+              ),
             Container(
+              color: Colors.grey,
+              height: 60.h,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   FilledButton(
                     onPressed: () {},
                     style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.blue),
+                      MaterialStateProperty.all<Color>(Colors.red),
                     ),
-                    child: Text('포함할 숫자'),
+                    child: Text('포함하지 않을 숫자'),
                   ),
-                  TextButton(
-                      onPressed: () {
-                        // _showNumberInputDialog(context);
-
-                        // UtilDialog.selectNumbers(context, true, ss, (select) {
-                        //   print('Dioalog ${select}');
-                        // });
-                        UtilDialog.selectNumbers(context, true);
-
-                      },
-                      child: Text('추가')),
+                  Row(
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            controller.excludeList.clear();
+                          },
+                          child: Text('초기화',style:TextStyle(color: Colors.white) ,)),
+                      TextButton(
+                          onPressed: () {
+                            UtilDialog.selectNumbers(context, false);
+                          },
+                          child: Text('추가',style:TextStyle(color: Colors.white) ,)),
+                    ],
+                  )
                 ],
               ),
             ),
-            Obx(
-              () => Row(
-                children: [Text('${controller.includeList}')],
-              ),
-            ),
-          Container(
-            child: Row(
-              children: [
-                FilledButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                    backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.blue),
+              Container(
+                color: Colors.black12,
+                height: 80.h,
+                child: Obx(
+                      ()=> Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: List.generate(controller.excludeList.length, (index) {
+                      return Container(
+                        width: 50.h, // 아이템의 고정된 너비
+                        height: 40.h,
+                        margin: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                        ),
+                        child: Container(
+                            width: double.infinity,
+                            child: Center(
+                              child: Text(
+                                '${controller.excludeList[index]}',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  // 텍스트 색상 설정
+                                  fontSize: 15.0, // 텍스트 크기 설정
+                                ),
+                              ),
+                            )),
+                      );
+                    },),
                   ),
-                  child: Text('포함하지 않을 숫자'),
                 ),
-                TextButton(
-                    onPressed: () {
-                      // _showNumberInputDialog(context);
-                      // UtilDialog.selectNumbers(context, false, ss, (select) {
-                      //   print('Dioalog ${select}');
-                      // });
-                      UtilDialog.selectNumbers(context, false);
-                    },
-                    child: Text('추가')),
-              ],
-            ),
+              ),
+              Container(
+                height: 60.h,
+                color: Colors.grey,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    FilledButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+                      ),
+                      child: Text('랜덤수'),
+                    ),
+                    Row(
+                      children: [
+                        TextButton(
+                            onPressed: () {
+                              controller.allRandomNumbers.value.clear();
+                            },
+                            child: Text('초기화',style:TextStyle(color: Colors.white) ,)),
+                        TextButton(
+                            onPressed: () {
+                              controller.generateRandomNumber();
+                              },
+                            child: Text('추가',style:TextStyle(color: Colors.white) ,)),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: Colors.black12,
+                  child: Obx(
+                        () => ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: controller.allRandomNumbers.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: List.generate(controller.allRandomNumbers[index].length, (indexs) {
+                            return Container(
+                              width: 50.h, // 아이템의 고정된 너비
+                              height: 40.h,
+                              margin: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white,
+                              ),
+                              child: Container(
+                                  width: double.infinity,
+                                  child: Center(
+                                    child: Text(
+                                      '${controller.allRandomNumbers[index][indexs]}',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        // 텍스트 색상 설정
+                                        fontSize: 15.0, // 텍스트 크기 설정
+                                      ),
+                                    ),
+                                  )),
+                            );
+                          },),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              )
+
+              // Obx(() => AnimatedSwitcher(
+              //     duration: Duration(milliseconds: 1000),
+              //   child: createBox(controller.isSwitched.value),
+              //   transitionBuilder : (Widget child, Animation<double> animation) {
+              //     return FadeTransition(
+              //       opacity: animation,
+              //       child: child,
+              //     );
+              //   },
+              // )),
+              // 이걸 써야겟다 ( 눌렀을때 번호 공개)
+              // Obx(() => GestureDetector(
+              //       onTap: () {
+              //         controller.onTap2();
+              //       },
+              //       child: AnimatedContainer(
+              //         duration: Duration(milliseconds: 500),
+              //         curve: Curves.easeInOut,
+              //         transform: Matrix4.rotationY(
+              //             controller.angle.value * (3.1415927 / 180)),
+              //         width: 100,
+              //         height: 100,
+              //         decoration: BoxDecoration(
+              //           color: controller.backgroundColor.value,
+              //           shape: BoxShape.circle,
+              //         ),
+              //         child: Center(
+              //           child: Text(
+              //             controller.isBack.value ? '' : 'Front',
+              //             style: TextStyle(color: Colors.white),
+              //           ),
+              //         ),
+              //       ),
+              //     ))
+            ],
           ),
-            Obx(
-                  () => Row(
-                children: [Text('${controller.excludeList}')],
-              ),
-            ),
-            Obx(
-              () => ListView.builder(
-                shrinkWrap: true,
-                itemCount: controller.allRandomNumbers.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Center(
-                    child: Text('${controller.allRandomNumbers[index]}'),
-                  );
-                },
-              ),
-            ),
-            TextButton(
-                onPressed: () {
-                  controller.generateRandomNumber(
-                      excludeNumbers: [3, 32], includeNumbers: [4, 2]);
-                  // controller.create_list();
-                },
-                child: Text('번호 생성하기')),
-            // Obx(() => AnimatedSwitcher(
-            //     duration: Duration(milliseconds: 1000),
-            //   child: createBox(controller.isSwitched.value),
-            //   transitionBuilder : (Widget child, Animation<double> animation) {
-            //     return FadeTransition(
-            //       opacity: animation,
-            //       child: child,
-            //     );
-            //   },
-            // )),
-            // 이걸 써야겟다 ( 눌렀을때 번호 공개)
-            // Obx(() => GestureDetector(
-            //       onTap: () {
-            //         controller.onTap2();
-            //       },
-            //       child: AnimatedContainer(
-            //         duration: Duration(milliseconds: 500),
-            //         curve: Curves.easeInOut,
-            //         transform: Matrix4.rotationY(
-            //             controller.angle.value * (3.1415927 / 180)),
-            //         width: 100,
-            //         height: 100,
-            //         decoration: BoxDecoration(
-            //           color: controller.backgroundColor.value,
-            //           shape: BoxShape.circle,
-            //         ),
-            //         child: Center(
-            //           child: Text(
-            //             controller.isBack.value ? '' : 'Front',
-            //             style: TextStyle(color: Colors.white),
-            //           ),
-            //         ),
-            //       ),
-            //     ))
-          ],
         ),
       ),
     );
