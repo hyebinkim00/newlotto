@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:newlotto/random2/view/random_page.dart';
 
 import '../../config/route_names.dart';
+import '../../random2/controller/random2_controller.dart';
+import '../../random2/view/random2_page.dart';
 import '../../ui/color_utils.dart';
 import 'home_controller.dart';
 
@@ -165,8 +167,12 @@ class HomePage extends StatelessWidget {
                                   if(index==0){
                                     Get.toNamed(RouteNames.SPINNING);
                                   }if( index==1){
-                                    // Get.to(RandomPage());
+
+                                    // Get.to(Random2Page());
+                                    Get.put<Random2Controller>(Random2Controller());
                                     Get.toNamed(RouteNames.RANDOM);
+
+                                    // Get.toNamed(RouteNames.RANDOM,arguments: {'g':'g'});
                                   }
 
                                   if (index == 3) {

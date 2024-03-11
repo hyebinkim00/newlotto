@@ -26,7 +26,7 @@ class SelfController extends GetxController {
 
   @override
   void onInit() {
-    btnText =homeController.lastSerial;
+    btnText = homeController.lastSerial;
     super.onInit();
   }
 

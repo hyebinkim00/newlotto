@@ -126,7 +126,7 @@ void _showFortuneWheelDialog(bool frontFlag) {
   CircleSpinController controller = Get.find<CircleSpinController>();
 
   late int value;
-  late String resultNum;
+  late String resultNum = '';
   final StreamController<int> streamController = StreamController<int>();
 
   // 일의 자리
@@ -176,10 +176,14 @@ void _showFortuneWheelDialog(bool frontFlag) {
                         : forRandom(int.parse(controller.randomVl.value));
                     streamController.add(value);
                   },
-                  child: Text('시작')),
+                  child: Text(resultNum==''?'시작':'다시하기')),
               TextButton(
                   onPressed: () {
-                    Get.back(result: resultNum);
+                    if(resultNum=='') {
+                      Fluttertoast.showToast(msg: '시작 버튼을 눌러 돌림판을 돌려주세요!');
+                    }else{
+                      Get.back(result: resultNum);
+                    }
                   },
                   child: Text('저장'))
             ],

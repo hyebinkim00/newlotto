@@ -125,7 +125,7 @@ class RandomPage extends StatelessWidget {
                     TextButton(
                         onPressed: () {
                           press = !press;
-                          controller.onTap();
+                          // controller.onTap();
                         },
                         child: Text('번호 생성하기')),
                     // Obx(() => AnimatedSwitcher(

@@ -55,7 +55,7 @@ class Random2Page extends GetView<Random2Controller> {
                             child: Text('초기화',style:TextStyle(color: Colors.white) ,)),
                         TextButton(
                             onPressed: () {
-                              UtilDialog.selectNumbers(context, true);
+                              UtilDialog.selectNumbers(true);
                             },
                             child: Text('추가',style:TextStyle(color: Colors.white)))
                       ],
@@ -118,7 +118,7 @@ class Random2Page extends GetView<Random2Controller> {
                           child: Text('초기화',style:TextStyle(color: Colors.white) ,)),
                       TextButton(
                           onPressed: () {
-                            UtilDialog.selectNumbers(context, false);
+                            UtilDialog.selectNumbers(false);
                           },
                           child: Text('추가',style:TextStyle(color: Colors.white) ,)),
                     ],

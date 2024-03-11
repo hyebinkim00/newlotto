@@ -11,7 +11,9 @@ class UtilDialog {
   // 제거 할 숫자 , 포함할 숫자
   //   static void selectNumbers(BuildContext context, bool range, List<int> origin, Function(List<int>) nums)
 
-  static void selectNumbers(BuildContext context, bool range) {
+  static void selectNumbers(bool range) {
+    // 컨트롤러 초기화
+
     final Random2Controller randomController = Get.find<Random2Controller>();
 
     List<int> i = List<int>.from(randomController.includeList);
@@ -37,7 +39,7 @@ class UtilDialog {
                   crossAxisSpacing: 4, // 가로 간격을 조절하세요.
                   mainAxisSpacing: 4, // 세로 간격을 조절하세요.
                 ),
-                itemBuilder: (context, index) {
+                itemBuilder: (BuildContext dialogContext, index) {
                   int number = index + 1;
                   bool s = i.contains(number) || e.contains(number);
                   return NumberBall(
@@ -68,6 +70,7 @@ class UtilDialog {
                 } else {
                   randomController.excludeList.value = sle;
                 }
+                
                 Get.back();
               },
               child: Text('선택'),
@@ -102,14 +105,14 @@ class UtilDialog {
   }
 }
 
-class NumberBall extends GetWidget {
+class NumberBall extends GetWidget<Random2Controller> {
   Function(RxBool d) onSelect;
   RxBool isSelected = false.obs; // RxBool을 사용하여 상태를 관리
   int num;
   bool range;
   List<int> i;
   List<int> e;
-  List<int> t=[];
+  List<int> t= [ ];
   // 공 색상 --->  투명, 파랑, 빨간
 
   NumberBall(
@@ -188,6 +191,9 @@ class NumberBall extends GetWidget {
     );
   }
 }
+
+
+
 
 getColors(int value2) {
   Color color = Colors.white;
