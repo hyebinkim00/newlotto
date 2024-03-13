@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "686510983221",
+    "project_id": "cloverlotto",
+    "storage_bucket": "cloverlotto.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:686510983221:android:9366c4af6a88c1185b897c",
+        "android_client_info": {
+          "package_name": "com.clover.newlotto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYGAsXL4xsykTLEW11ipVO8Q3LMJYtNNc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

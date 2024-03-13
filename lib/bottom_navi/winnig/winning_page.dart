@@ -12,7 +12,9 @@ class WinningPage extends StatelessWidget {
       body:  GetBuilder<WinningController>(
         init:  WinningController(),
         builder: (controller) {
-          return SafeArea(child: Container(child: Text('당첨번호 목록'),));
+
+          // API로 가져오기
+          return SafeArea(child: Container(child: Text('당첨번호 별 당첨금'),));
         },
       )
     );

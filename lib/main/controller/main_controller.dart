@@ -12,6 +12,7 @@ import '../../bottom_navi/mypage/view/mypage_page.dart';
 class MainController extends GetxController{
   //static MainController get to => Get.find();
 
+
   RxInt currentIndex = 2.obs;
 
   List<Widget> pages = [

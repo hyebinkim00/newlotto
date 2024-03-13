@@ -1,13 +1,16 @@
 import 'package:cp949_codec/cp949_codec.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as htmlParser;
 import 'package:newlotto/model/loto.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../../db/dbhelper.dart';
+import '../../push/firebase_message.dart';
 import '../../retrofit/retrofit_client.dart';
 
 
@@ -47,6 +50,8 @@ class HomeController extends GetxController{
   }
 
   void getLastNo() async {
+    await Permission.notification.request();
+
     final response = await http
         .get(Uri.parse('https://dhlottery.co.kr/gameResult.do?method=byWin'));
 

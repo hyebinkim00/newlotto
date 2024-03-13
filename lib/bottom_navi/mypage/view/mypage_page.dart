@@ -13,6 +13,7 @@ class MyPage extends StatelessWidget {
   final List<String> cardText1 = ['저장기록', '구입번호 당첨확인', '랜덤번호 생성목록'];
   final List<String> cardText2 = ['알림설정', '푸시알림 기록', '푸쉬알림 동의'];
   final List<String> cardText3 = ['도움말', '앱 사용방법', '로또 당첨금 규칙'];
+  bool _isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +78,9 @@ class MyPage extends StatelessWidget {
                                   color: Colors.grey,
                                 ),
                               ),
+                              Switch(value: _isChecked, onChanged: (value){
+                                _isChecked = value;
+                              })
                             ]);
                       },
                       itemCount: combinedItems.length,

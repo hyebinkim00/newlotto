@@ -23,15 +23,15 @@ class MainPage extends GetView<MainController> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.bar_chart),
-                label: '당첨번호',
+                label: '당첨번호별 당첨금',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: '홈',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.notifications_none),
-                label: '알림설정',
+                icon: Icon(Icons.question_mark),
+                label: '사용법',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.perm_identity),

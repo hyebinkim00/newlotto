@@ -11,7 +11,11 @@ class NotiPage extends StatelessWidget {
       body:  GetBuilder<NotiController>(
         init:  NotiController(),
         builder: (controller) {
-          return SafeArea(child: Container(child: Text('알림'),));
+
+          // 로또 규칙
+          // 앱 사용법
+
+          return SafeArea(child: Container(child: Text('질문'),));
         },
       )
     );

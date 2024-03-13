@@ -1,4 +1,4 @@
-package com.example.newlotto;
+package com.clover.newlotto;
 
 import io.flutter.embedding.android.FlutterActivity;
 
