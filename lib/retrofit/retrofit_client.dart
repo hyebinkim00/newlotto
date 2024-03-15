@@ -17,4 +17,9 @@ abstract class RestClient {
     'Accept' : 'application/json'
   })
   Future<Loto> getTasks(@Query("method") String key, @Query("drwNo") int tab);
+
+
 }
+
+//
+// https://www.dhlottery.co.kr/gameResult.do?method=byWin&drwNo=1110

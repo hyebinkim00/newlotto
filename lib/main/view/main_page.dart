@@ -23,7 +23,7 @@ class MainPage extends GetView<MainController> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.bar_chart),
-                label: '당첨번호별 당첨금',
+                label: '당첨금 분석',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),

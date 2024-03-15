@@ -75,7 +75,7 @@ class QrscanController extends GetxController{
       // 고른 번호
 
       final myNumList = document.querySelectorAll(
-          "#container > div.contents > div.list_my_number > div > table > tbody > tr");
+          "#container >div.contents > div.list_my_number > div > table > tbody > tr");
 
       // myNumList 한개에 행 하나(A,B,C,D,,,)
 
