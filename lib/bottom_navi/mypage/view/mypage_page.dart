@@ -13,7 +13,7 @@ class MyPage extends StatelessWidget {
   final List<String> cardText1 = ['저장기록', '구입번호 당첨확인', '랜덤번호 생성목록'];
   final List<String> cardText2 = ['알림설정', '푸시알림 기록', '푸쉬알림 동의'];
   final List<String> cardText3 = ['도움말', '앱 사용방법', '로또 당첨금 규칙'];
-  bool _isChecked = false; // _isChecked 변수를 상태 클래스에 추가
+  bool _isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class MyPage extends StatelessWidget {
     return Scaffold(
       body: GetBuilder<MyPageController>(
         init: MyPageController(),
-        builder: (controller) {
+        builder: (context) {
           return SafeArea(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -51,7 +51,7 @@ class MyPage extends StatelessWidget {
                                   },
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 16.0,right: 16.0),
+                                padding: const EdgeInsets.only(left: 16.0),
                                 child: Divider(
                                   thickness: 3,
                                   color: Colors.grey,
@@ -66,32 +66,21 @@ class MyPage extends StatelessWidget {
                         return Column(
                             //  color: color,
                             children: [
-                                Row(
-                                    children: [
-                                      Expanded(
-                                        child: ListTile(
-                                          title: Text(combinedItems[index]),
-                                          onTap: () {
-                                            performAction(context, index);
-                                          },
-                                        ),
-                                      ),
-                                  Visibility(
-                                    visible: (index== 5)? true: false,
-                                    child: Obx(()=>
-                                        Switch (value: controller.isSwitch.value , onChanged: (value){
-                                          controller.isSwitch.value = value;
-                                        })),
-
-                                  )
-                                ])
-                            ,
+                              ListTile(
+                                title: Text(combinedItems[index]),
+                                onTap: (){
+                                  performAction(context,index);
+                                },
+                              ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 16.0,right: 16.0),
+                                padding: const EdgeInsets.only(left: 16.0),
                                 child: Divider(
                                   color: Colors.grey,
                                 ),
                               ),
+                              Switch(value: _isChecked, onChanged: (value){
+                                _isChecked = value;
+                              })
                             ]);
                       },
                       itemCount: combinedItems.length,

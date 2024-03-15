@@ -35,7 +35,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // Tis widget is the root of your application.
+  // This widget is the root of your application.
   @override
   void initState() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -57,7 +57,6 @@ class _MyAppState extends State<MyApp> {
           title: 'NEW LOTTO',
           theme: ThemeData(
             primarySwatch: Colors.blue,
-            primaryColor: Colors.black
           ),
           // Splash 화면 (권한 요청)
           initialRoute: RouteNames.MAIN,

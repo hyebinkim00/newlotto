@@ -52,8 +52,6 @@ class HomeController extends GetxController{
   void getLastNo() async {
     await Permission.notification.request();
 
-    // 웹페이지 크롤링 해서 마지막 회차 가져오기
-
     final response = await http
         .get(Uri.parse('https://dhlottery.co.kr/gameResult.do?method=byWin'));
 
@@ -61,6 +59,7 @@ class HomeController extends GetxController{
       print('응답이 비어 있습니다.');
       return;
     }
+
     // 응답이 euc-kr 로 와서 한글이 깨짐 -> cp949 디코딩
     final document = htmlParser.parse(cp949.decodeString(response.body));
     final element = document.querySelector('.win_result strong');
