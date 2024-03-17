@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as htmlParser;
+import 'package:newlotto/bottom_navi/winnig/winnig_controller.dart';
 import 'package:newlotto/model/loto.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -27,6 +28,7 @@ class HomeController extends GetxController{
     super.onInit();
     // 1.  웹페이지에서 최근회차 가져오기  2. 해당회차에 대한 당첨번호 보여주기 3. 당첨번호 리스트 업데이트
     getLastNo();
+    Get.put<WinningController>(WinningController());
   }
 
   String getDate() {

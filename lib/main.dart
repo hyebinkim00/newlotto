@@ -57,6 +57,7 @@ class _MyAppState extends State<MyApp> {
           title: 'NEW LOTTO',
           theme: ThemeData(
             primarySwatch: Colors.blue,
+            primaryColor: Colors.black
           ),
           // Splash 화면 (권한 요청)
           initialRoute: RouteNames.MAIN,
