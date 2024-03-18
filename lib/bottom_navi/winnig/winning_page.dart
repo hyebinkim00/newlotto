@@ -16,12 +16,13 @@ class WinningPage extends StatelessWidget {
           top: true,
             child: Column(
           children: [
+            Text('회차 별 당첨금'),
             // 회차
-            Row(
-              children: [
-                Icon(Icons.lefe)
-              ],
-            ),
+            // Row(
+            //   children: [
+            //     Icon(Icons)
+            //   ],
+            // ),
             Obx(() => DataTable(
                   columns: [
                     DataColumn(label: Text('순위')),
@@ -30,14 +31,29 @@ class WinningPage extends StatelessWidget {
                   ],
                   rows: [
                     DataRow(cells: [
+                      DataCell(Text('1등')),
                       DataCell(Text('${controller.inlist[0].people}')),
-                      DataCell(Text('people')),
-                      DataCell(Text('money')),
+                      DataCell(Text('${controller.inlist[0].money}')),
                     ]),
                     DataRow(cells: [
-                      DataCell(Text('2')),
-                      DataCell(Text('people')),
-                      DataCell(Text('money')),
+                      DataCell(Text('2등')),
+                      DataCell(Text('${controller.inlist[1].people}')),
+                      DataCell(Text('${controller.inlist[1].money}')),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text('3등')),
+                      DataCell(Text('${controller.inlist[2].people}')),
+                      DataCell(Text('${controller.inlist[2].money}')),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text('4등')),
+                      DataCell(Text('${controller.inlist[3].people}')),
+                      DataCell(Text('${controller.inlist[3].money}')),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text('5등')),
+                      DataCell(Text('${controller.inlist[4].people}')),
+                      DataCell(Text('${controller.inlist[4].money}')),
                     ])
                   ],
                 )),

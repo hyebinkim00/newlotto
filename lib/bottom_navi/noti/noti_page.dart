@@ -32,11 +32,20 @@ class NotiPage extends StatelessWidget {
                         backgroundColor: Colors.white,
                         children: <Widget>[
                           Container(
-                            height: screenHeight * 0.05,
+                            // height: screenHeight * 0.05,
                             width: screenWidth,
                             child: Column(
                               children: [
-                                Table(children: [
+                                Table(
+
+                                    // columnWidths: {
+                                    //   0: FixedColumnWidth(100.0),// fixed to 100 width
+                                    //   1: FlexColumnWidth(),
+                                    //   2: FixedColumnWidth(100.0),//fixed to 100 width
+                                    // },
+                                    defaultColumnWidth: IntrinsicColumnWidth(),
+                                    border:  TableBorder.all(width: 1.0),
+                                    children: [
                                   TableRow(children: [
                                     Text('등위'),
                                     Text('당첨방법'),
@@ -45,7 +54,7 @@ class NotiPage extends StatelessWidget {
                                   TableRow(children: [
                                     Text('1등'),
                                     Text('6개 번호 일치'),
-                                    Text('총 당첨금 중 4등, 5등 금액을 제외한 금액의 75%'),
+                                    Text('총 당첨금 중 \n4등, 5등 금액을 제외한 금액의 75%'),
                                   ]),
                                   TableRow(children: [
                                     Text('2등'),
@@ -55,7 +64,7 @@ class NotiPage extends StatelessWidget {
                                   TableRow(children: [
                                     Text('3등'),
                                     Text('5개 번호 일치'),
-                                    Text('총 당첨금 중 4등, 5등 금액을 제외한 금액의 12.5%'),
+                                    Text('총 당첨금 중 \n4등, 5등 금액을 제외한 금액의 12.5%'),
                                   ]),
                                   TableRow(children: [
                                     Text('4등'),
