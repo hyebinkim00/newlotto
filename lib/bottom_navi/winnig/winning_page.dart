@@ -5,6 +5,8 @@ import 'package:newlotto/bottom_navi/noti/noti_controller.dart';
 import 'package:newlotto/bottom_navi/winnig/winnig_controller.dart';
 
 class WinningPage extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,40 +24,35 @@ class WinningPage extends StatelessWidget {
             //   children: [
             //     Icon(Icons)
             //   ],
-            // ),
+            // ),,
+            DropdownButton(
+              hint:
+                  Obx(()=>Text('${controller.s}'),),
+                items: controller.getDropdownItems().map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+                onChanged: (String? value){
+              controller.changeValue(value!);
+                }),
             Obx(() => DataTable(
                   columns: [
-                    DataColumn(label: Text('순위')),
-                    DataColumn(label: Text('당첨게임 수')),
-                    DataColumn(label: Text('1게임당 당첨금액')),
+                    DataColumn(label: Expanded(child: Text('순위'))),
+                    DataColumn(label: Expanded(child: Text('당첨게임 수'))),
+                    DataColumn(label: Expanded(child: Text('1게임당 당첨금액'))),
                   ],
-                  rows: [
-                    DataRow(cells: [
-                      DataCell(Text('1등')),
-                      DataCell(Text('${controller.inlist[0].people}')),
-                      DataCell(Text('${controller.inlist[0].money}')),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text('2등')),
-                      DataCell(Text('${controller.inlist[1].people}')),
-                      DataCell(Text('${controller.inlist[1].money}')),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text('3등')),
-                      DataCell(Text('${controller.inlist[2].people}')),
-                      DataCell(Text('${controller.inlist[2].money}')),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text('4등')),
-                      DataCell(Text('${controller.inlist[3].people}')),
-                      DataCell(Text('${controller.inlist[3].money}')),
-                    ]),
-                    DataRow(cells: [
-                      DataCell(Text('5등')),
-                      DataCell(Text('${controller.inlist[4].people}')),
-                      DataCell(Text('${controller.inlist[4].money}')),
-                    ])
+              rows: List<DataRow>.generate(
+                controller.inlist2.length,
+                    (index) => DataRow(
+                  cells: [
+                    DataCell(Text('${index + 1}등')),
+                    DataCell(Text('${controller.inlist2[index].people}')),
+                    DataCell(Text('${controller.inlist2[index].money}')),
                   ],
+                ),
+              ),
                 )),
           ],
         ));

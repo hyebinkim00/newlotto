@@ -3,28 +3,49 @@ import 'package:cp949_codec/cp949_codec.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as htmlParser;
+import 'package:newlotto/main/controller/main_controller.dart';
 
 import '../../model/winNums.dart';
+import '../home/home_controller.dart';
 
 
 
 class WinningController extends GetxController {
-
-  RxString s = 'd'.obs;
+  // final HomeController _myController = Get.find(); // MyController 인스턴스를 가져옵니다.
+  RxInt s = 0.obs;
   RxList<WinNums> inlist = <WinNums>[].obs;
+  RxList<WinNums> inlist2 = [WinNums(),WinNums(),WinNums(), WinNums(),WinNums()].obs;
 
+  List<String> num = <String>[]; // 크기가 70이고 모든 요소가 0인 RxList를 생성합니다.
+
+  var selectedValue = 'Initial Value'.obs;
 
   @override
   void onInit() {
-
-    getWebResult();
+    var otherController = Get.find<HomeController>();
+    // otherController에서 변수 값을 가져와서 someValue에 할당
+    s.value = otherController.lastSerial.value;
+    getWebResult(otherController.lastSerial.value);
     super.onInit();
   }
 
-  void getWebResult()  async {
+  void changeValue(String newValue) {
+    selectedValue.value = newValue;
+  }
+
+  List<String> getDropdownItems() {
+    List<String> items = [];
+    for (int i = s.value; i > 0; i--) {
+      items.add(i.toString());
+    }
+    return items;
+
+  }
+
+  void getWebResult(int num) async {
 
     List<WinNums> oi = [];
-    int num = 1110;
+    // int num = 1110;
     String url = 'https://www.dhlottery.co.kr/gameResult.do?method=byWin&drwNo=${num}';
 
 
@@ -65,6 +86,8 @@ class WinningController extends GetxController {
     }
 
     inlist.value = oi;
+    inlist2.value = oi;
+
   }
 
 }

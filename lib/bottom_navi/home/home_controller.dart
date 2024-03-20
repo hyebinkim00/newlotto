@@ -28,7 +28,6 @@ class HomeController extends GetxController{
     super.onInit();
     // 1.  웹페이지에서 최근회차 가져오기  2. 해당회차에 대한 당첨번호 보여주기 3. 당첨번호 리스트 업데이트
     getLastNo();
-    Get.put<WinningController>(WinningController());
   }
 
   String getDate() {
@@ -52,7 +51,6 @@ class HomeController extends GetxController{
   }
 
   void getLastNo() async {
-    await Permission.notification.request();
 
     final response = await http
         .get(Uri.parse('https://dhlottery.co.kr/gameResult.do?method=byWin'));
@@ -69,6 +67,10 @@ class HomeController extends GetxController{
     String windResult = element!.text;
     String numText = windResult.replaceAll('회', '');
     int seral = int.parse(numText);
+    //
+    // WinningController winningController = Get.put(WinningController());
+    //
+    // winningController.s.value = lastSerial.string;
     print('lateee${lastSerial}');
     if (lastSerial.value != seral){
       lastSerial.value = seral;
