@@ -175,14 +175,14 @@ class Random2Page extends GetView<Random2Controller> {
                       children: [
                         TextButton(
                             onPressed: () {
-                              controller.allRandomNumbers.value.clear();
+                              controller.allRandomNumbers.clear();
                             },
                             child: Text('초기화',style:TextStyle(color: Colors.white) ,)),
                         TextButton(
                             onPressed: () {
                               controller.generateRandomNumber();
                               },
-                            child: Text('추가',style:TextStyle(color: Colors.white) ,)),
+                            child: Text('생성',style:TextStyle(color: Colors.white) ,)),
                       ],
                     ),
                   ],

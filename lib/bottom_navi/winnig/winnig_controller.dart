@@ -11,8 +11,17 @@ import '../home/home_controller.dart';
 
 
 class WinningController extends GetxController {
-  // final HomeController _myController = Get.find(); // MyController 인스턴스를 가져옵니다.
-  RxInt s = 0.obs;
+  // final HomeController
+  // _myController = Get.find(); // MyController 인스턴스를 가져옵니다.
+  RxInt serial = 0.obs;
+
+  RxString resulSe ='0'.obs;
+  RxString dated = ''.obs;
+  RxList<String> Numbers = <String>['0', '0', '0', '0', '0','0','0'].obs;
+  RxString bonusNum= '0'.obs;
+
+
+  // 당첨금액
   RxList<WinNums> inlist = <WinNums>[].obs;
   RxList<WinNums> inlist2 = [WinNums(),WinNums(),WinNums(), WinNums(),WinNums()].obs;
 
@@ -24,18 +33,18 @@ class WinningController extends GetxController {
   void onInit() {
     var otherController = Get.find<HomeController>();
     // otherController에서 변수 값을 가져와서 someValue에 할당
-    s.value = otherController.lastSerial.value;
+    serial.value = otherController.lastSerial.value;
     getWebResult(otherController.lastSerial.value);
     super.onInit();
   }
 
   void changeValue(String newValue) {
-    selectedValue.value = newValue;
+    serial.value = int.parse(newValue);
   }
 
   List<String> getDropdownItems() {
     List<String> items = [];
-    for (int i = s.value; i > 0; i--) {
+    for (int i = serial.value; i > 0; i--) {
       items.add(i.toString());
     }
     return items;
@@ -45,6 +54,7 @@ class WinningController extends GetxController {
   void getWebResult(int num) async {
 
     List<WinNums> oi = [];
+    List<String> nums = [];
     // int num = 1110;
     String url = 'https://www.dhlottery.co.kr/gameResult.do?method=byWin&drwNo=${num}';
 
@@ -59,10 +69,36 @@ class WinningController extends GetxController {
 
     // 응답이 euc-kr 로 와서 한글이 깨짐 -> cp949 디코딩
     final document = htmlParser.parse(cp949.decodeString(response.body));
+
+
+    final sel = document.querySelector("div > div.win_result > h4 > strong");
+    resulSe.value = sel!.text;
+
+    // 추첨일
+    final e = document.querySelector("p.desc");
+    dated.value = e!.text;
+
+
+    // 당첨번호
+    final spans = document.querySelectorAll("div.win_result > div > div.num.win > p > span");
+    for (final span in spans) {
+      nums.add(span.text);
+      print('ddddsf${span.text}');
+    }
+
+    Numbers.value = nums;
+
+
+    // 보너스 번호
+    final bonus = document.querySelector("div.win_result > div > div.num.bonus > p > span");
+    print('dgwgw${bonus!.text}');
+
+    bonusNum.value = bonus.text;
+
+
+    // 당첨금액 테이블
     final element = document.querySelectorAll(
         'div > div > table > tbody > tr');
-
-    //
 
     for (var myNumRow in element) { //  tr 한줄씩
       final r = myNumRow.querySelector('td'); // A,B,C...
@@ -79,10 +115,6 @@ class WinningController extends GetxController {
 
       oi.add(WinNums(ranking: r!.text,people:list[2].text,money: tds1?.text ));
 
-
-      for (var di in list){
-        print('tdtssd2__ ${di.text}');
-      }
     }
 
     inlist.value = oi;
