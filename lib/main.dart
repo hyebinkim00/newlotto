@@ -8,8 +8,7 @@ import 'package:newlotto/push/firebase_message.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'config/constants.dart';
-import 'config/route_names.dart'
-;
+import 'config/route_names.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
