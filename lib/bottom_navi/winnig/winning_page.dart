@@ -19,6 +19,7 @@ class WinningPage extends StatelessWidget {
         return SafeArea(
             top: true,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 SizedBox(
                   height: 20,
@@ -42,7 +43,7 @@ class WinningPage extends StatelessWidget {
                           () => Text('${controller.serial}'),
                         ),
                         items: controller
-                            .getDropdownItems()
+                            .items
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -74,8 +75,8 @@ class WinningPage extends StatelessWidget {
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('${controller.resulSe}' ,style: TextStyle(color: Colors.deepOrange, fontSize: 20),),
-                                Text('당첨결과',style: TextStyle( fontSize: 20),)
+                                Text('${controller.resulSe} ' ,style: TextStyle(color: Colors.deepOrange, fontSize: 20),),
+                                Text(' 당첨결과',style: TextStyle( fontSize: 20),)
                               ]),
                           Text('${controller.dated}'),
                           Row(

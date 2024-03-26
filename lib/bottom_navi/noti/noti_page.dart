@@ -7,7 +7,7 @@ class NotiPage extends StatelessWidget {
   List<List<String>> data = [
     ['등위', '당첨방법', '당첨금의 배분 비율'],
     ['1등', '6개 번호 일치', '총 당첨금 중 4등, 5등 금액을 제외한 금액의 75%'],
-    ['2등', '5개 번호 일치 + 보너스 번호 일치', '총 당첨금 중 4등, 5등 금액을 제외한 금액의 12.5%'],
+    ['2등', '5개 번호 일치\n+ 보너스 번호 일치', '총 당첨금 중 4등, 5등 금액을 제외한 금액의 12.5%'],
     ['3등', '5개 번호 일치', '총 당첨금 중 4등, 5등 금액을 제외한 금액의 12.5%'],
     ['4등', '4개 번호 일치', '5,0000원'],
     ['5등', '3개 번호 일치', '5,000원']
@@ -38,7 +38,7 @@ class NotiPage extends StatelessWidget {
                         fontSize: screenWidth * (16 / 360),
                         color: Colors.black),
                   ),
-                  initiallyExpanded: false,
+                  initiallyExpanded: true,
                   backgroundColor: Colors.white,
                   children: <Widget>[
                     Container(
@@ -48,40 +48,40 @@ class NotiPage extends StatelessWidget {
                       child: Column(
                         children: [
                           Table(
-
-                              // columnWidths: {
-                              //   0: FixedColumnWidth(100.0),// fixed to 100 width
-                              //   1: FlexColumnWidth(),
-                              //   2: FixedColumnWidth(100.0),//fixed to 100 width
-                              // },
+                              columnWidths: {
+                          0: FlexColumnWidth(1),
+                          1: FlexColumnWidth(2),
+                          2: FlexColumnWidth(4)
+                              },
                               defaultColumnWidth: IntrinsicColumnWidth(),
+                           defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                               border: TableBorder.all(width: 1.0),
                               children: List.generate(
                                 data.length,
                                     (index) => TableRow(
                                   children: List.generate(
                                     data[index].length,
-                                        (subIndex) => Padding(
-                                      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-                                      child: Text(
-                                        data[index][subIndex],
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
+                                        (subIndex) => TableCell(
+                                          child: Container(
+                                            height: 50,
+                                            child: Center(
+                                              child: Text(
+                                                data[index][subIndex],
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                   ),
                                 ),
                               ),),
+                          SizedBox(height: 20),
                           Text('총 당첨금은 로또 전체 판매액의 50%'),
-                          Text(
-                              '1, 2, 3등 당첨금은 해당 회차의 총 판매액에 의해 결정되며, 등위별 해당금액을 당첨자 수로 나누어 지급합니다.')
+                          Text('1, 2, 3등 당첨금은 해당 회차의 총 판매액에 의해 결정되며, 등위별 해당금액을 당첨자 수로 나누어 지급합니다.')
                         ],
                       ),
                     ),
-                    Divider(height: 3, color: Colors.black),
-                    Divider(
-                      height: 3,
-                      color: Colors.black,
-                    )
+                    SizedBox(height: 10,)
                   ]),
               ExpansionTile(
                 iconColor: Colors.black,
@@ -95,7 +95,6 @@ class NotiPage extends StatelessWidget {
                 initiallyExpanded: false,
                 backgroundColor: Colors.white,
                 children: [
-
                   Container(
                     padding: EdgeInsets.only(left: 5, right: 5),
                     child: Text('로또 6/45의 추첨방송은 매주 토요일 오후 8시 35분경 MBC방송국 스튜디오에서 생방송으로 진행되며, 추첨을 통해 당첨번호가 결정되고 그 결과를 확인하실 수 있습니다.\n'
@@ -141,8 +140,11 @@ class NotiPage extends StatelessWidget {
                   initiallyExpanded: false,
                   backgroundColor: Colors.white,
                   children: [
-                    Text('로또 6/45의 추첨방송은 매주 토요일 오후 8시 35분경 MBC방송국 스튜디오에서 생방송으로 진행되며, 추첨을 통해 당첨번호가 결정되고 그 결과를 확인하실 수 있습니다.\n'
-                        ' (주)동행복권과 MBC의 추첨방송 담당자, 경찰관, 방청객들이 지켜보는 가운데 공정하고 투명한 절차를 거쳐 진행됩니다.')
+                    Padding(
+                      padding: const EdgeInsets.only(right: 5,left: 5),
+                      child: Text('로또 6/45의 추첨방송은 매주 토요일 오후 8시 35분경 MBC방송국 스튜디오에서 생방송으로 진행되며, 추첨을 통해 당첨번호가 결정되고 그 결과를 확인하실 수 있습니다.\n'
+                          ' (주)동행복권과 MBC의 추첨방송 담당자, 경찰관, 방청객들이 지켜보는 가운데 공정하고 투명한 절차를 거쳐 진행됩니다.'),
+                    )
                   ]
               )
           ],

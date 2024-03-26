@@ -92,6 +92,9 @@ class DBHelper {
   }
 
 
+
+
+
   // Self 번호 여러개 저장 ()
   Future<void> insertSelfData(MyNums mynums) async {
     final db = await database; // 데이터베이스 인스턴스 가져오기

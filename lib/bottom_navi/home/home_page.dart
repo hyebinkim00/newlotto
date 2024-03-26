@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:newlotto/random2/view/random_page.dart';
 
 import '../../config/route_names.dart';
+import '../../notification.dart';
 import '../../random2/controller/random2_controller.dart';
 import '../../random2/view/random2_page.dart';
 import '../../ui/color_utils.dart';
@@ -176,9 +177,14 @@ class HomePage extends StatelessWidget {
                                   }
 
                                   if (index == 3) {
-                                    Get.toNamed(RouteNames.RECORDNUM,arguments: {
-                                      'lastSerial': 1106
-                                    });                                  }
+
+                                    FlutterLocalNotification.showNotification();
+
+                                    // Get.toNamed(RouteNames.RECORDNUM,arguments: {
+                                    //   'lastSerial': 1106
+                                    // });
+
+                                  }
                                   print('HBS::: $index');
                                 },
                                 child: myMenu(index),

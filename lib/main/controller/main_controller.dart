@@ -8,6 +8,7 @@ import 'package:newlotto/bottom_navi/winnig/winning_page.dart';
 
 import '../../bottom_navi/calendar/evnet_page.dart';
 import '../../bottom_navi/mypage/view/mypage_page.dart';
+import '../../bottom_navi/noti/noti_page2.dart';
 
 class MainController extends GetxController{
   //static MainController get to => Get.find();
@@ -19,7 +20,7 @@ class MainController extends GetxController{
     CalendarPage(),
     WinningPage(),
     HomePage(),
-    NotiPage(),
+    NotiPage2(),
     MyPage()
   ];
 

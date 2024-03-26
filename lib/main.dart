@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -9,22 +10,25 @@ import 'package:permission_handler/permission_handler.dart';
 
 import 'config/constants.dart';
 import 'config/route_names.dart';
+import 'notification.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(); // Firebase 초기화
+
   FirebaseMessaging.instance.getToken().then((token) {
     print("FCM Token: $token");
   });
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  await MessageSetting.setupFlutterNotifications();
+
+  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  // await MessageSetting.setupFlutterNotifications();
   //앱 포그라운드
   await initializeDateFormatting();
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
 
+class MyApp extends StatefulWidget {
 
   const MyApp({super.key});
 
@@ -34,11 +38,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // This widget is the root of your application.
+
   @override
   void initState() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print("Received message: ${message.data}");
+      FlutterLocalNotification.init();
+
       MessageSetting.showFlutterNotification(message);
       getpermission();
       // 추가적인 처리 로직 추가
