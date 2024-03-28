@@ -41,8 +41,7 @@ class FlutterLocalNotification {
         AndroidNotificationDetails('local', 'chan',
             channelDescription: 'channel description',
             importance: Importance.max,
-            priority: Priority.max,
-            showWhen: false);
+            priority: Priority.max);
 
     const NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails,

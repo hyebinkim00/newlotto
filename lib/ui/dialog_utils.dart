@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:newlotto/model/myNums.dart';
-import 'package:newlotto/record_nums/controller/recordnums_controller.dart';
-import 'package:newlotto/record_nums/view/recordnums_page.dart';
 import 'package:path/path.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -12,6 +10,8 @@ import '../db/dbhelper.dart';
 import '../model/loto.dart';
 import '../model/newNum.dart';
 import '../model/qrScan.dart';
+import '../mypage_list/controller/recordnums_controller.dart';
+import '../mypage_list/view/recordnums_page.dart';
 import '../self/controller/self_controller.dart';
 import 'color_utils.dart';
 

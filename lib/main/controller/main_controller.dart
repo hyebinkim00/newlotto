@@ -20,7 +20,7 @@ class MainController extends GetxController{
     CalendarPage(),
     WinningPage(),
     HomePage(),
-    NotiPage2(),
+    NotiPage(),
     MyPage()
   ];
 

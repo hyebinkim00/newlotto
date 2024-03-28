@@ -12,26 +12,33 @@ import 'config/constants.dart';
 import 'config/route_names.dart';
 import 'notification.dart';
 
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+
+
 Future<void> main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(); // Firebase 초기화
 
+  // FCM token
   FirebaseMessaging.instance.getToken().then((token) {
     print("FCM Token: $token");
   });
 
+  tz.initializeTimeZones();
+  tz.setLocalLocation(tz.getLocation('Asia/Seoul'));
+  await FlutterLocalNotification.init();  // Local Notification 초기화
   // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   // await MessageSetting.setupFlutterNotifications();
-  //앱 포그라운드
-  await initializeDateFormatting();
+
+  await initializeDateFormatting(); // 달력 시간대
   runApp(const MyApp());
 }
 
 
 class MyApp extends StatefulWidget {
-
   const MyApp({super.key});
-
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -43,8 +50,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print("Received message: ${message.data}");
-      FlutterLocalNotification.init();
-
       MessageSetting.showFlutterNotification(message);
       getpermission();
       // 추가적인 처리 로직 추가

@@ -3,6 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/number_symbols_data.dart';
+import 'package:newlotto/db/dbhelper.dart';
+import 'package:newlotto/model/random.dart';
 
 import '../../ui/util_dialog.dart';
 import '../controller/random2_controller.dart';
@@ -196,31 +200,49 @@ class Random2Page extends GetView<Random2Controller> {
                       shrinkWrap: true,
                       itemCount: controller.allRandomNumbers.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: List.generate(controller.allRandomNumbers[index].length, (indexs) {
-                            return Container(
-                              width: 50.h, // 아이템의 고정된 너비
-                              height: 40.h,
-                              margin: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white,
-                              ),
-                              child: Container(
+                        return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            // List 생성
+                            ...List.generate(controller.allRandomNumbers[index].length, (indexs) {
+                              return Container(
+                                width: 50.h, // 아이템의 고정된 너비
+                                height: 40.h,
+                                // margin: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
+                                ),
+                                child: Container(
                                   width: double.infinity,
                                   child: Center(
                                     child: Text(
                                       '${controller.allRandomNumbers[index][indexs]}',
                                       style: TextStyle(
                                         color: Colors.black,
-                                        // 텍스트 색상 설정
-                                        fontSize: 15.0, // 텍스트 크기 설정
+                                        fontSize: 15.0,
                                       ),
                                     ),
-                                  )),
-                            );
-                          },),
+                                  ),
+                                ),
+                              );
+                            }),
+                            // 버튼 추가
+                            TextButton(
+                              onPressed: () async{
+                                print('SSSSSSS${controller.allRandomNumbers[index].toString()}');
+
+                                DateTime dateTime = DateTime.now();
+
+                                DateFormat dateFormat = DateFormat('yyyy년 MM월 dd일');
+                                var today = dateFormat.format(dateTime);
+                                List<int> s = controller.allRandomNumbers[index];
+                                // RandomNums r1 = RandomNums(date: '2024년 03월 27일', nums: Uint8List.fromList(s));
+                                // await DBHelper().insertRandomList(r1);
+                                RandomNums r = RandomNums(date: today, nums: Uint8List.fromList(s));
+                                await DBHelper().insertRandomList(r);
+                              }, child: Text('저장'),
+                            ),
+                          ],
                         );
                       },
                     ),

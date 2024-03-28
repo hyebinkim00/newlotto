@@ -5,8 +5,7 @@ import 'package:newlotto/bottom_navi/noti/noti_page.dart';
 import 'package:newlotto/bottom_navi/record/record_page.dart';
 import 'package:newlotto/config/route_names.dart';
 import 'package:newlotto/main/binding/main_binding.dart';
-import 'package:newlotto/record_nums/binding/recordnums_binding.dart';
-import 'package:newlotto/record_nums/view/recordnums_page.dart';
+
 import 'package:newlotto/self/view/self_page.dart';
 
 import '../bottom_navi/home/home_binding.dart';

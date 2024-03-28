@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:newlotto/bottom_navi/mypage/controller/mypage_controller.dart';
-import 'package:newlotto/record_nums/view/recordnums_page.dart';
-
+import 'package:newlotto/mypage_list/view/randomsave_page.dart';
 import '../../../config/route_names.dart';
+import '../../../mypage_list/view/recordnums_page.dart';
 
 class MyPage extends StatelessWidget {
   // 앱바에서 뒤로 버튼
@@ -110,10 +110,20 @@ class MyPage extends StatelessWidget {
     // 각 항목에 대한 특정 기능을 수행합니다.
     print('Performing action for $index');
     if (index == 1) {
+      // 구입 ( QR , 직접 입력 저장 기록)
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => RecordNumsPage()),
-      );    }
+      );
+    }
+    // 랜덤 번호 기록
+    else if (index ==2){
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => RandomSavePage()),
+      );
+
+    }
     // 여기에 각 항목에 대한 특정 기능을 추가할 수 있습니다.
     // 예를 들어, 해당 항목에 대한 화면 이동 또는 다른 작업을 수행할 수 있습니다.
   }

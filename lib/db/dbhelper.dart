@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:newlotto/model/myNums.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../model/loto.dart';
+import '../model/random.dart';
 
 
 class DBHelper {
@@ -47,6 +50,12 @@ class DBHelper {
           'CREATE TABLE selfNum(id INTEGER PRIMARY KEY, serial INTEGER, myNum TEXT)',
         );
 
+        // 랜덤번호 저장 List<int> , 날짜
+        await db.execute(
+          'CREATE TABLE random(id INTEGER PRIMARY KEY, nums BLOB, date TEXT)',
+        );
+
+
       },
     );
   }
@@ -90,10 +99,6 @@ class DBHelper {
     }
     return list;
   }
-
-
-
-
 
   // Self 번호 여러개 저장 ()
   Future<void> insertSelfData(MyNums mynums) async {
@@ -159,6 +164,34 @@ class DBHelper {
     });
   }
 
+
+
+  Future<void> insertRandomList(RandomNums randomNums) async {
+    final db = await database;
+    await db.insert('random', randomNums.toMap());
+  }
+
+  Future<List<RandomNums>> getRandomList() async {
+    List<RandomNums> lists = [];
+    final db = await database; // 데이터베이스 인스턴스 가져오기
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+      'SELECT * FROM random ORDER BY id DESC',
+    );
+    for (var map in maps) {
+      lists.add(RandomNums.fromMap(map));
+    }
+
+    return lists;
+  }
+
+  Future<void> removeList(int id) async {
+    final db = await database;
+    await db.delete(
+      'random', // 테이블 이름
+      where: 'id = ?', // 삭제할 조건
+      whereArgs: [id], // 조건에 사용될 값
+    );
+  }
 
 
 

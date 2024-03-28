@@ -133,66 +133,67 @@ void _showFortuneWheelDialog(bool frontFlag) {
   List<int> nu = circleRan.frontNums;
   List<FortuneItem> itemss = circleRan.frontNumsItems;
 
-  Get.defaultDialog(
-      content: Expanded(
+  Get.dialog(
+      AlertDialog(
+        content: Expanded(
     // Adjust the height as needed
     child: Column(
-      children: [
-        SizedBox(
-          width: 400,
-          height: 400,
-          child: FortuneWheel(
-            indicators:  <FortuneIndicator>[
-              FortuneIndicator(
-                alignment: Alignment.topCenter, // <-- changing the position of the indicator
-                child: TriangleIndicator(
-                  color: Colors.yellow, // <-- changing the color of the indicator
+        children: [
+          SizedBox(
+            width: 400,
+            height: 400,
+            child: FortuneWheel(
+              indicators:  <FortuneIndicator>[
+                FortuneIndicator(
+                  alignment: Alignment.topCenter, // <-- changing the position of the indicator
+                  child: TriangleIndicator(
+                    color: Colors.yellow, // <-- changing the color of the indicator
+                  ),
                 ),
-              ),
-            ],
-            selected: streamController.stream,
-            animateFirst: false,
-            duration: const Duration(seconds: 3),
-            items: frontFlag ? itemss : getItem(int.parse(controller.randomVl.value)),
-            onAnimationEnd: () {
-              if(frontFlag){
-                resultNum = nu[value].toString();
-              } else {
-                nu = getList(int.parse(controller.randomVl.value));
-                resultNum = nu[value].toString();
-              }
-              print('Dialogss+${nu[value]}');
-            },
+              ],
+              selected: streamController.stream,
+              animateFirst: false,
+              duration: const Duration(seconds: 3),
+              items: frontFlag ? itemss : getItem(int.parse(controller.randomVl.value)),
+              onAnimationEnd: () {
+                if(frontFlag){
+                  resultNum = nu[value].toString();
+                } else {
+                  nu = getList(int.parse(controller.randomVl.value));
+                  resultNum = nu[value].toString();
+                }
+                print('Dialogss+${nu[value]}');
+              },
+            ),
           ),
-        ),
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                  onPressed: () {
-                    value = frontFlag
-                        ? Fortune.randomInt(0, 4)
-                        : forRandom(int.parse(controller.randomVl.value));
-                    streamController.add(value);
-                  },
-                  child: Text(resultNum==''?'시작':'다시하기')),
-              TextButton(
-                  onPressed: () {
-                    if(resultNum=='') {
-                      Fluttertoast.showToast(msg: '시작 버튼을 눌러 돌림판을 돌려주세요!');
-                    }else{
-                      Get.back(result: resultNum);
-                    }
-                  },
-                  child: Text('저장'))
-            ],
-          ),
-        )
-      ],
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                    onPressed: () {
+                      value = frontFlag
+                          ? Fortune.randomInt(0, 4)
+                          : forRandom(int.parse(controller.randomVl.value));
+                      streamController.add(value);
+                    },
+                    child: Text(resultNum==''?'시작':'다시하기')),
+                TextButton(
+                    onPressed: () {
+                      if(resultNum=='') {
+                        Fluttertoast.showToast(msg: '시작 버튼을 눌러 돌림판을 돌려주세요!');
+                      }else{
+                        Get.back(result: resultNum);
+                      }
+                    },
+                    child: Text('저장'))
+              ],
+            ),
+          )
+        ],
     ),
-  )).then((value) {
-    print('hhhhhhhhhhhhvalue${value}');
+  ),
+      )).then((value) {
     if (frontFlag) {
       controller.randomVl.value = value;
     } else {
