@@ -241,6 +241,7 @@ class Random2Page extends GetView<Random2Controller> {
                                 RandomNums r = RandomNums(date: today, nums: Uint8List.fromList(s));
                                 await DBHelper().insertRandomList(r);
                               }, child: Text('저장'),
+                              // 저장 할때 애니메이션
                             ),
                           ],
                         );

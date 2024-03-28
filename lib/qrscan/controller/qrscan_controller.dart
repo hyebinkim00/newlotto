@@ -91,6 +91,7 @@ class QrscanController extends GetxController{
         for (var myNum in tb) {
           nums.add(NumData(number: myNum.text, color: getColor(myNum.className)));
         }
+
         listss.add(myNums(lists: nums,results: td!.text));
       }
 

@@ -18,6 +18,10 @@ class HomePage extends StatelessWidget {
     Icons.remove_circle,
     Icons.edit, Icons.edit];
 
+  // 확률 , 차트 (로또 분석)
+  // 생일에 따른 번호 (Random)
+
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
