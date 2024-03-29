@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:newlotto/bottom_navi/noti/noti_controller.dart';
+import 'package:newlotto/bottom_navi/noti/controller/noti_controller.dart';
 
 class NotiPage2 extends StatefulWidget {
 

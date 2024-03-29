@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:newlotto/bottom_navi/record/record_controller.dart';
+import 'package:newlotto/bottom_navi/record/controller/record_controller.dart';
 
 class RecordPage extends StatelessWidget {
 

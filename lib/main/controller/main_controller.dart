@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:newlotto/bottom_navi/calendar/calendar_page.dart';
-import 'package:newlotto/bottom_navi/home/home_page.dart';
+import 'package:newlotto/bottom_navi/home/view/home_page.dart';
 import 'package:newlotto/bottom_navi/noti/noti_page.dart';
-import 'package:newlotto/bottom_navi/record/record_page.dart';
-import 'package:newlotto/bottom_navi/winnig/winning_page.dart';
+import 'package:newlotto/bottom_navi/record/view/record_page.dart';
+import 'package:newlotto/bottom_navi/winnig/view/winning_page.dart';
 
 import '../../bottom_navi/calendar/evnet_page.dart';
 import '../../bottom_navi/mypage/view/mypage_page.dart';

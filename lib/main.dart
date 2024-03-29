@@ -64,6 +64,12 @@ class _MyAppState extends State<MyApp> {
       minTextAdapt: true,
       builder: (BuildContext context, Widget? child) {
         return GetMaterialApp(
+          builder: (context, child) {
+            return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+              child: child!,
+            );
+          },
           title: 'NEW LOTTO',
           theme: ThemeData(
             primarySwatch: Colors.blue,

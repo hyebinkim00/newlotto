@@ -2,9 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:newlotto/model/loto.dart';
 
-import '../../db/dbhelper.dart';
-import '../../model/Event.dart';
-import '../../retrofit/retrofit_client.dart';
+import '../../../db/dbhelper.dart';
+import '../../../model/Event.dart';
 
 class CalendarController extends GetxController {
   Map<DateTime, List<Event>> _events = {};

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:newlotto/bottom_navi/home/home_controller.dart';
-import 'package:newlotto/bottom_navi/home/home_page.dart';
+import 'package:newlotto/bottom_navi/home/controller/home_controller.dart';
+import 'package:newlotto/bottom_navi/home/view/home_page.dart';
 import 'package:newlotto/model/myNums.dart';
 import 'package:newlotto/ui/dialog_utils.dart';
 import '../../db/dbhelper.dart';

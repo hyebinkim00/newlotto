@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:newlotto/bottom_navi/calendar/calendar_controller.dart';
-import 'package:newlotto/bottom_navi/record/record_controller.dart';
-import 'package:newlotto/push/firebase_message.dart';
+import 'package:newlotto/bottom_navi/calendar/controller/calendar_controller.dart';
+
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../model/Event.dart';

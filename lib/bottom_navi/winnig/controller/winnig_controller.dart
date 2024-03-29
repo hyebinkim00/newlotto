@@ -4,10 +4,10 @@ import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as htmlParser;
 import 'package:newlotto/main/controller/main_controller.dart';
 
-import '../../db/dbhelper.dart';
-import '../../model/loto.dart';
-import '../../model/winNums.dart';
-import '../home/home_controller.dart';
+import '../../../db/dbhelper.dart';
+import '../../../model/loto.dart';
+import '../../../model/winNums.dart';
+import '../../home/controller/home_controller.dart';
 
 class WinningController extends GetxController {
   // final HomeController

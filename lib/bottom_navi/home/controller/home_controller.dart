@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cp949_codec/cp949_codec.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -5,14 +7,14 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as htmlParser;
-import 'package:newlotto/bottom_navi/winnig/winnig_controller.dart';
+import 'package:newlotto/bottom_navi/winnig/controller/winnig_controller.dart';
 import 'package:newlotto/model/loto.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import '../../db/dbhelper.dart';
-import '../../push/firebase_message.dart';
-import '../../retrofit/retrofit_client.dart';
+import '../../../db/dbhelper.dart';
+import '../../../push/firebase_message.dart';
+import '../../../retrofit/retrofit_client.dart';
 
 
 class HomeController extends GetxController{
@@ -21,16 +23,17 @@ class HomeController extends GetxController{
   RxInt lastSerial = 0.obs;
   RxInt days = 0.obs;
   RxList<String> lists = ['0', '0', '0', '0', '0', '0', '+', '0'].obs;
-
+  RxString todays = ''.obs;
 
   @override
   void onInit() {
     super.onInit();
     // 1.  웹페이지에서 최근회차 가져오기  2. 해당회차에 대한 당첨번호 보여주기 3. 당첨번호 리스트 업데이트
     getLastNo();
+    getDate();
   }
 
-  String getDate() {
+  void getDate() {
     DateTime dateTime = DateTime.now();
 
     int currentDayOfWeek = dateTime.weekday;
@@ -42,12 +45,10 @@ class HomeController extends GetxController{
 
     days.value = daysRemaining;
 
-    print('GETDATE_${daysRemaining}');
 
-
-    DateFormat dateFormat = DateFormat('yyyy년 MM월 dd일');
+    DateFormat dateFormat = DateFormat('yyyy년 MM월 dd일 E요일', 'ko_KR');
     var today = dateFormat.format(dateTime);
-    return today;
+    todays.value = today;
   }
 
   void getLastNo() async {
@@ -71,7 +72,6 @@ class HomeController extends GetxController{
     // WinningController winningController = Get.put(WinningController());
     //
     // winningController.s.value = lastSerial.string;
-    print('lateee${lastSerial}');
     if (lastSerial.value != seral){
       lastSerial.value = seral;
       retro(seral);
