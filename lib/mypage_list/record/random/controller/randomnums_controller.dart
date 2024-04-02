@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:newlotto/db/dbhelper.dart';
 import 'package:newlotto/model/random.dart';
 
-class RandomSaveController extends GetxController {
+class RandomNumsController extends GetxController {
 
   RxList<RandomNums> dataList = <RandomNums>[].obs;
   RxList<String> s = <String>[].obs;

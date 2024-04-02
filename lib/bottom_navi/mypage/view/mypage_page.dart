@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:newlotto/bottom_navi/mypage/controller/mypage_controller.dart';
-import 'package:newlotto/mypage_list/view/randomsave_page.dart';
+import 'package:newlotto/mypage_list/record/random/view/randomnums_page.dart';
 import '../../../config/route_names.dart';
-import '../../../mypage_list/view/recordnums_page.dart';
+import '../../../mypage_list/record/purchase/view/purchase_page.dart';
 
 class MyPage extends StatelessWidget {
   // 앱바에서 뒤로 버튼
@@ -113,14 +113,14 @@ class MyPage extends StatelessWidget {
       // 구입 ( QR , 직접 입력 저장 기록)
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => RecordNumsPage()),
+        MaterialPageRoute(builder: (context) => PurchasePage()),
       );
     }
     // 랜덤 번호 기록
     else if (index ==2){
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => RandomSavePage()),
+        MaterialPageRoute(builder: (context) => RandomNumsPage()),
       );
 
     }

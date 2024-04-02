@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Random2Controller extends GetxController{
+class RandomController extends GetxController {
 
   RxString inNum = ''.obs;
   RxString excludeNum = ''.obs;
@@ -18,33 +18,11 @@ class Random2Controller extends GetxController{
   RxList<int> includeList = <int>[].obs;
   RxList<int> excludeList = <int>[].obs;
 
-  // RxDouble angle = 0.0.obs;
-  // RxDouble angle2 = 0.0.obs;
-  // RxBool isBack = false.obs;
-  // Rx<Color> backgroundColor = Colors.black.obs;
-  //
-  // void onTap() {
-  //   // angle.value = (angle.value + pi) % (2 * pi);
-  //   angle.value = (angle.value + 180) % 360; // 180도 회전
-  //
-  // }
-  // void onTap2(){
-  //   angle.value = (angle.value + pi) % (2 * pi);
-  //   isBack.value = !isBack.value;
-  //   backgroundColor.value = isBack.value ? Colors.black : Colors.yellowAccent;
-  // }
-  //
-  //
-  // void onTap3(){
-  //   isBack.value = !isBack.value;
-  //
-  // }
-
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
   }
+
 
   void generateRandomNumber() {
     allRandomNumbers.clear();
@@ -100,16 +78,6 @@ class Random2Controller extends GetxController{
 
     print('HBsss${allRandomNumbers.toString()}');
   }
-
-
-  @override
-  void onClose() {
-    // TODO: implement onClose
-
-    super.onClose();
-
-  }
-
 
 
 }

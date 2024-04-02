@@ -4,16 +4,13 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:intl/number_symbols_data.dart';
 import 'package:newlotto/db/dbhelper.dart';
 import 'package:newlotto/model/random.dart';
 
-import '../../ui/util_dialog.dart';
-import '../controller/random2_controller.dart';
+import '../controller/random_controller.dart';
 
-class Random2Page extends GetView<Random2Controller> {
+class RandomPage extends GetView<RandomController> {
   // 번호추첨 -> 제외 하고 싶은 숫자 , 포함하고 싶은 숫자  , ---> 여섯개 숫자 랜덤 리스트 10개 == > 생성된 번호 저장 가능
-  TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +33,6 @@ class Random2Page extends GetView<Random2Controller> {
                 // decoration: BoxDecoration(
                 //   border: Border.all(
                 //     color: Colors.black, // 테두리 선의 색상
-                //     width: 2.0, // 테두리 선의 너비
                 //   ),
                 // ),
                 child: Row(
@@ -59,7 +55,7 @@ class Random2Page extends GetView<Random2Controller> {
                             child: Text('초기화',style:TextStyle(color: Colors.white) ,)),
                         TextButton(
                             onPressed: () {
-                              UtilDialog.selectNumbers(true);
+                              // UtilDialog.selectNumbers(true);
                             },
                             child: Text('추가',style:TextStyle(color: Colors.white)))
                       ],
@@ -122,7 +118,7 @@ class Random2Page extends GetView<Random2Controller> {
                           child: Text('초기화',style:TextStyle(color: Colors.white) ,)),
                       TextButton(
                           onPressed: () {
-                            UtilDialog.selectNumbers(false);
+                            // UtilDialog.selectNumbers(false);
                           },
                           child: Text('추가',style:TextStyle(color: Colors.white) ,)),
                     ],
@@ -305,43 +301,43 @@ class Random2Page extends GetView<Random2Controller> {
         ),
       );
 
-  Future<void> _showNumberInputDialog(BuildContext context) async {
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Enter a Number'),
-          content: TextField(
-            controller: _controller,
-            keyboardType: TextInputType.number,
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(
-                  RegExp(r'^([1-9]|[1-3][0-9]|4[0-5])$')),
-            ],
-            decoration: InputDecoration(
-              labelText: 'Number',
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // 닫기 버튼
-              },
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                // 여기서 입력된 숫자를 사용하거나 저장할 수 있습니다.
-                var enteredNumber = _controller.text;
-                controller.inNum.value = enteredNumber;
-                print('Entered Number: $enteredNumber');
-                Navigator.of(context).pop(); // 닫기 버튼
-              },
-              child: Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+  // Future<void> _showNumberInputDialog(BuildContext context) async {
+  //   return showDialog<void>(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: Text('Enter a Number'),
+  //         content: TextField(
+  //           controller: _controller,
+  //           keyboardType: TextInputType.number,
+  //           inputFormatters: [
+  //             FilteringTextInputFormatter.allow(
+  //                 RegExp(r'^([1-9]|[1-3][0-9]|4[0-5])$')),
+  //           ],
+  //           decoration: InputDecoration(
+  //             labelText: 'Number',
+  //           ),
+  //         ),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             onPressed: () {
+  //               Navigator.of(context).pop(); // 닫기 버튼
+  //             },
+  //             child: Text('Cancel'),
+  //           ),
+  //           TextButton(
+  //             onPressed: () {
+  //               // 여기서 입력된 숫자를 사용하거나 저장할 수 있습니다.
+  //               var enteredNumber = _controller.text;
+  //               controller.inNum.value = enteredNumber;
+  //               print('Entered Number: $enteredNumber');
+  //               Navigator.of(context).pop(); // 닫기 버튼
+  //             },
+  //             child: Text('OK'),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 }

@@ -6,10 +6,10 @@ import 'package:newlotto/bottom_navi/home/controller/home_controller.dart';
 import '../../../config/route_names.dart';
 import '../../../ui/color_utils.dart';
 
-class HomeContainer extends StatelessWidget {
+class WinningNums extends StatelessWidget {
   late HomeController controller;
 
-  HomeContainer({required this.controller});
+  WinningNums({required this.controller});
 
   @override
   Widget build(BuildContext context) {

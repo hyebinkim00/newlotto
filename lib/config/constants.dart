@@ -1,15 +1,20 @@
 import 'package:get/get.dart';
 import 'package:newlotto/config/route_names.dart';
+import 'package:newlotto/contents/birthday/binding/birthday_binding.dart';
+import 'package:newlotto/contents/birthday/view/birthday_page.dart';
 import 'package:newlotto/main/binding/main_binding.dart';
 import 'package:newlotto/self/view/self_page.dart';
+
+import '../contents/random/binding/random_binding.dart';
+import '../contents/random/view/random_page.dart';
+import '../contents/spinning/circlespin_binding.dart';
+import '../contents/spinning/circlespin_page.dart';
 import '../main/view/main_page.dart';
 import '../qrscan/binding/qrscan_binding.dart';
 import '../qrscan/view/qrscan_page.dart';
-import '../random2/binding/random2_binding.dart';
-import '../random2/view/random2_page.dart';
+
 import '../self/binding/self_binding.dart';
-import '../spinning/circlespin_binding.dart';
-import '../spinning/circlespin_page.dart';
+
 
 class Constants {
   static final List<GetPage> APP_PAGES = [
@@ -18,11 +23,8 @@ class Constants {
       page: () => MainPage(),
       binding: MainBinding()
     ),
-    GetPage(
-      name: RouteNames.RANDOM,
-      page: () => Random2Page(),
-      binding: Random2Binding(),
-    ),
+
+    // 구매번호 2개
     GetPage(
       name: RouteNames.SELF,
       page: () => SelfPage(),
@@ -34,13 +36,21 @@ class Constants {
       binding: QrscanBinding(),
     ),
 
+    // 번호 추천 콘텐츠
+    GetPage(
+      name: RouteNames.RANDOM,
+      page: () => RandomPage(),
+      binding: RandomBinding(),
+    ),
     GetPage(
       name: RouteNames.SPINNING,
       page: () => CircleSpinPage(),
       binding: CircleSpinBinding(),
+    ),
+    GetPage(
+      name: RouteNames.BIRTHDAY,
+      page: () => BirthDayPage(),
+      binding: BirthdayBinding(),
     )
-
   ];
-
-
 }

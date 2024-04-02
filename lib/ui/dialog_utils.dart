@@ -10,8 +10,8 @@ import '../db/dbhelper.dart';
 import '../model/loto.dart';
 import '../model/newNum.dart';
 import '../model/qrScan.dart';
-import '../mypage_list/controller/recordnums_controller.dart';
-import '../mypage_list/view/recordnums_page.dart';
+import '../mypage_list/record/purchase/controller/purchase_controller.dart';
+import '../mypage_list/record/purchase/view/purchase_page.dart';
 import '../self/controller/self_controller.dart';
 import 'color_utils.dart';
 
@@ -251,7 +251,7 @@ class DialogUtils {
             Text('${selectLists.serial}회',style: TextStyle(fontWeight: FontWeight.bold),),
             FutureBuilder(
               // controller.qrtest 안에 serial , List<QRInfo> 리스트 (DB 리스트)
-                future: RecordNumsController.getDetail(selectLists.serial!,selectLists.myNum??[]),
+                future: PurchaseController.getDetail(selectLists.serial!,selectLists.myNum??[]),
                 builder: (context,snapshot){
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     // return CircularProgressIndicator();// 데이터를 기다리는 동안 로딩 인디케이터를 표시합니다.
@@ -323,7 +323,7 @@ class DialogUtils {
             onPressed: () async {
               await DBHelper().insertSelfData(selectLists);
               Get.back();
-              Get.off(RecordNumsPage());
+              Get.off(PurchasePage());
               // Navigator.push(context,
               //   MaterialPageRoute(builder: (context) => RecordNumsPage()),
               // );

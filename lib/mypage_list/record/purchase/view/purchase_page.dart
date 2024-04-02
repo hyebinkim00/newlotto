@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
-import '../../model/numInfo.dart';
-import '../controller/recordnums_controller.dart';
+import '../../../../model/numInfo.dart';
+import '../controller/purchase_controller.dart';
 
-class RecordNumsPage extends StatelessWidget {
+class PurchasePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +13,8 @@ class RecordNumsPage extends StatelessWidget {
         appBar: AppBar(
           title: Text('저장 목록'),
         ),
-        body: GetBuilder<RecordNumsController>(
-          init: RecordNumsController(),
+        body: GetBuilder<PurchaseController>(
+          init: PurchaseController(),
           builder: (controller) {
             return SafeArea(
               top: false,
@@ -67,7 +67,7 @@ class RecordNumsPage extends StatelessWidget {
   }
 
   // Self 와 QrScan 탭 리스트
-  List<Widget> tabViweList(RecordNumsController controller) {
+  List<Widget> tabViweList(PurchaseController controller) {
     return [
       // Self 에서 저장한 번호
       Center(
@@ -84,7 +84,7 @@ class RecordNumsPage extends StatelessWidget {
                     height: controller.selfList[index].myNum!.length*50,
                     child: Column(children: [
                       FutureBuilder(
-                          future: RecordNumsController.getDetail(controller.Selfserial.value,controller.selfList[index].myNum??[]),
+                          future: PurchaseController.getDetail(controller.Selfserial.value,controller.selfList[index].myNum??[]),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
@@ -163,7 +163,7 @@ class RecordNumsPage extends StatelessWidget {
                     Text('${controller.qrList[index].serial}'),
                     FutureBuilder(
                       // controller.qrtest 안에 serial , List<QRInfo> 리스트 (DB 리스트)
-                        future: RecordNumsController.getDetail(controller.Qrserial.value,controller.qrList[index].myNum??[]),
+                        future: PurchaseController.getDetail(controller.Qrserial.value,controller.qrList[index].myNum??[]),
                         builder: (context,snapshot){
                           if (snapshot.connectionState == ConnectionState.waiting) {
                             // return CircularProgressIndicator();// 데이터를 기다리는 동안 로딩 인디케이터를 표시합니다.

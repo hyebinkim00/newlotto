@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
 
-import '../random2/controller/random2_controller.dart';
+
 
 class UtilDialog {
   // 제거 할 숫자 , 포함할 숫자
@@ -62,58 +62,58 @@ class UtilDialog {
 
   
  //
- static void getDi(BuildContext context) {
-   final Random2Controller randomController = Get.find<Random2Controller>();
-
-   List<int> orList = List.from(randomController.includeList);
-   showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return  AlertDialog(
-          title: Text('Select Numbers'),
-          content: SizedBox(
-            width: 300,
-            height: 300,
-            child: GridView.builder(gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5,
-              crossAxisSpacing: 4,
-              mainAxisSpacing: 4,),
-              itemBuilder: (context, index) {
-                int number = index + 1;
-                print('isSelList+${orList}');
-                bool isSel =  orList.contains(number);
-                print('isSelNum_${number}_${isSel}');
-                return NumberBall2(
-                  num: number,
-                  isSelected: isSel,
-                  onSelect: (isSelected) {
-                    if(isSelected){
-                      orList.add(number);
-                    }else{
-                      orList.remove(number);
-                    }
-                  },
-                );
-              },
-              itemCount: 45,
-            ),
-          ),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-
-              Navigator.of(context).pop();
-              },
-              child: Text('Close'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-
-  
+ // static void getDi(BuildContext context) {
+ //   final Random2Controller randomController = Get.find<Random2Controller>();
+ //
+ //   List<int> orList = List.from(randomController.includeList);
+ //   showDialog(
+ //      context: context,
+ //      builder: (BuildContext context) {
+ //        return  AlertDialog(
+ //          title: Text('Select Numbers'),
+ //          content: SizedBox(
+ //            width: 300,
+ //            height: 300,
+ //            child: GridView.builder(gridDelegate:
+ //            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5,
+ //              crossAxisSpacing: 4,
+ //              mainAxisSpacing: 4,),
+ //              itemBuilder: (context, index) {
+ //                int number = index + 1;
+ //                print('isSelList+${orList}');
+ //                bool isSel =  orList.contains(number);
+ //                print('isSelNum_${number}_${isSel}');
+ //                return NumberBall2(
+ //                  num: number,
+ //                  isSelected: isSel,
+ //                  onSelect: (isSelected) {
+ //                    if(isSelected){
+ //                      orList.add(number);
+ //                    }else{
+ //                      orList.remove(number);
+ //                    }
+ //                  },
+ //                );
+ //              },
+ //              itemCount: 45,
+ //            ),
+ //          ),
+ //          actions: [
+ //            ElevatedButton(
+ //              onPressed: () {
+ //
+ //              Navigator.of(context).pop();
+ //              },
+ //              child: Text('Close'),
+ //            ),
+ //          ],
+ //        );
+ //      },
+ //    );
+ //  }
+ //
+ //
+ //
 
 
   static Widget NumberBalla(int numbers, bool s) {

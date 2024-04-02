@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:newlotto/db/dbhelper.dart';
 
-import '../controller/randomsave_controller.dart';
+import '../controller/randomnums_controller.dart';
 
-class RandomSavePage extends StatefulWidget {
+class RandomNumsPage extends StatefulWidget {
   @override
-  State<RandomSavePage> createState() => _RandomSavePageState();
+  State<RandomNumsPage> createState() => _RandomNumsPageState();
 }
 
-class _RandomSavePageState extends State<RandomSavePage> {
+class _RandomNumsPageState extends State<RandomNumsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GetBuilder<RandomSaveController>(
-        init: RandomSaveController(),
+      body: GetBuilder<RandomNumsController>(
+        init: RandomNumsController(),
         builder: (controller) {
           return SafeArea(
               top: true,

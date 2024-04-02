@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:newlotto/model/myNums.dart';
 
-import '../../db/dbhelper.dart';
-import '../../model/numInfo.dart';
+import '../../../../db/dbhelper.dart';
+import '../../../../model/numInfo.dart';
 
-import '../../model/qrScan.dart';
+import '../../../../model/qrScan.dart';
 
-class RecordNumsController extends GetxController
+class PurchaseController extends GetxController
     with GetSingleTickerProviderStateMixin{
   // RxList<List<NumData>> QRballLists = <List<NumData>>[].obs;
 
