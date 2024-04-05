@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:newlotto/db/dbhelper.dart';
@@ -38,22 +39,28 @@ class RandomPage extends GetView<RandomController> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    FilledButton(
-                      onPressed: () {},
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.blue),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5.0),
+                      child: OutlinedButton(
+                        onPressed: () {},
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          side: BorderSide(width: 2.0, color: Colors.black),
+                        ),
+                        child: Text('포함할 숫자',style: TextStyle(color: Colors.white),),
                       ),
-                      child: Text('포함할 숫자'),
                     ),
                     Row(
                       children: [
-                        TextButton(
+                        ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+                            ),
                             onPressed: () {
                               controller.includeList.clear();
                             },
                             child: Text('초기화',style:TextStyle(color: Colors.white) ,)),
-                        TextButton(
+                        ElevatedButton(
                             onPressed: () {
                               // UtilDialog.selectNumbers(true);
                             },
@@ -225,6 +232,8 @@ class RandomPage extends GetView<RandomController> {
                             // 버튼 추가
                             TextButton(
                               onPressed: () async{
+
+                                // Toast 로 알려줄지 Diaglog로 알려줄지
                                 print('SSSSSSS${controller.allRandomNumbers[index].toString()}');
 
                                 DateTime dateTime = DateTime.now();

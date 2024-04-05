@@ -34,25 +34,7 @@ class WinningPage extends StatelessWidget {
                 SearchWinning(controller: controller),
                 ResultWinning(controller: controller),
                 TableWinning(controller: controller)
-                // Obx(() => DataTable(
-                //       columns: [
-                //         DataColumn(label: Expanded(child: Text('순위'))),
-                //         DataColumn(label: Expanded(child: Text('당첨게임 수'))),
-                //         DataColumn(label: Expanded(child: Text('1게임당 당첨금액'))),
-                //       ],
-                //       rows: List<DataRow>.generate(
-                //         controller.inlist2.length,
-                //         (index) => DataRow(
-                //           cells: [
-                //             DataCell(Text('${index + 1}등')),
-                //             DataCell(
-                //                 Text('${controller.inlist2[index].people}')),
-                //             DataCell(
-                //                 Text('${controller.inlist2[index].money}')),
-                //           ],
-                //         ),
-                //       ),
-                //     )),
+
               ],
             ));
       },

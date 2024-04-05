@@ -30,12 +30,6 @@ class QrscanPage extends GetView<QrscanController> {
                         cutOutSize: MediaQuery.of(context).size.width * 0.8),
                   )),
               Obx(() => Text('${controller.totalResponse}')),
-
-              TextButton(
-                  onPressed: () {
-                    controller.qrViewController!.pauseCamera();
-                  },
-                  child: Text('결과 보기')),
               Obx(() => Visibility(
                   visible: (controller.totalResponse.value.isNotEmpty),
                   child: TextButton(

@@ -82,6 +82,7 @@ class WinningNums extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.all<Color>(Colors.orangeAccent),
                 ),
                 onPressed: () {
+                  Get.toNamed(RouteNames.SELF);
                   // Get.toNamed(RouteNames.SELF,
                   //     arguments: {'lastSerial': controller.lastSerial.value});
                 },

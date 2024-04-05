@@ -101,8 +101,6 @@ class SelfController extends GetxController {
   }
 
   Widget items(int index) {
-    // isSelectedLists.add(List.generate(45, (index) => false).obs); // 새로운 위젯에 대한 isSelected 목록을 추가
-    print('itemssss_${index}');
     return Padding(
       padding: const EdgeInsets.only(right: 8),
       child: Container(
@@ -129,7 +127,8 @@ class SelfController extends GetxController {
                     child: Container(
                       color: Colors.white,
                       child: Center(
-                        child: Text('${index}'),
+                        // index번호 A ~ E
+                        child: Text('${String.fromCharCode(index + 65)}'),
                       ),
                     ),
                   ),

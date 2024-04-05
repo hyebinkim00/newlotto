@@ -40,6 +40,7 @@ class HomePage extends StatelessWidget {
                       // 맨위 박스 (날짜 + 당첨 번호 + 버튼 2개)
                       WinningNums(controller: controller),
                       Contents(),
+                      // 저장기록 바로가기 추가해야됨
                     ],
                   ),
                 ),
