@@ -11,7 +11,18 @@ class RecordPage extends StatelessWidget {
         body:  GetBuilder<RecordController>(
           init:  RecordController(),
           builder: (controller) {
-            return SafeArea(child: Container(child: Text(' 당첨기록 / 번호기록 '),));
+            // 차트
+            return SafeArea(
+                top: true,
+                child: Column(
+                  children: [
+                    Text('차트'),
+                    // 번호 별 통계
+                    // 구간별 통계
+                    // 연속 번호 통계 할까말까
+
+                  ],
+                ));
           },
         )
     );  }

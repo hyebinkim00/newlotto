@@ -10,6 +10,8 @@ class TableWinning extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DataTable(
+        horizontalMargin: 12.0,
+        // columnSpacing: 28.0,
       columns: [
         DataColumn(label: Expanded(child: Text('순위'))),
         DataColumn(label: Expanded(child: Text('당첨게임 수'))),

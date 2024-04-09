@@ -112,19 +112,44 @@ class WinningController extends GetxController {
       final r = myNumRow.querySelector('td'); // A,B,C...
       // final strongElement = myNumRow.querySelector('strong');
       // final nextTdElement = strongElement!.nextElementSibling;
-      final tds = myNumRow.querySelector('td:nth-child(1)'); // 순위
       final tds1 = myNumRow.querySelector('td:nth-child(3)'); // 순위
-      final tds3 = myNumRow.querySelector('td:nth-child(4)'); // 순위
       final list = myNumRow.querySelectorAll('td');
 
+
       // 동시 당첨자 수
-      print('ddd${list[2].text}');
 
       oi.add(
+        // 순위 . 당첨게임 . 1인당 당첨금액
           WinNums(ranking: r!.text, people: list[2].text, money: tds1?.text));
     }
 
     inlist.value = oi;
     inlist2.value = oi;
+    chartTest();
   }
+
+  void chartTest() async{
+
+    String url =
+        'https://www.dhlottery.co.kr/gameResult.do?method=statByNumber&sttDrwNo=14&edDrwNo=1114';
+
+    final response = await http.get(Uri.parse(url));
+    final document = htmlParser.parse(cp949.decodeString(response.body));
+
+    final myNumList = document.querySelectorAll("#printTarget > tbody > tr");
+
+    for (var td in myNumList){
+      // 숫자
+      final tds = td.querySelector('span');
+      print('testtest1____${tds!.text}');
+      // 확률
+      final tds2 = td.querySelectorAll('td');
+      print('2tddddddd${tds2[2]!.text}');
+
+    }
+
+
+  }
+
+
 }

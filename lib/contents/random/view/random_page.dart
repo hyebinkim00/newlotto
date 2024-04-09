@@ -20,15 +20,15 @@ class RandomPage extends GetView<RandomController> {
         top: true,
         child: Container(
           height: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+          child: Column(mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(height:10),
+              SizedBox(height: 10),
               Text('로또 번호를 만들어 드릴께요! \n포함하고 싶은 숫자와 제외하고 싶은 숫자를 선택해 주세요.',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center),
-              SizedBox(height:40),
+              SizedBox(height: 40),
               Container(
+                padding: EdgeInsets.only(left: 5,right: 5),
                 color: Colors.grey,
                 height: 60.h,
                 // decoration: BoxDecoration(
@@ -47,24 +47,33 @@ class RandomPage extends GetView<RandomController> {
                           backgroundColor: Colors.blue,
                           side: BorderSide(width: 2.0, color: Colors.black),
                         ),
-                        child: Text('포함할 숫자',style: TextStyle(color: Colors.white),),
+                        child: Text(
+                          '포함할 숫자',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                     Row(
                       children: [
-                        ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
-                            ),
+                        TextButton(
+                            // style: ButtonStyle(
+                              // backgroundColor: MaterialStateProperty.all<Color>(
+                              //     Colors.green),
+                            // ),
                             onPressed: () {
                               controller.includeList.clear();
                             },
-                            child: Text('초기화',style:TextStyle(color: Colors.white) ,)),
+                            child: Text(
+                              '초기화',
+                              style: TextStyle(color: Colors.white),
+                            )),
+                        SizedBox(width: 5,),
                         ElevatedButton(
                             onPressed: () {
                               // UtilDialog.selectNumbers(true);
                             },
-                            child: Text('추가',style:TextStyle(color: Colors.white)))
+                            child: Text('추가',
+                                style: TextStyle(color: Colors.white)))
                       ],
                     ),
                   ],
@@ -76,92 +85,112 @@ class RandomPage extends GetView<RandomController> {
                 child: Obx(
                   () => Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: List.generate(controller.includeList.length, (index) {
-                      return Container(
-                        width: 50.h, // 아이템의 고정된 너비
-                        height: 40.h,
-                        margin: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                        ),
-                        child: Container(
-                            width: double.infinity,
-                            child: Center(
-                              child: Text(
-                                '${controller.includeList[index]}',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  // 텍스트 색상 설정
-                                  fontSize: 15.0, // 텍스트 크기 설정
+                    children: List.generate(
+                      controller.includeList.length,
+                      (index) {
+                        return Container(
+                          width: 50.h,
+                          // 아이템의 고정된 너비
+                          height: 40.h,
+                          margin: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white,
+                          ),
+                          child: Container(
+                              width: double.infinity,
+                              child: Center(
+                                child: Text(
+                                  '${controller.includeList[index]}',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    // 텍스트 색상 설정
+                                    fontSize: 15.0, // 텍스트 크기 설정
+                                  ),
                                 ),
-                              ),
-                            )),
-                      );
-                    },),
+                              )),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
-            Container(
-              color: Colors.grey,
-              height: 60.h,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  FilledButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.red),
+              Container(
+                color: Colors.grey,
+                height: 60.h,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5.0),
+                      child: OutlinedButton(
+                        onPressed: () {},
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          side: BorderSide(width: 2.0, color: Colors.black),
+                        ),
+                        child: Text(
+                          '포함하지 않을 숫자',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
                     ),
-                    child: Text('포함하지 않을 숫자'),
-                  ),
-                  Row(
-                    children: [
-                      TextButton(
-                          onPressed: () {
-                            controller.excludeList.clear();
-                          },
-                          child: Text('초기화',style:TextStyle(color: Colors.white) ,)),
-                      TextButton(
-                          onPressed: () {
-                            // UtilDialog.selectNumbers(false);
-                          },
-                          child: Text('추가',style:TextStyle(color: Colors.white) ,)),
-                    ],
-                  )
-                ],
+                    Row(
+                      children: [
+                        TextButton(
+                            onPressed: () {
+                              controller.excludeList.clear();
+                            },
+                            child: Text(
+                              '초기화',
+                              style: TextStyle(color: Colors.white),
+                            )),
+                        ElevatedButton(
+                            onPressed: () {
+                              // UtilDialog.selectNumbers(false);
+                            },
+                            child: Text(
+                              '추가',
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
               Container(
                 color: Colors.black12,
                 height: 80.h,
                 child: Obx(
-                      ()=> Row(
+                  () => Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: List.generate(controller.excludeList.length, (index) {
-                      return Container(
-                        width: 50.h, // 아이템의 고정된 너비
-                        height: 40.h,
-                        margin: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                        ),
-                        child: Container(
-                            width: double.infinity,
-                            child: Center(
-                              child: Text(
-                                '${controller.excludeList[index]}',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  // 텍스트 색상 설정
-                                  fontSize: 15.0, // 텍스트 크기 설정
+                    children: List.generate(
+                      controller.excludeList.length,
+                      (index) {
+                        return Container(
+                          width: 50.h,
+                          // 아이템의 고정된 너비
+                          height: 40.h,
+                          margin: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white,
+                          ),
+                          child: Container(
+                              width: double.infinity,
+                              child: Center(
+                                child: Text(
+                                  '${controller.excludeList[index]}',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    // 텍스트 색상 설정
+                                    fontSize: 15.0, // 텍스트 크기 설정
+                                  ),
                                 ),
-                              ),
-                            )),
-                      );
-                    },),
+                              )),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -171,12 +200,16 @@ class RandomPage extends GetView<RandomController> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    FilledButton(
-                      onPressed: () {},
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5.0),
+                      child: OutlinedButton(
+                        onPressed: () {},
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: Colors.deepOrange,
+                          side: BorderSide(width: 2.0, color: Colors.black),
+                        ),
+                        child: Text('랜덤수',style: TextStyle(color: Colors.white),),
                       ),
-                      child: Text('랜덤수'),
                     ),
                     Row(
                       children: [
@@ -184,12 +217,18 @@ class RandomPage extends GetView<RandomController> {
                             onPressed: () {
                               controller.allRandomNumbers.clear();
                             },
-                            child: Text('초기화',style:TextStyle(color: Colors.white) ,)),
-                        TextButton(
+                            child: Text(
+                              '초기화',
+                              style: TextStyle(color: Colors.white),
+                            )),
+                        ElevatedButton(
                             onPressed: () {
                               controller.generateRandomNumber();
-                              },
-                            child: Text('생성',style:TextStyle(color: Colors.white) ,)),
+                            },
+                            child: Text(
+                              '생성',
+                              style: TextStyle(color: Colors.white),
+                            )),
                       ],
                     ),
                   ],
@@ -199,14 +238,17 @@ class RandomPage extends GetView<RandomController> {
                 child: Container(
                   color: Colors.black12,
                   child: Obx(
-                        () => ListView.builder(
+                    () => ListView.builder(
                       shrinkWrap: true,
                       itemCount: controller.allRandomNumbers.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             // List 생성
-                            ...List.generate(controller.allRandomNumbers[index].length, (indexs) {
+                            ...List.generate(
+                                controller.allRandomNumbers[index].length,
+                                (indexs) {
                               return Container(
                                 width: 50.h, // 아이템의 고정된 너비
                                 height: 40.h,
@@ -231,21 +273,25 @@ class RandomPage extends GetView<RandomController> {
                             }),
                             // 버튼 추가
                             TextButton(
-                              onPressed: () async{
-
+                              onPressed: () async {
                                 // Toast 로 알려줄지 Diaglog로 알려줄지
-                                print('SSSSSSS${controller.allRandomNumbers[index].toString()}');
+                                print(
+                                    'SSSSSSS${controller.allRandomNumbers[index].toString()}');
 
                                 DateTime dateTime = DateTime.now();
 
-                                DateFormat dateFormat = DateFormat('yyyy년 MM월 dd일');
+                                DateFormat dateFormat =
+                                    DateFormat('yyyy년 MM월 dd일');
                                 var today = dateFormat.format(dateTime);
-                                List<int> s = controller.allRandomNumbers[index];
+                                List<int> s =
+                                    controller.allRandomNumbers[index];
                                 // RandomNums r1 = RandomNums(date: '2024년 03월 27일', nums: Uint8List.fromList(s));
                                 // await DBHelper().insertRandomList(r1);
-                                RandomNums r = RandomNums(date: today, nums: Uint8List.fromList(s));
+                                RandomNums r = RandomNums(
+                                    date: today, nums: Uint8List.fromList(s));
                                 await DBHelper().insertRandomList(r);
-                              }, child: Text('저장'),
+                              },
+                              child: Text('저장'),
                               // 저장 할때 애니메이션
                             ),
                           ],
@@ -310,43 +356,43 @@ class RandomPage extends GetView<RandomController> {
         ),
       );
 
-  // Future<void> _showNumberInputDialog(BuildContext context) async {
-  //   return showDialog<void>(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: Text('Enter a Number'),
-  //         content: TextField(
-  //           controller: _controller,
-  //           keyboardType: TextInputType.number,
-  //           inputFormatters: [
-  //             FilteringTextInputFormatter.allow(
-  //                 RegExp(r'^([1-9]|[1-3][0-9]|4[0-5])$')),
-  //           ],
-  //           decoration: InputDecoration(
-  //             labelText: 'Number',
-  //           ),
-  //         ),
-  //         actions: <Widget>[
-  //           TextButton(
-  //             onPressed: () {
-  //               Navigator.of(context).pop(); // 닫기 버튼
-  //             },
-  //             child: Text('Cancel'),
-  //           ),
-  //           TextButton(
-  //             onPressed: () {
-  //               // 여기서 입력된 숫자를 사용하거나 저장할 수 있습니다.
-  //               var enteredNumber = _controller.text;
-  //               controller.inNum.value = enteredNumber;
-  //               print('Entered Number: $enteredNumber');
-  //               Navigator.of(context).pop(); // 닫기 버튼
-  //             },
-  //             child: Text('OK'),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
+// Future<void> _showNumberInputDialog(BuildContext context) async {
+//   return showDialog<void>(
+//     context: context,
+//     builder: (BuildContext context) {
+//       return AlertDialog(
+//         title: Text('Enter a Number'),
+//         content: TextField(
+//           controller: _controller,
+//           keyboardType: TextInputType.number,
+//           inputFormatters: [
+//             FilteringTextInputFormatter.allow(
+//                 RegExp(r'^([1-9]|[1-3][0-9]|4[0-5])$')),
+//           ],
+//           decoration: InputDecoration(
+//             labelText: 'Number',
+//           ),
+//         ),
+//         actions: <Widget>[
+//           TextButton(
+//             onPressed: () {
+//               Navigator.of(context).pop(); // 닫기 버튼
+//             },
+//             child: Text('Cancel'),
+//           ),
+//           TextButton(
+//             onPressed: () {
+//               // 여기서 입력된 숫자를 사용하거나 저장할 수 있습니다.
+//               var enteredNumber = _controller.text;
+//               controller.inNum.value = enteredNumber;
+//               print('Entered Number: $enteredNumber');
+//               Navigator.of(context).pop(); // 닫기 버튼
+//             },
+//             child: Text('OK'),
+//           ),
+//         ],
+//       );
+//     },
+//   );
+// }
 }
