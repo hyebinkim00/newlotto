@@ -3,16 +3,15 @@ import 'package:get/get.dart';
 import 'package:newlotto/bottom_navi/calendar/calendar_page.dart';
 import 'package:newlotto/bottom_navi/home/view/home_page.dart';
 import 'package:newlotto/bottom_navi/noti/noti_page.dart';
-import 'package:newlotto/bottom_navi/record/view/PiechartPage.dart';
-import 'package:newlotto/bottom_navi/record/view/flchartPage.dart';
+import 'package:newlotto/contents/charts/byColor/view/PiechartPage.dart';
 import 'package:newlotto/bottom_navi/record/view/record_page.dart';
-import 'package:newlotto/bottom_navi/record/view/verticalchartPage.dart';
 import 'package:newlotto/bottom_navi/winnig/view/winning_page.dart';
 
 import '../../bottom_navi/calendar/evnet_page.dart';
 import '../../bottom_navi/mypage/view/mypage_page.dart';
 import '../../bottom_navi/noti/noti_page2.dart';
 import '../../bottom_navi/record/view/chartPage.dart';
+import '../../bottom_navi/record/view/flLineChart.dart';
 
 class MainController extends GetxController{
   //static MainController get to => Get.find();
@@ -21,8 +20,8 @@ class MainController extends GetxController{
   RxInt currentIndex = 2.obs;
 
   List<Widget> pages = [
-    flchartPage(),
     WinningPage(),
+    RecordPage(),
     HomePage(),
     NotiPage(),
     MyPage()

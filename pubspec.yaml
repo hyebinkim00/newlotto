@@ -56,8 +56,7 @@ dependencies:
   permission_handler: ^10.0.0
   fl_chart: ^0.62.0
   vertical_barchart: ^2.0.0+2
-  syncfusion_flutter_charts: ^25.1.37
-  graphic: ^2.2.1
+  syncfusion_flutter_charts: ^25.1.39+1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

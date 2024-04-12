@@ -9,5 +9,7 @@ class RouteNames{
   static const String NOTI = "/noti";
   static const String SPINNING = "/spin";
   static const String BIRTHDAY  = "/birthday";
+  static const String NUMCHART  = "/numchart";
+  static const String COLORCHART  = "/colorchart";
 
 }

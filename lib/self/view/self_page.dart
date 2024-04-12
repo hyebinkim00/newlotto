@@ -19,39 +19,46 @@ class SelfPage extends GetView<SelfController> {
 
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        title: Text('직접 입력', style: TextStyle(color: Colors.black)),
         centerTitle: true,
-        leading: IconButton(icon: Icon(Icons.chevron_left), onPressed: () {Get.back();}),
+        backgroundColor: Colors.white,
+        elevation: 0, // 그림자를 제거
+        title:Text('회차별 당첨금',style: TextStyle(color: Colors.black),) ,
+        leading: IconButton(icon: Icon(Icons.chevron_left),    color: Colors.black, // 아이콘의 색상을 검정색으로 설정
+            onPressed: () {Get.back();}),
       ),
-      body: SafeArea(
-          top: true,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SerialSelection(controller: controller),
-              InputList(controller: controller),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(left: 10, right: 10),
-                  child: TextButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50),
-                      backgroundColor: Colors.orangeAccent,
-                      foregroundColor: Colors.white,
+      body: GestureDetector(
+        onHorizontalDragUpdate: (detail) async{
+          print('HB_willscope');
+          Get.back();
+        },
+        child: SafeArea(
+            top: true,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SerialSelection(controller: controller),
+                InputList(controller: controller),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    child: TextButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size.fromHeight(50),
+                        backgroundColor: Colors.orangeAccent,
+                        foregroundColor: Colors.white,
+                      ),
+                      onPressed: () {
+                        // 2024 02 29
+                        // 테스트 하려고 여기다 넣은거지 Qr 처럼 다이어로그 거기서 저장누르면 저장
+                        controller.save();
+                      },
+                      child: Text('확인하기'),
                     ),
-                    onPressed: () {
-                      // 2024 02 29
-                      // 테스트 하려고 여기다 넣은거지 Qr 처럼 다이어로그 거기서 저장누르면 저장
-                      controller.save();
-                    },
-                    child: Text('확인하기'),
                   ),
                 ),
-              ),
-            ],
-          )),
+              ],
+            )),
+      ),
     );
   }
 }

@@ -22,6 +22,8 @@ class AppColors {
   static const Color contentColorPink = Color(0xFFFF3AF2);
   static const Color contentColorRed = Color(0xFFE80054);
   static const Color contentColorCyan = Color(0xFF50E4FF);
+  static const Color contentChart = Color(0xFFFDA42F);
+
 
 
   static const Color lightGray = Color(0xFF6C6C6C);
