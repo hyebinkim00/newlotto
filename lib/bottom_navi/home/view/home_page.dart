@@ -8,7 +8,7 @@ import '../../../notification.dart';
 import '../controller/home_controller.dart';
 
 class HomePage extends StatelessWidget {
-
+ // https://m.dhlottery.co.kr/gameResult.do?method=statByNumber&sttDrwNo=6&edDrwNo=1111
   // 확률 , 차트 (로또 분석)
   // 생일에 따른 번호 (Random)
   @override

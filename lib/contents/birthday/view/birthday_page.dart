@@ -28,7 +28,7 @@ class BirthDayPage extends GetView<BirthDayController> {
                     readOnly: true,
                     // when true user cannot edit text
                     onTap: () async {
-                      controller.showSpin(context);
+                      controller.showDatePickerPop(context);
                       //when click we have to show the datepicker
                     }),
               ],

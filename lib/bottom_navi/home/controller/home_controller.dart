@@ -9,7 +9,6 @@ import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as htmlParser;
 import 'package:newlotto/bottom_navi/winnig/controller/winnig_controller.dart';
 import 'package:newlotto/model/loto.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../../../db/dbhelper.dart';

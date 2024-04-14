@@ -8,7 +8,6 @@ import 'package:newlotto/bottom_navi/winnig/view/result_winning.dart';
 import 'package:newlotto/bottom_navi/winnig/view/search_winning.dart';
 import 'package:newlotto/bottom_navi/winnig/view/table_winnig.dart';
 
-import '../../../ui/color_utils.dart';
 
 class WinningPage extends StatelessWidget {
   @override

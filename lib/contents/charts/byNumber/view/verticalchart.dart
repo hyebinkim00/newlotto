@@ -11,6 +11,12 @@ class VerticalChart extends StatelessWidget {
   NumChartController controller;
   VerticalChart({required this.controller});
 
+  ///https://www.dhlottery.co.kr/gameResult.do?method=statByNumber&sttDrwNo=14&edDrwNo=1114
+// srchType (기본값 list -> 번호순 , dir -> 당첨횟수 순
+
+// + 날짜 선택기
+// + 최근 10회차 기준으로 확인
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {

@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:newlotto/push/firebase_message.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import 'config/constants.dart';
 import 'config/route_names.dart';
@@ -20,20 +19,20 @@ import 'package:timezone/timezone.dart' as tz;
 Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(); // Firebase 초기화
+  //await Firebase.initializeApp(); // Firebase 초기화
 
   // FCM token
-  FirebaseMessaging.instance.getToken().then((token) {
-    print("FCM Token: $token");
-  });
-
+  // FirebaseMessaging.instance.getToken().then((token) {
+  //   print("FCM Token: $token");
+  // });
+  //
   tz.initializeTimeZones();
   tz.setLocalLocation(tz.getLocation('Asia/Seoul'));
-  await FlutterLocalNotification.init();  // Local Notification 초기화
+  // await FlutterLocalNotification.init();  // Local Notification 초기화
   // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   // await MessageSetting.setupFlutterNotifications();
 
-  await initializeDateFormatting(); // 달력 시간대
+  // await initializeDateFormatting(); // 달력 시간대
   runApp(const MyApp());
 }
 
@@ -52,7 +51,7 @@ class _MyAppState extends State<MyApp> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print("Received message: ${message.data}");
       MessageSetting.showFlutterNotification(message);
-      getpermission();
+      // getpermission();
       // 추가적인 처리 로직 추가
     });
     super.initState();
@@ -65,14 +64,21 @@ class _MyAppState extends State<MyApp> {
       minTextAdapt: true,
       builder: (BuildContext context, Widget? child) {
         return GetMaterialApp(
-          localizationsDelegates: const [
+          locale: const Locale('ko','KR'),
+          localizationsDelegates: [
+            // 필요한 델리게이트 추가
             GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: const [
-            Locale('en', ''), // English, no country code
-            Locale('ko', ''), // Korean, no country code
+          supportedLocales: [
+            const Locale('ko', 'KR'),
+            const Locale('en', 'US'), // 영어, 미국
+            // 필요한 경우 추가적인 로케일들을 여기에 추가할 수 있습니다.
           ],
+          // supportedLocales: const [
+          //   Locale('ko', 'KR'), // Korean, no country code
+          // ],
           builder: (context, child) {
             return MediaQuery(
               data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
@@ -94,12 +100,12 @@ class _MyAppState extends State<MyApp> {
 }
 
 
-void getpermission() async {
-  await Permission.notification.request();
-  if(await Permission.notification.request().isDenied){
-
-  }
-}
+// void getpermission() async {
+//   await Permission.notification.request();
+//   if(await Permission.notification.request().isDenied){
+//
+//   }
+// }
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // await Firebase.initializeApp();
