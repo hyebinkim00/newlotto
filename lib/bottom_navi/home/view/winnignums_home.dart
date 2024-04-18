@@ -47,23 +47,38 @@ class WinningNums extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: List.generate(
                     8,
-                    (index) {
+                        (index) {
                       return Expanded(
                         flex: 1,
                         child: Container(
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: ColorUtil.getColors(controller.lists[index]),
-                          ),
-                          child: Container(
-                            width: double.infinity,
-                            child: Center(
-                              child: Text(
-                                '${controller.lists[index]}',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 25.0,
+                          width: 50, // 고정된 너비
+                          height: 50, // 고정된 높이
+                          padding: EdgeInsets.all(1),
+                          child: Center(
+                            child: Container(
+                              width: double.infinity,
+                              height: double.infinity,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: ColorUtil.getColors(controller.lists[index]),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.5),
+                                    spreadRadius: 2,
+                                    blurRadius: 4,
+                                    offset: Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: Center(
+                                child: Text(
+                                  '${controller.lists[index]}',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 22.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Arial',
+                                  ),
                                 ),
                               ),
                             ),

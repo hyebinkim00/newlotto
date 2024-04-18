@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:newlotto/contents/charts/byColor/controller/byColorController.dart';
-import 'package:newlotto/contents/charts/byColor/view/PiechartPage.dart';
+
+import '../controller/byColorController.dart';
+import 'PiechartPage.dart';
+
 
 class ByColorChartPage extends GetView <byColorController> {
 
@@ -18,6 +20,8 @@ class ByColorChartPage extends GetView <byColorController> {
           child: Column(
             children: [
               Text('data'),
+              // WebViewWidget(controller: controller.webViewController),
+              Obx(() => Text('${controller.test}')),
               Expanded(child: PieChartSample2()),
             ],
           ),

@@ -39,6 +39,11 @@ class Loto {
     return [drwtNo1??0,drwtNo2??0,drwtNo3??0,drwtNo4??0,drwtNo5??0,drwtNo6??0,-1,bnusNo??0];
   }
 
+  List<int> getLists() {
+    return [drwtNo1??0,drwtNo2??0,drwtNo3??0,drwtNo4??0,drwtNo5??0,drwtNo6??0,bnusNo??0];
+  }
+
+
   Loto.fromJson(Map<String, dynamic> json) {
     totSellamnt = json['totSellamnt'];
     returnValue = json['returnValue'];

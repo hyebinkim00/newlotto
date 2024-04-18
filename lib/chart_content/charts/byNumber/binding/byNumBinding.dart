@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import 'package:newlotto/contents/charts/byNumber/controller/byNumChartController.dart';
+
+import '../controller/byNumChartController.dart';
 
 class byNumBinding extends Bindings{
   @override

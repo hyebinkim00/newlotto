@@ -7,7 +7,7 @@ import '../../../notification.dart';
 
 class Contents extends StatelessWidget {
 
-  final List<String> cardText = ['로또번호 랜덤생성', '돌림판으로 뽑아보는\n오늘의 번호','생일로 보는\n오늘의 번호', '확률로 보는 \n오늘의 번호'];
+  final List<String> cardText = ['로또번호 랜덤생성', '돌림판으로 뽑아보는\n오늘의 번호','생일로 보는\n오늘의 번호', '최근당첨번호\n확률분석'];
   List<IconData> iconDataList = [
     Icons.play_circle_rounded,
     Icons.remove_circle,
@@ -53,7 +53,7 @@ class Contents extends StatelessWidget {
                     Get.toNamed(RouteNames.BIRTHDAY);
                     break;
                   case 3 :
-                    Get.toNamed(RouteNames.SPINNING);
+                    Get.toNamed(RouteNames.RECENT);
                     break;
 
                 }

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:newlotto/contents/charts/byColor/view/PiechartPage.dart';
 import 'package:newlotto/ui/app_color.dart';
 
 import '../../../config/route_names.dart';

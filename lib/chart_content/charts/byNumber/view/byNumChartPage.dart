@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:newlotto/contents/charts/byNumber/controller/byNumChartController.dart';
 
+import '../controller/byNumChartController.dart';
 import 'verticalchart.dart';
 
 class ByNumChartPage extends GetView<NumChartController>{

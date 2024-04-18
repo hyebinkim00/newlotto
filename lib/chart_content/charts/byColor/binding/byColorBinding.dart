@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:newlotto/contents/charts/byColor/controller/byColorController.dart';
+import '../controller/byColorController.dart';
 
-class byNumBinding extends Bindings{
+class byColorBinding extends Bindings{
   @override
   void dependencies() {
     Get.lazyPut<byColorController>(() => byColorController());

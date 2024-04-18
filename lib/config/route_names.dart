@@ -11,5 +11,6 @@ class RouteNames{
   static const String BIRTHDAY  = "/birthday";
   static const String NUMCHART  = "/numchart";
   static const String COLORCHART  = "/colorchart";
+  static const String RECENT  = "/recentanalysis";
 
 }
