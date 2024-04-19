@@ -11,7 +11,7 @@ class BirthDayController extends GetxController{
   RxDouble angle2 = 0.0.obs;
   RxBool isBack = true.obs;
   Rx<Color> backgroundColor = Colors.black.obs;
-  RxInt luckyNum = 0.obs;
+  int luckyNum = 0;
 
   int birthday = 0;
 
@@ -79,8 +79,9 @@ class BirthDayController extends GetxController{
     int seed = now.year * 10000 + now.month * 100 + now.day + birthday;
     Random random = Random(seed);
     int d = random.nextInt(45) + 1;
-    luckyNum.value =  d;
+    luckyNum =  d;
     isBack.value = !isBack.value;
+    angle.value = (angle.value + pi) % (2 * pi);
     backgroundColor.value = isBack.value ? Colors.transparent : Colors.yellowAccent;
   }
 

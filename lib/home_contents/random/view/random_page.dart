@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:newlotto/db/dbhelper.dart';
 import 'package:newlotto/model/random.dart';
 
+import '../../../ui/util_dialog.dart';
 import '../controller/random_controller.dart';
 
 class RandomPage extends GetView<RandomController> {
@@ -70,7 +71,7 @@ class RandomPage extends GetView<RandomController> {
                         SizedBox(width: 5,),
                         ElevatedButton(
                             onPressed: () {
-                              // UtilDialog.selectNumbers(true);
+                              UtilDialog.selectNumbers(true);
                             },
                             child: Text('추가',
                                 style: TextStyle(color: Colors.white)))
@@ -116,6 +117,7 @@ class RandomPage extends GetView<RandomController> {
                 ),
               ),
               Container(
+                padding: EdgeInsets.only(left: 5,right: 5),
                 color: Colors.grey,
                 height: 60.h,
                 child: Row(
@@ -147,7 +149,7 @@ class RandomPage extends GetView<RandomController> {
                             )),
                         ElevatedButton(
                             onPressed: () {
-                              // UtilDialog.selectNumbers(false);
+                              UtilDialog.selectNumbers(false);
                             },
                             child: Text(
                               '추가',
@@ -195,6 +197,7 @@ class RandomPage extends GetView<RandomController> {
                 ),
               ),
               Container(
+                padding: EdgeInsets.only(left: 5,right: 5),
                 height: 60.h,
                 color: Colors.grey,
                 child: Row(
@@ -205,7 +208,7 @@ class RandomPage extends GetView<RandomController> {
                       child: OutlinedButton(
                         onPressed: () {},
                         style: OutlinedButton.styleFrom(
-                          backgroundColor: Colors.deepOrange,
+                          backgroundColor: Colors.greenAccent,
                           side: BorderSide(width: 2.0, color: Colors.black),
                         ),
                         child: Text('랜덤수',style: TextStyle(color: Colors.white),),

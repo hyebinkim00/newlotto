@@ -7,18 +7,71 @@ import 'package:html/parser.dart' as htmlParser;
 import 'package:sqflite/sql.dart';
 
 class byColorController extends GetxController{
-
+  List<String> startNum = List.generate(1115, (index) => '${index+1}');
+  List<String> endNum = List.generate(1115, (index) => '${1115-index}');
   RxString test = ''.obs;
+
+  RxInt seleNum = 0.obs;
+  RxInt sele2Num = 0.obs;
+
+
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     // webviewStart();
-    chartTest();
   }
 
   void chartTest() async {
+
+
+    List<int> chartPer = [];
+
+    String url =
+        'https://www.dhlottery.co.kr/gameResult.do?method=statByNumber&sttDrwNo=${seleNum}&edDrwNo=${sele2Num}&sltBonus=0';
+
+    final response = await http.get(Uri.parse(url));
+    final document = htmlParser.parse(cp949.decodeString(response.body));
+
+    final myNumList = document.querySelectorAll("#printTarget > tbody > tr");
+
+    for (var td in myNumList){
+
+      // 횟수
+      final tds2 = td.querySelectorAll('td');
+      chartPer.add(int.parse('${tds2[2]!.text}'));
+      print('2tddddddd${tds2[2]!.text}');
+    }
+
+    sum5(chartPer);
+  }
+
+
+
+  void sum5 (List<int> lists){
+    // Piechart 퍼센트 구하기
+    int total = lists.reduce((value, element) => value + element);
+    print('ttt${total}');
+    List<int> sums = [];
+
+    for (int i = 0; i < lists.length; i += 10) {
+      int sum = lists.skip(i).take(10).reduce((value, element) => value + element);
+      sums.add(sum);
+    }
+    print('sumsss${sums.toString()}');
+
+    List<double> percentages3 = sums.map((value) => ((value / total) * 100 * 10).roundToDouble() / 10).toList();
+
+    print('FixPPPPP${percentages3}');
+
+
+    test.value = percentages3.toString();
+  }
+
+
+
+  void percent(){
 
     List<int> data = List.generate(45, (index) => index + 1);
 
@@ -34,42 +87,8 @@ class byColorController extends GetxController{
       print('${data[i]}: ${percentages[i].toStringAsFixed(2)}%');
     }
 
-    String url =
-        'https://www.dhlottery.co.kr/gameResult.do?method=statByColor&sttDrwNo=14&edDrwNo=1114';
-
-    final response = await http.get(Uri.parse(url));
-    final title = RegExp('<title>(.*?)</title>').firstMatch(response.body)?.group(1);
-
-    Future.delayed(const Duration(milliseconds: 1000), () {
-      print('Hello, world');
-      if(response.statusCode == 200){
-        final document = htmlParser.parse(cp949.decodeString(response.body));
-
-        final myNumLists = document.querySelectorAll("div.box_chart");
-
-        print('dd${myNumLists.length}');
-
-        for(var item in myNumLists){
-          final d = item.querySelectorAll("li > span");
-          print('d${d[0]!.text}');
-          print('d${d[1]!.text}');
-          final ds = item.querySelectorAll("div#hideDescChart.accessibility");
-          print('ds${ds[0].text}');
-          final exampleDiv = item.getElementsByClassName("accessibility");
-          final textContent = exampleDiv[0].text;
-          print('gas${textContent}');
-
-        }
-      }
-
-    });
-
-
-
-
-
-
   }
+
   //
   // Future<void> webviewStart() async {
   //   webViewController

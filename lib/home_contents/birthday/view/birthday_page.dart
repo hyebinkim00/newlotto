@@ -32,30 +32,29 @@ class BirthDayPage extends GetView<BirthDayController> {
                 TextButton(onPressed: () {
                   controller.generateTodayNumber();
                 }, child: Text('내 행분의 번호 조회!!')),
-                Obx(() => Text('${controller.luckyNum}'))
 
-                // Obx(() => GestureDetector(
-                //       onTap: () {
-                //       },
-                //       child: AnimatedContainer(
-                //         duration: Duration(milliseconds: 500),
-                //         curve: Curves.easeInOut,
-                //         transform: Matrix4.rotationY(
-                //             controller.angle.value * (3.1415927 / 180)),
-                //         width: 100,
-                //         height: 100,
-                //         decoration: BoxDecoration(
-                //           color: controller.backgroundColor.value,
-                //           shape: BoxShape.circle,
-                //         ),
-                //         child: Center(
-                //           child: Text(
-                //             controller.isBack.value ? '' : '${controller.luckyNum}',
-                //             style: TextStyle(color: Colors.black),
-                //           ),
-                //         ),
-                //       ),
-                //     ))
+                Obx(() => GestureDetector(
+                      onTap: () {
+                      },
+                      child: AnimatedContainer(
+                        duration: Duration(milliseconds: 500),
+                        curve: Curves.easeInOut,
+                        transform: Matrix4.rotationY(
+                            controller.angle.value * (3.1415927 / 180)),
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: controller.backgroundColor.value,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: Text(
+                            controller.isBack.value ? '' : '${controller.luckyNum}',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                    ))
               ],
             ),
           )),

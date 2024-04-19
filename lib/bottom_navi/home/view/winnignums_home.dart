@@ -94,7 +94,7 @@ class WinningNums extends StatelessWidget {
             children: [
               ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.orangeAccent),
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
                 ),
                 onPressed: () {
                   Get.toNamed(RouteNames.SELF);
@@ -114,7 +114,7 @@ class WinningNums extends StatelessWidget {
                   Get.toNamed(RouteNames.QRSACN);
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.orangeAccent),
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,

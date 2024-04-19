@@ -33,13 +33,15 @@ class NumChartController extends GetxController{
       print('testtest1____${tds!.text}');
       chartNum.add(tds!.text);
 
-      // 확률
+      // 횟수
       final tds2 = td.querySelectorAll('td');
       chartPer.add(tds2[2]!.text);
 
       print('2tddddddd${tds2[2]!.text}');
     }
 
+
+    // 1427 1540 1406 1495 738
     nums.value = chartNum;
     percent.value = chartPer;
 

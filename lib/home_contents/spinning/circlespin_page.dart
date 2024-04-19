@@ -18,10 +18,27 @@ class CircleSpinPage extends GetView<CircleSpinController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        // 그림자를 제거
+        centerTitle: true,
+        title: Text(
+          '돌림판 게임',
+          style: TextStyle(color: Colors.black),
+        ),
+        leading: IconButton(
+            icon: Icon(Icons.chevron_left),
+            color: Colors.black,
+            // 아이콘의 색상을 검정색으로 설정
+            onPressed: () {
+              Get.back();
+            }),
+      ),
       body: SafeArea(
         top: true,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
               '행운의 번호를 뽑아라!',
@@ -32,12 +49,12 @@ class CircleSpinPage extends GetView<CircleSpinController> {
               style: TextStyle(fontSize: 20),
             ),
             Obx(
-                  () => RandomTextReveal(
+              () => RandomTextReveal(
                 key: controller.globalKey,
                 initialText: '오늘 행운의 숫자는 ?',
                 shouldPlayOnStart: false,
                 text:
-                '숫자는 ${controller.randomVl.value} ${controller.randomV2.value} 입니다.',
+                    '숫자는 ${controller.randomVl.value} ${controller.randomV2.value} 입니다.',
                 duration: const Duration(seconds: 3),
                 style: TextStyle(
                   fontSize: 25,
@@ -80,7 +97,7 @@ class CircleSpinPage extends GetView<CircleSpinController> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    if(controller.randomVl.value=='?'){
+                    if (controller.randomVl.value == '?') {
                       Fluttertoast.showToast(msg: '십의자리 숫자부터 뽑아주세요.');
                       return;
                     }
@@ -107,7 +124,6 @@ class CircleSpinPage extends GetView<CircleSpinController> {
                 )
               ],
             ),
-
           ],
         ),
       ),
@@ -115,9 +131,7 @@ class CircleSpinPage extends GetView<CircleSpinController> {
   }
 }
 
-
 void _showFortuneWheelDialog(bool frontFlag) {
-
   // 0 ~ 45
   // 일의 자리 0 이면 ( 1~9 )
   // 일의자리 1~ 3 이면 ( 0~9 )
@@ -133,30 +147,33 @@ void _showFortuneWheelDialog(bool frontFlag) {
   List<int> nu = circleRan.frontNums;
   List<FortuneItem> itemss = circleRan.frontNumsItems;
 
-  Get.dialog(
-      AlertDialog(
-        content: Expanded(
-    // Adjust the height as needed
-    child: Column(
+  Get.dialog(AlertDialog(
+    content: Expanded(
+      // Adjust the height as needed
+      child: Column(
         children: [
           SizedBox(
             width: 400,
             height: 400,
             child: FortuneWheel(
-              indicators:  <FortuneIndicator>[
+              indicators: <FortuneIndicator>[
                 FortuneIndicator(
-                  alignment: Alignment.topCenter, // <-- changing the position of the indicator
+                  alignment: Alignment.topCenter,
+                  // <-- changing the position of the indicator
                   child: TriangleIndicator(
-                    color: Colors.yellow, // <-- changing the color of the indicator
+                    color: Colors
+                        .yellow, // <-- changing the color of the indicator
                   ),
                 ),
               ],
               selected: streamController.stream,
               animateFirst: false,
               duration: const Duration(seconds: 3),
-              items: frontFlag ? itemss : getItem(int.parse(controller.randomVl.value)),
+              items: frontFlag
+                  ? itemss
+                  : getItem(int.parse(controller.randomVl.value)),
               onAnimationEnd: () {
-                if(frontFlag){
+                if (frontFlag) {
                   resultNum = nu[value].toString();
                 } else {
                   nu = getList(int.parse(controller.randomVl.value));
@@ -177,12 +194,12 @@ void _showFortuneWheelDialog(bool frontFlag) {
                           : forRandom(int.parse(controller.randomVl.value));
                       streamController.add(value);
                     },
-                    child: Text(resultNum==''?'시작':'다시하기')),
+                    child: Text(resultNum == '' ? '시작' : '다시하기')),
                 TextButton(
                     onPressed: () {
-                      if(resultNum=='') {
+                      if (resultNum == '') {
                         Fluttertoast.showToast(msg: '시작 버튼을 눌러 돌림판을 돌려주세요!');
-                      }else{
+                      } else {
                         Get.back(result: resultNum);
                       }
                     },
@@ -191,9 +208,9 @@ void _showFortuneWheelDialog(bool frontFlag) {
             ),
           )
         ],
+      ),
     ),
-  ),
-      )).then((value) {
+  )).then((value) {
     if (frontFlag) {
       controller.randomVl.value = value;
     } else {
@@ -204,8 +221,8 @@ void _showFortuneWheelDialog(bool frontFlag) {
 }
 
 List<int> getList(int value) {
-  if(value == 0){
-    return List.generate(9, (index) => index+1);
+  if (value == 0) {
+    return List.generate(9, (index) => index + 1);
   } else {
     int list = 10;
     if (value == 4) {
@@ -216,31 +233,38 @@ List<int> getList(int value) {
 }
 
 getItem(int value) {
-  if(value == 0){
+  if (value == 0) {
     return List.generate(9, (index) {
       return FortuneItem(
           style: FortuneItemStyle(
-              color: Colors.blue, textAlign: TextAlign.right, borderWidth: 1, borderColor: Colors.white),
+              color: Colors.blue,
+              textAlign: TextAlign.right,
+              borderWidth: 1,
+              borderColor: Colors.white),
           child: Padding(
             padding: const EdgeInsets.only(right: 50.0),
             child: Align(
               alignment: Alignment.centerRight,
               child: Transform.rotate(
                 angle: pi / 2,
-                child: Text(style: TextStyle(fontSize: 20), (index+1).toString()),
+                child: Text(
+                    style: TextStyle(fontSize: 20), (index + 1).toString()),
               ),
             ),
           ));
     });
-  } else  {
+  } else {
     int list = 10;
-    if(value == 4){
+    if (value == 4) {
       list = 5;
     }
     return List.generate(list, (index) {
       return FortuneItem(
           style: FortuneItemStyle(
-              color: Colors.blue, textAlign: TextAlign.right, borderWidth: 2, borderColor: Colors.white),
+              color: Colors.blue,
+              textAlign: TextAlign.right,
+              borderWidth: 2,
+              borderColor: Colors.white),
           child: Padding(
             padding: const EdgeInsets.only(right: 50.0),
             child: Align(
@@ -257,7 +281,6 @@ getItem(int value) {
 
 int forRandom(int front) {
   if (front == 0) {
-
     return Fortune.randomInt(1, 9);
   } else if (front >= 1 && front <= 3) {
     return Fortune.randomInt(0, 9);
@@ -274,7 +297,10 @@ class circleRan {
   static List<FortuneItem> frontNumsItems = List.generate(5, (index) {
     return FortuneItem(
         style: FortuneItemStyle(
-            color: Colors.blue, textAlign: TextAlign.right, borderWidth: 2, borderColor: Colors.white),
+            color: Colors.blue,
+            textAlign: TextAlign.right,
+            borderWidth: 2,
+            borderColor: Colors.white),
         child: Padding(
           padding: const EdgeInsets.only(right: 50.0),
           child: Align(
@@ -286,7 +312,6 @@ class circleRan {
           ),
         ));
   });
-
 }
 
 // Obx(()=>

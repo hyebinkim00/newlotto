@@ -14,7 +14,7 @@ class RecordPage extends StatelessWidget {
     '번호별 통계',
     '색상통계',
     '연속번호통계',
-    '확률로 보는 \n오늘의 번호'
+    '홀짝'
   ];
 
   @override
