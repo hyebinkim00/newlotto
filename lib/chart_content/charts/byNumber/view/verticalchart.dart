@@ -32,8 +32,8 @@ class VerticalChart extends StatelessWidget {
 
       return SingleChildScrollView(
         child: Container(
-          alignment: Alignment.topLeft,
-          width: 300.w,
+          alignment: Alignment.center,
+          width: 500.w,
           child: VerticalBarchart(
             maxX: 500.w,
             data: bardata2,
@@ -47,11 +47,6 @@ class VerticalChart extends StatelessWidget {
                 color: Colors.orange,
                 text: "Fruits",
               ),
-              Vlegend(
-                isSquare: false,
-                color: Colors.teal,
-                text: "Vegetables",
-              )
             ],
           ),
         ),

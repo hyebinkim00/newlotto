@@ -7,10 +7,10 @@ import '../../../notification.dart';
 
 class Contents extends StatelessWidget {
   final List<String> cardText = [
-    '로또번호 랜덤생성',
-    '돌림판으로 뽑아보는\n오늘의 번호',
+    '랜덤 번호 만들기',
+    '최근당첨번호\n확률분석',
     '생일로 보는\n오늘의 번호',
-    '최근당첨번호\n확률분석'
+    '돌림판으로 뽑아보는\n오늘의 번호',
   ];
   List<IconData> iconDataList = [
     Icons.play_circle_rounded,
@@ -45,19 +45,20 @@ class Contents extends StatelessWidget {
               onTap: () async {
                 switch (index) {
                   case 0:
-                    // 랜덤 리스트
+                    // 랜덤 리스트 (완성)
                     Get.toNamed(RouteNames.RANDOM);
                     break;
                   case 1:
-                    // 돌림판
-                    Get.toNamed(RouteNames.SPINNING);
+                    // 최근 당첨번호 확률로 보는 번호
+                    Get.toNamed(RouteNames.RECENT);
                     break;
                   case 2:
-                    // 생일 입력 받기
+                    // 생일로 보는 오늘의 번호
                     Get.toNamed(RouteNames.BIRTHDAY);
                     break;
                   case 3:
-                    Get.toNamed(RouteNames.RECENT);
+                  // 돌림판으로 뽑는 오늘의 번호
+                    Get.toNamed(RouteNames.SPINNING);
                     break;
                 }
                 //

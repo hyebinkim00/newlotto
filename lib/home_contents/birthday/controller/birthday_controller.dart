@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -10,7 +11,7 @@ class BirthDayController extends GetxController{
   RxDouble angle = 0.0.obs;
   RxDouble angle2 = 0.0.obs;
   RxBool isBack = true.obs;
-  Rx<Color> backgroundColor = Colors.black.obs;
+  Rx<Color> backgroundColor = Colors.transparent.obs;
   int luckyNum = 0;
 
   int birthday = 0;
@@ -72,8 +73,12 @@ class BirthDayController extends GetxController{
   void generateTodayNumber() {
     // 생일 값을 1부터 45까지의 숫자 범위로 매핑
     // int mappedBirthday = (birthday % 45) + 1;
-    DateTime now = DateTime.now();
 
+    if(birthday==0){
+      Fluttertoast.showToast(msg:'생일을 입력해주세요!');
+      return;
+    }
+    DateTime now = DateTime.now();
     // 오늘의 날짜와 생일 값을 조합하여 무작위 숫자 생성
     print('birs_${birthday}');
     int seed = now.year * 10000 + now.month * 100 + now.day + birthday;

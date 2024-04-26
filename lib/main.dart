@@ -10,6 +10,7 @@ import 'package:newlotto/push/firebase_message.dart';
 
 import 'config/constants.dart';
 import 'config/route_names.dart';
+import 'config/shared_pre.dart';
 import 'notification.dart';
 
 import 'package:timezone/data/latest_all.dart' as tz;
@@ -26,6 +27,9 @@ Future<void> main() async {
   //   print("FCM Token: $token");
   // });
   //
+  final SharedPreferencesService _prefsService = SharedPreferencesService.getInstance();
+
+  await _prefsService.init();
   tz.initializeTimeZones();
   tz.setLocalLocation(tz.getLocation('Asia/Seoul'));
   // await FlutterLocalNotification.init();  // Local Notification 초기화

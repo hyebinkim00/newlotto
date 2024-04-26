@@ -11,13 +11,14 @@ import 'package:newlotto/bottom_navi/winnig/controller/winnig_controller.dart';
 import 'package:newlotto/model/loto.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import '../../../config/shared_pre.dart';
 import '../../../db/dbhelper.dart';
 import '../../../push/firebase_message.dart';
 import '../../../retrofit/retrofit_client.dart';
 
 
 class HomeController extends GetxController{
-
+  final SharedPreferencesService _prefsService = SharedPreferencesService.getInstance();
   // 최근 회차번호
   RxInt lastSerial = 0.obs;
   RxInt days = 0.obs;
@@ -25,9 +26,10 @@ class HomeController extends GetxController{
   RxString todays = ''.obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     // 1.  웹페이지에서 최근회차 가져오기  2. 해당회차에 대한 당첨번호 보여주기 3. 당첨번호 리스트 업데이트
+    // await _prefsService.init();
     getLastNo();
     getDate();
   }
@@ -71,9 +73,14 @@ class HomeController extends GetxController{
     // WinningController winningController = Get.put(WinningController());
     //
     // winningController.s.value = lastSerial.string;
+
     if (lastSerial.value != seral){
       lastSerial.value = seral;
+      if ( _prefsService.getInt('lastSerial')==0 ||  _prefsService.getInt('lastSerial')!= seral){
+        _prefsService.setInt('lastSerial',seral);
+      }
       retro(seral);
+
       updateList(seral);
     }
 
@@ -120,7 +127,7 @@ class HomeController extends GetxController{
     list = await DBHelper().getLoto();
 
     if (list.isEmpty) {
-      for (int i = 0; i <= 40; i++) {
+      for (int i = 0; i <= 10; i++) {
         // 20개 저장 (마지막 회차가 변경되어서 db 추가할때 id 순서를 바꿀수 없으니 내림차순으로 저장)
 
         await listDbsave(serial - i);

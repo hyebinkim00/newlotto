@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:newlotto/home_contents/recent/view/oddeven_table_recent.dart';
+import 'package:newlotto/home_contents/recent/view/pattern_table_recent.dart';
 
 import '../../../ui/color_utils.dart';
 import '../controller/recentanalysis_controller.dart';
@@ -17,110 +19,77 @@ class RecentAnalysisPage extends GetView<RecentAnalysisController> {
   //
   // 패턴 및 반복: 이전 추첨 결과에서 특정한 숫자 패턴이나 반복되는 숫자들을 확인하는 것도 중요합니다. 예를 들어, 특정한 숫자가 연속해서 나오거나 두 번 이상 나온 경우에는 해당 숫자를 선택하는 데 대한 고려가 필요합니다.
 
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        // 그림자를 제거
+        centerTitle: true,
+        title: Text(
+          '최근 당첨번호로 보는 확률',
+          style: TextStyle(color: Colors.black),
+        ),
+        leading: IconButton(
+            icon: Icon(Icons.chevron_left),
+            color: Colors.black,
+            // 아이콘의 색상을 검정색으로 설정
+            onPressed: () {
+              Get.back();
+            }),
+      ),
       body: SafeArea(
         top: true,
         child: Container(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: [
-
-                Row(children: [
-                  Text('가장 많이 나온 숫자'),
-                  Obx(() => Text('${controller.mostNum}'+'('+'${controller.mostNumf}'+')'))
-                ],),
-                Row(children: [
-                  Text('가장 적게 나온 숫자'),
-                  Obx(() => Text('${controller.LeastNum}'+'('+'${controller.leastNumf}'+')'))
-                ],),
-
-                Obx(
-                  () => Table(
-                    columnWidths: {
-                      0: FlexColumnWidth(2),
-                      1: FlexColumnWidth(4),
-                    },
-                    border: TableBorder.all(),
-                    children: [
-                      TableRow(
-                        children: [
-                          TableCell(child: Center(child: Text('추첨일'))),
-                          TableCell(child: Center(child: Text('당첨번호'))),
-                        ],
-                      ),
-                      ...List.generate(
-                        controller.list.length,
-                        (index) => TableRow(
-                          children: [
-                            TableCell(
-                                child: Container(
-                                  height:50.h,
-                                    width: 50.w,
-                                    child: Center(
-                                        child: Text(
-                                            '${controller.list[index].drwNoDate}')))),
-                            TableCell(
-                                child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Flex(
-                                  direction: Axis.horizontal,
-                                  children: [
-                                    Container(
-                                      width: 250.w,
-                                      padding: EdgeInsets.all(5),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: List.generate(
-                                          7,
-                                          (indexs) {
-                                            return Expanded(
-                                              flex: 1,
-                                              child: Container(
-                                                padding: EdgeInsets.all(5),
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: ColorUtil.getColors(
-                                                      controller.list[index]
-                                                          .getLists()[indexs]
-                                                          .toString()),
-                                                ),
-                                                child: Container(
-                                                    width: double.infinity,
-                                                    child: Center(
-                                                      child: Text(
-                                                        '${controller.list[index].getLists()[indexs]}',
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          // 텍스트 색상 설정
-                                                          fontSize:
-                                                              15.0, // 텍스트 크기 설정
-                                                        ),
-                                                      ),
-                                                    )),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ), // 왼쪽 간격
-                                  ],
-                                )
-                              ],
-                            )),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+          child:
+          Column(
+            children: [
+              // 최근 5주 (5개)  db query 에 limit 주기
+              // 최근 10주 (10개)
+              Container(
+                height: 100.h,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  children: [
+                    Row(children: [
+                      Text('가장 많이 나온 숫자'),
+                      Obx(() => Text('${controller.mostNum}'+'('+'${controller.mostNumf}'+')'))
+                    ],),
+                    Row(children: [
+                      Text('가장 적게 나온 숫자'), // 최근 5주, 최근 10주 는 아예 안나온 수가 맞는거 같음
+                      Obx(() => Text('${controller.LeastNum}'+'('+'${controller.leastNumf}'+')'))
+                    ],),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20.h),
+              Container(
+                child: Column(
+                  children: [
+                TabBar(
+                  tabs: [Tab(text: '패턴으로 보기'),Tab(text:'홀짝으로 보기')],
+                  controller: controller.tabController,
+                  indicatorColor: Colors.deepOrangeAccent,
+                  padding: EdgeInsets.all(10),
+                  labelColor: Colors.black,
+                  // indicator: BoxDecoration(borderRadius: BorderRadius.circular(30),color: Color(
+                  //     0xffffa228)),
+                  unselectedLabelColor: Colors.grey,
+                  onTap: (index){controller.currentIndex.value = index;},
+                ),
+                  ]
+                ),
+              ),
+              Obx(() =>
+              controller.currentIndex == 0 ? PatternTable(controller) : OddEvenTable(controller),
+              )
+            ],
           ),
         ),
       ),

@@ -6,21 +6,36 @@ import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as htmlParser;
 import 'package:sqflite/sql.dart';
 
+import '../../../../config/shared_pre.dart';
+import '../../../../db/dbhelper.dart';
+import '../../../../model/loto.dart';
+
 class byColorController extends GetxController{
-  List<String> startNum = List.generate(1115, (index) => '${index+1}');
-  List<String> endNum = List.generate(1115, (index) => '${1115-index}');
+
+  final SharedPreferencesService _prefsService = SharedPreferencesService.getInstance();
+
+  RxList<String> startNum = <String>[].obs ;
+  RxList<String> endNum = <String>[].obs;
   RxString test = ''.obs;
 
-  RxInt seleNum = 0.obs;
-  RxInt sele2Num = 0.obs;
+  RxInt selectedStart = 1.obs;
+  RxInt selectedEnd = 0.obs;
 
+  RxList<double> pielist = <double>[].obs;
 
 
   @override
-  void onInit() {
+  void onInit() async {
     // TODO: implement onInit
     super.onInit();
-    // webviewStart();
+    // List<Loto> list = await DBHelper().getLoto();
+    // await _prefsService.init();
+    // selectedEnd.value = list[0].drwNo!;
+    selectedEnd.value = _prefsService.getInt('lastSerial');
+    print('gsdgdd${selectedEnd.value}');
+    startNum.value = List.generate(selectedEnd.value, (index) => '${index+1}');
+    endNum.value = List.generate(selectedEnd.value, (index) => '${selectedEnd.value-index}');
+    chartTest();
   }
 
   void chartTest() async {
@@ -29,7 +44,7 @@ class byColorController extends GetxController{
     List<int> chartPer = [];
 
     String url =
-        'https://www.dhlottery.co.kr/gameResult.do?method=statByNumber&sttDrwNo=${seleNum}&edDrwNo=${sele2Num}&sltBonus=0';
+        'https://www.dhlottery.co.kr/gameResult.do?method=statByNumber&sttDrwNo=${selectedStart}&edDrwNo=${selectedEnd}&sltBonus=0';
 
     final response = await http.get(Uri.parse(url));
     final document = htmlParser.parse(cp949.decodeString(response.body));
@@ -64,7 +79,7 @@ class byColorController extends GetxController{
     List<double> percentages3 = sums.map((value) => ((value / total) * 100 * 10).roundToDouble() / 10).toList();
 
     print('FixPPPPP${percentages3}');
-
+    pielist.value = percentages3;
 
     test.value = percentages3.toString();
   }

@@ -3,16 +3,33 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as htmlParser;
 
+import '../../../../db/dbhelper.dart';
+import '../../../../model/loto.dart';
+
 
 class NumChartController extends GetxController{
 
-  List<String> startNum = ['0','1'];
-  List<String> endNum = ['1000','1001'];
+
+  RxList<String> startNum = <String>[].obs ;
+  RxList<String> endNum = <String>[].obs;
+  RxInt selectedStart = 1.obs;
+  RxInt selectedEnd = 0.obs;
 
   RxList nums = [].obs;
   RxList<String> percent = <String>[].obs;
 
 
+  @override
+  void onInit() async{
+    // TODO: implement onInit
+    super.onInit();
+    List<Loto> list = await DBHelper().getLoto();
+    selectedEnd.value = list[0].drwNo!;
+    print('gsdgdd${selectedEnd.value}');
+    startNum.value = List.generate(selectedEnd.value, (index) => '${index+1}');
+    endNum.value = List.generate(selectedEnd.value, (index) => '${selectedEnd.value-index}');
+
+  }
   void chartTest() async {
 
     List<String> chartNum = [];
@@ -20,7 +37,7 @@ class NumChartController extends GetxController{
 
 
     String url =
-        'https://www.dhlottery.co.kr/gameResult.do?method=statByNumber&sttDrwNo=14&edDrwNo=1114';
+        'https://www.dhlottery.co.kr/gameResult.do?method=statByNumber&sttDrwNo=${selectedStart}&edDrwNo=${selectedEnd}';
 
     final response = await http.get(Uri.parse(url));
     final document = htmlParser.parse(cp949.decodeString(response.body));

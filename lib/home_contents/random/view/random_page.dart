@@ -17,6 +17,23 @@ class RandomPage extends GetView<RandomController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar:  AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        // 그림자를 제거
+        centerTitle: true,
+        title: Text(
+          '번호 추첨기',
+          style: TextStyle(color: Colors.black),
+        ),
+        leading: IconButton(
+            icon: Icon(Icons.chevron_left),
+            color: Colors.black,
+            // 아이콘의 색상을 검정색으로 설정
+            onPressed: () {
+              Get.back();
+            }),
+      ),
       body: SafeArea(
         top: true,
         child: Container(
