@@ -40,7 +40,7 @@ class RecentAnalysisController extends GetxController    with GetSingleTickerPro
     // loto
     findMostFrequentNumbers(combinedList);
     findLeastFrequentNumbers(combinedList);
-    oddoreven(lotos);
+   await oddoreven(lotos);
 
     // print('EFEFES___${rankList([[1,2,3,4,5],[1,2],[3,4,5]])}');
     // print('EFEFESs___${findMostFrequentNumbers([1,2,3,4,4,4,5,5,5])}');
@@ -146,7 +146,7 @@ class RecentAnalysisController extends GetxController    with GetSingleTickerPro
 
     // 한번도 안나온 숫자
     print('HHHH${lotos}');
-
+    LeastNum.value = lotos.toString();
 
     // 등장 횟수가 가장 작은 숫자들을 찾음
     int minFrequency = frequencyMap.values.reduce((value, element) => value < element ? value : element);
@@ -163,7 +163,7 @@ class RecentAnalysisController extends GetxController    with GetSingleTickerPro
 
     print('가장 작은 등장 횟수: $minFrequency');
 
-    LeastNum.value = leastFrequentNumbers.toString();
+    // LeastNum.value = leastFrequentNumbers.toString();
     leastNumf.value = minFrequency.toString();
 
   }
@@ -191,18 +191,17 @@ class RecentAnalysisController extends GetxController    with GetSingleTickerPro
     return mostFrequentNumbers;
   }
 
-  void oddoreven(List<Loto> combinedList) {
+  Future<void> oddoreven(List<Loto> combinedList) async {
 
-    List<int> odds = [];
-    List<int> evens = [];
     List<List<int>> e = [];
     List<List<int>> o = [];
 
 
+
     for(Loto n in combinedList){
-
+      List<int> evens = [];
+      List<int> odds = [];
       for (int nums in n.getLists()){
-
         if(nums%2 == 0){
           evens.add(nums);
         }else {
@@ -210,17 +209,25 @@ class RecentAnalysisController extends GetxController    with GetSingleTickerPro
         }
 
       }
+      if(evens.isEmpty){
+        evens.add(43);
+      }
 
+      print('eveeeee_${evens.toString()}');
+      print('ovene__${odds.toString()}');
       e.add(evens);
       o.add(odds);
+
 
       print('EE_______${evens.toString()}');
 
     }
 
-
     oddList.value = o;
     evenList.value = e;
+
+    print('odd___${oddList.toString()}');
+    print('even___${evenList.toString()}');
 
   }
 

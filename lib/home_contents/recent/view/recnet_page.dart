@@ -62,8 +62,9 @@ class RecentAnalysisPage extends GetView<RecentAnalysisController> {
                       Obx(() => Text('${controller.mostNum}'+'('+'${controller.mostNumf}'+')'))
                     ],),
                     Row(children: [
-                      Text('가장 적게 나온 숫자'), // 최근 5주, 최근 10주 는 아예 안나온 수가 맞는거 같음
-                      Obx(() => Text('${controller.LeastNum}'+'('+'${controller.leastNumf}'+')'))
+                      Text('한번도 나오지 않은 숫자'), // 최근 5주, 최근 10주 는 아예 안나온 수가 맞는거 같음
+                      // Obx(() => Text('${controller.LeastNum}'+'('+'${controller.leastNumf}'+')'))
+                      Obx(() => Text('${controller.LeastNum}'))
                     ],),
                   ],
                 ),
