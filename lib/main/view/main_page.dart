@@ -19,7 +19,7 @@ class MainPage extends GetView<MainController> {
             items: [
               BottomNavigationBarItem(
                 icon: Icon(Icons.calendar_month_rounded),
-                label: '당첨번호\n통계',
+                label: '통계',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.bar_chart),

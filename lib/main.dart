@@ -91,6 +91,10 @@ class _MyAppState extends State<MyApp> {
           },
           title: 'NEW LOTTO',
           theme: ThemeData(
+            textTheme:TextTheme(
+              bodyMedium: TextStyle(fontSize: 18), // 기본 텍스트 크기를 18로 설정
+              headlineMedium: TextStyle(fontSize: 24), // 제목 텍스트 크기를 24로 설정
+            ) ,
             primarySwatch: Colors.blue,
             primaryColor: Colors.black
           ),

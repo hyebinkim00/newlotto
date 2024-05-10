@@ -14,7 +14,7 @@ class RecordPage extends StatelessWidget {
     '번호별 통계',
     '색상통계',
     '연속번호통계',
-    '홀짝'
+    '숫자합계 통계'
   ];
 
   @override
@@ -29,7 +29,7 @@ class RecordPage extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  '로또 6/25\n당첨통계',
+                  '당첨번호에 대한 통계',
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
                 GridView.builder(
@@ -98,7 +98,7 @@ class RecordPage extends StatelessWidget {
               Text('${cardText[index]}',
                   style: TextStyle(
                       color: Colors.black,
-                      fontSize: 15,
+                      fontSize: 20,
                       fontWeight: FontWeight.w500)),
             ]),
       ),

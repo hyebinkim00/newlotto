@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
-import '../../../config/route_names.dart';
-import '../../../notification.dart';
+import '../../../mypage_list/record/purchase/view/purchase_page.dart';
+import '../../../mypage_list/record/random/view/randomnums_page.dart';
 
-class Contents extends StatelessWidget {
+class RecodeMenu extends StatelessWidget {
+
   final List<String> cardText = [
-    '랜덤 번호 만들기',
-    '최근당첨번호\n확률분석',
-    '생일로 보는\n오늘의 번호',
-    '돌림판으로 뽑아보는\n오늘의 번호',
-  ];
-  List<IconData> iconDataList = [
-    Icons.play_circle_rounded,
-    Icons.remove_circle,
-    Icons.edit,
-    Icons.edit
+    '구입번호 당첨기록',
+    '랜덤번호 생성기록',
   ];
 
   @override
@@ -28,9 +19,9 @@ class Contents extends StatelessWidget {
           padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
           child: Container(
               child: Text(
-            '번호를 추천해드릴께요!',
-            style: TextStyle(fontSize: 20),
-          )),
+                '내가 저장한 번호 목록!',
+                style: TextStyle(fontSize: 20),
+              )),
         ),
         GridView.builder(
           physics: NeverScrollableScrollPhysics(),
@@ -43,24 +34,22 @@ class Contents extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(
               onTap: () async {
-                switch (index) {
-                  case 0:
-                    // 랜덤 리스트 (완성)
-                    Get.toNamed(RouteNames.RANDOM);
-                    break;
-                  case 1:
-                    // 최근 당첨번호 확률로 보는 번호
-                    Get.toNamed(RouteNames.RECENT);
-                    break;
-                  case 2:
-                    // 생일로 보는 오늘의 번호
-                    Get.toNamed(RouteNames.BIRTHDAY);
-                    break;
-                  case 3:
-                  // 돌림판으로 뽑는 오늘의 번호
-                    Get.toNamed(RouteNames.SPINNING);
-                    break;
-                }
+                if (index == 0) {
+
+                // 구입 ( QR , 직접 입력 저장 기록)
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PurchasePage()),
+                );
+              }
+              // 랜덤 번호 기록
+              else if (index == 1){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RandomNumsPage()),
+                );
+
+              }
                 //
                 // await Future.delayed(Duration(seconds: 1)); // 1초간 기다립니다.
                 // FlutterLocalNotification.showNotification();
@@ -70,6 +59,7 @@ class Contents extends StatelessWidget {
           },
           itemCount: cardText.length,
         ),
+
       ],
     );
   }

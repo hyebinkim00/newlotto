@@ -35,12 +35,15 @@ class VerticalChart extends StatelessWidget {
           alignment: Alignment.center,
           width: 500.w,
           child: VerticalBarchart(
-            maxX: 500.w,
+            barSize: 50.h,
+            maxX: 300.w,
             data: bardata2,
             showLegend: true,
             showBackdrop: true,
             barStyle: BarStyle.DEFAULT,
             alwaysShowDescription: true,
+            labelSizeFactor: 0.1,
+            tooltipSize:50,
             legend: [
               Vlegend(
                 isSquare: true,

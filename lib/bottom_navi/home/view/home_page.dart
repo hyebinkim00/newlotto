@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:newlotto/bottom_navi/home/view/contents_home.dart';
+import 'package:newlotto/bottom_navi/home/view/recode_home.dart';
 import 'package:newlotto/bottom_navi/home/view/winnignums_home.dart';
 import '../../../config/route_names.dart';
 import '../../../notification.dart';
@@ -40,6 +41,7 @@ class HomePage extends StatelessWidget {
                       // 맨위 박스 (날짜 + 당첨 번호 + 버튼 2개)
                       WinningNums(controller: controller),
                       Contents(),
+                      RecodeMenu()
                       // 저장기록 바로가기 추가해야됨
                     ],
                   ),

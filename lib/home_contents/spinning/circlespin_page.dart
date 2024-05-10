@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:random_text_reveal/random_text_reveal.dart';
@@ -38,12 +39,9 @@ class CircleSpinPage extends GetView<CircleSpinController> {
       body: SafeArea(
         top: true,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(
-              '행운의 번호를 뽑아라!',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            ),
+            SizedBox(height: 20.h),
             Text(
               '물음표 공모양을 눌러 돌림판을 돌려보세요!',
               style: TextStyle(fontSize: 20),

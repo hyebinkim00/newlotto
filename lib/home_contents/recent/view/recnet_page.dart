@@ -19,7 +19,6 @@ class RecentAnalysisPage extends GetView<RecentAnalysisController> {
   //
   // 패턴 및 반복: 이전 추첨 결과에서 특정한 숫자 패턴이나 반복되는 숫자들을 확인하는 것도 중요합니다. 예를 들어, 특정한 숫자가 연속해서 나오거나 두 번 이상 나온 경우에는 해당 숫자를 선택하는 데 대한 고려가 필요합니다.
 
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -44,51 +43,123 @@ class RecentAnalysisPage extends GetView<RecentAnalysisController> {
       body: SafeArea(
         top: true,
         child: Container(
-          child:
-          Column(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               // 최근 5주 (5개)  db query 에 limit 주기
               // 최근 10주 (10개)
               Container(
-                height: 100.h,
+                margin: EdgeInsets.all(10),
+                padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.black),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
                   children: [
-                    Row(children: [
-                      Text('가장 많이 나온 숫자'),
-                      Obx(() => Text('${controller.mostNum}'+'('+'${controller.mostNumf}'+')'))
-                    ],),
-                    Row(children: [
-                      Text('한번도 나오지 않은 숫자'), // 최근 5주, 최근 10주 는 아예 안나온 수가 맞는거 같음
-                      // Obx(() => Text('${controller.LeastNum}'+'('+'${controller.leastNumf}'+')'))
-                      Obx(() => Text('${controller.LeastNum}'))
-                    ],),
+                    Text(
+                      '가장 많이 나온 숫자는',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
+                    Obx(() => Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: List.generate(controller.mostNum.length,
+                              (indexs) {
+                            return Container(
+                              width: 50, // 아이템의 고정된 너비
+                              height: 40,
+                              // margin: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.black)),
+                              child: Container(
+                                width: double.infinity,
+                                child: Center(
+                                  child: Text(
+                                    '${controller.mostNum[indexs]}',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 15.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
+                        )),
+                    Text(
+                      '한번도 나오지 않은 숫자',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
+                    // 최근 5주, 최근 10주 는 아예 안나온 수가 맞는거 같음
+                    // Obx(() => Text('${controller.LeastNum}'+'('+'${controller.leastNumf}'+')'))
+                    Obx(
+                      () => Wrap(
+                        alignment: WrapAlignment.start,
+                        spacing: 10.0, // 아이템들 간의 가로 간격
+                        runSpacing: 10.0, // 아이템들 간의 세로 간격
+                        children: List.generate(
+                          controller.LeastNum.length,
+                          (indexs) {
+                            return Container(
+                              width: 50, // 아이템의 고정된 너비
+                              height: 40,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white,
+                                border: Border.all(color: Colors.black),
+                              ),
+                              child: Container(
+                                width: double.infinity,
+                                child: Center(
+                                  child: Text(
+                                    '${controller.LeastNum[indexs]}',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 15.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              SizedBox(height: 20.h),
-              Container(
-                child: Column(
-                  children: [
-                TabBar(
-                  tabs: [Tab(text: '패턴으로 보기'),Tab(text:'홀짝으로 보기')],
-                  controller: controller.tabController,
-                  indicatorColor: Colors.deepOrangeAccent,
-                  padding: EdgeInsets.all(10),
-                  labelColor: Colors.black,
-                  // indicator: BoxDecoration(borderRadius: BorderRadius.circular(30),color: Color(
-                  //     0xffffa228)),
-                  unselectedLabelColor: Colors.grey,
-                  onTap: (index){controller.currentIndex.value = index;},
-                ),
-                  ]
-                ),
+
+              Row(
+                children: [
+                  TextButton(onPressed: () {}, child: Text('최근 10주 기준')),
+                  TextButton(onPressed: () {}, child: Text('최근 20주 기준'))
+                ],
               ),
-              Obx(() =>
-              controller.currentIndex == 0 ? PatternTable(controller) : OddEvenTable(controller),
+              Container(
+                child: Column(children: [
+                  TabBar(
+                    tabs: [Tab(text: '패턴으로 보기'), Tab(text: '홀짝으로 보기')],
+                    controller: controller.tabController,
+                    indicatorColor: Colors.deepOrangeAccent,
+                    padding: EdgeInsets.all(10),
+                    labelColor: Colors.black,
+                    // indicator: BoxDecoration(borderRadius: BorderRadius.circular(30),color: Color(
+                    //     0xffffa228)),
+                    unselectedLabelColor: Colors.grey,
+                    onTap: (index) {
+                      controller.currentIndex.value = index;
+                    },
+                  ),
+                ]),
+              ),
+              Obx(
+                () => controller.currentIndex == 0
+                    ? PatternTable(controller)
+                    : OddEvenTable(controller),
               )
             ],
           ),

@@ -175,7 +175,7 @@ class DBHelper {
     List<RandomNums> lists = [];
     final db = await database; // 데이터베이스 인스턴스 가져오기
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      'SELECT * FROM random ORDER BY id DESC',
+      'SELECT * FROM random ORDER BY id ASC',
     );
     for (var map in maps) {
       lists.add(RandomNums.fromMap(map));

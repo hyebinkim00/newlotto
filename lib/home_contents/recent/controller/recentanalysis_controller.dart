@@ -10,9 +10,9 @@ class RecentAnalysisController extends GetxController    with GetSingleTickerPro
   RxList<Loto> list = <Loto>[].obs;
   RxInt currentIndex = 0.obs;
 
-  RxString mostNum = ''.obs;
+  RxList<int> mostNum = <int>[].obs;
   RxString mostNumf = ''.obs;
-  RxString LeastNum = ''.obs;
+  RxList<int> LeastNum = <int>[].obs;
   RxString leastNumf = ''.obs;
 
   RxList<List<int>> oddList = <List<int>>[].obs;
@@ -26,6 +26,7 @@ class RecentAnalysisController extends GetxController    with GetSingleTickerPro
     super.onInit();
     tabController = TabController(length: 2, vsync: this);
 
+
     List<Loto> lotos = await DBHelper().getLoto();
     print('EEEEE${lotos.length}');
 
@@ -37,14 +38,11 @@ class RecentAnalysisController extends GetxController    with GetSingleTickerPro
 
     }
 
-    // loto
+
     findMostFrequentNumbers(combinedList);
     findLeastFrequentNumbers(combinedList);
    await oddoreven(lotos);
 
-    // print('EFEFES___${rankList([[1,2,3,4,5],[1,2],[3,4,5]])}');
-    // print('EFEFESs___${findMostFrequentNumbers([1,2,3,4,4,4,5,5,5])}');
-    // print('EFEFESs___${findLeastFrequentNumbers([1,2,3,3,4,4,4,5,5,5])}');
 
   }
 
@@ -125,7 +123,9 @@ class RecentAnalysisController extends GetxController    with GetSingleTickerPro
       }
     });
 
-    mostNum.value = mostFrequentNumbers.toString();
+    // mostNum.value = mostFrequentNumbers.toString();
+    String text = mostFrequentNumbers.map((e) => e.toString()).join('과 ') + ' 이며';
+    mostNum.value = mostFrequentNumbers;
     mostNumf.value = maxFrequency.toString();
     print('ddd${maxFrequency}'); // 횟수
 
@@ -146,7 +146,9 @@ class RecentAnalysisController extends GetxController    with GetSingleTickerPro
 
     // 한번도 안나온 숫자
     print('HHHH${lotos}');
-    LeastNum.value = lotos.toString();
+    // LeastNum.value = lotos.toString();
+    String text2 = lotos.map((e)=> e.toString()).join('과');
+    LeastNum.value = lotos;
 
     // 등장 횟수가 가장 작은 숫자들을 찾음
     int minFrequency = frequencyMap.values.reduce((value, element) => value < element ? value : element);
@@ -164,7 +166,7 @@ class RecentAnalysisController extends GetxController    with GetSingleTickerPro
     print('가장 작은 등장 횟수: $minFrequency');
 
     // LeastNum.value = leastFrequentNumbers.toString();
-    leastNumf.value = minFrequency.toString();
+    // leastNumf.value = minFrequency.toString();
 
   }
 
