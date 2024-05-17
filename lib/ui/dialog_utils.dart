@@ -139,6 +139,10 @@ class DialogUtils {
               MyNums mynums = MyNums(serial: info.serial,myNum: numInfoList);
              await DBHelper().insertQrData(mynums);
               Get.back(); //창 닫기
+
+              // TabController index 바꾸는거 추가해야됨
+              Get.off(PurchasePage());
+
             },
             child: Text("저장하기"),
           ),

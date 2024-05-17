@@ -127,7 +127,7 @@ class HomeController extends GetxController{
     list = await DBHelper().getLoto();
 
     if (list.isEmpty) {
-      for (int i = 0; i <= 10; i++) {
+      for (int i = 0; i <= 30; i++) {
         // 20개 저장 (마지막 회차가 변경되어서 db 추가할때 id 순서를 바꿀수 없으니 내림차순으로 저장)
 
         await listDbsave(serial - i);

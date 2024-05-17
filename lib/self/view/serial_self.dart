@@ -13,7 +13,6 @@ class SerialSelection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('번호를 클릭하여 입력하여주세요.'),
         Container(
           // margin: EdgeInsets.only(left: 10 ,right: 10),
           color: Colors.orangeAccent,

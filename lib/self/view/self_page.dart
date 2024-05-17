@@ -38,22 +38,20 @@ class SelfPage extends GetView<SelfController> {
               children: [
                 SerialSelection(controller: controller),
                 InputList(controller: controller),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 10, right: 10),
-                    child: TextButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size.fromHeight(50),
-                        backgroundColor: Colors.orangeAccent,
-                        foregroundColor: Colors.white,
-                      ),
-                      onPressed: () {
-                        // 2024 02 29
-                        // 테스트 하려고 여기다 넣은거지 Qr 처럼 다이어로그 거기서 저장누르면 저장
-                        controller.save();
-                      },
-                      child: Text('확인하기'),
+                Padding(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  child: TextButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(50),
+                      backgroundColor: Colors.orangeAccent,
+                      foregroundColor: Colors.white,
                     ),
+                    onPressed: () {
+                      // 2024 02 29
+                      // 테스트 하려고 여기다 넣은거지 Qr 처럼 다이어로그 거기서 저장누르면 저장
+                      controller.save();
+                    },
+                    child: Text('확인하기'),
                   ),
                 ),
               ],

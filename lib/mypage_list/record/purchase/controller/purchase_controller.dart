@@ -20,6 +20,7 @@ class PurchaseController extends GetxController
 
   late TabController tabController;
 
+  // 해당 회차에 대한 번호 리스트 정보
   RxList<MyNums> qrList =  <MyNums>[].obs;
   RxList<MyNums> selfList = <MyNums>[].obs;
 
@@ -42,13 +43,14 @@ class PurchaseController extends GetxController
       Selfserial.value = selfListOrigin[0].serial!;
     }
     List<MyNums> qrListOrigin = await DBHelper().getQrLastserial();
+
     if(qrListOrigin.isNotEmpty){
       Qrserial.value =  qrListOrigin[0].serial!;
       List<MyNums> dbListsf = await DBHelper().queryByColumnQr(Qrserial.value);
       qrList.value  = dbListsf;
     }
 
-    itemsListUpdate();
+    itemsListFirst();
 
   }
 
@@ -56,6 +58,9 @@ class PurchaseController extends GetxController
 
   static Future<List<List<selforigin>>> getDetail(int ser, List<NumInfo> mynums) async {
     // 회차(ser) 에 대한 당첨번호 (loto 테이블)
+
+    print('getDetail__HB${ser}__${mynums.length}');
+
     List<int> winNums =  await DBHelper().queryByColumnDrwno(ser);
 
     List<List<selforigin>> nus = [];
@@ -65,6 +70,7 @@ class PurchaseController extends GetxController
 
     for (int i = 0 ; i < sx ; i++){
       List<selforigin>  n = [];
+
       List<int> m = [mynums[i].num1??0, mynums[i].num2??0, mynums[i].num3??0, mynums[i].num4??0, mynums[i].num5??0,mynums[i].num6??0];
 
       print('hbhb__mmm${m.toString()}');
@@ -121,7 +127,8 @@ class PurchaseController extends GetxController
   }
 
   void serialPlus() async{
-    if(tabController.index==0){Selfserial.value++;
+    if(tabController.index==0){
+      Selfserial.value++;
     }else{
      Qrserial.value++;
     }
@@ -131,12 +138,32 @@ class PurchaseController extends GetxController
   void itemsListUpdate() async {
     print('DDEdddddddd${tabController.index}');
     if(currentIndex==0){
+      // 직접 입력 탭
       List<MyNums> dbListsf = await DBHelper().queryByColumnSelf(Selfserial.value);
+      print('DDEdddddddd${dbListsf}');
       selfList.value  = dbListsf;
     } else {
+      // QR 스캔 탭
       List<MyNums> dbListsf = await DBHelper().queryByColumnQr(Qrserial.value);
+      print('DDEdddddddd${dbListsf}');
+
       qrList.value  = dbListsf;
     }
+  }
+
+  void itemsListFirst() async {
+    print('DDEdddddddd${tabController.index}');
+
+      // 직접 입력 탭
+      List<MyNums> dbListsf = await DBHelper().queryByColumnSelf(Selfserial.value);
+      print('DDEdddddddd${dbListsf}');
+      selfList.value  = dbListsf;
+
+      // QR 스캔 탭
+      List<MyNums> dbListsf2 = await DBHelper().queryByColumnQr(Qrserial.value);
+      print('DDEdddddddd${dbListsf2}');
+      qrList.value  = dbListsf2;
+
   }
 
 }
