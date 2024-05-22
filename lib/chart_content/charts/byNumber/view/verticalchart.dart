@@ -23,27 +23,26 @@ class VerticalChart extends StatelessWidget {
       List<VBarChartModel> bardata2 = List.generate(controller.nums.length, (index) {
         return VBarChartModel(
           index: index,
-          label: "${controller.nums[index]}",
-          jumlah: int.parse(controller.percent[index]).w ,
+          label: "번호${controller.nums[index]}",
+          jumlah: int.parse(controller.percent[index])/10.w ,
           tooltip: "${controller.percent[index]} 회",
           colors: [Colors.orange, Colors.deepOrange],
         );
       });
 
-      return SingleChildScrollView(
-        child: Container(
-          alignment: Alignment.center,
-          width: 500.w,
+      // Text 크기가 변경 불가
+      return InteractiveViewer(
+        child: SingleChildScrollView(
           child: VerticalBarchart(
-            barSize: 50.h,
-            maxX: 300.w,
+            barSize: 30.h,
+            maxX: 30.w,
             data: bardata2,
             showLegend: true,
             showBackdrop: true,
-            barStyle: BarStyle.DEFAULT,
+            barStyle: BarStyle.CIRCLE,
             alwaysShowDescription: true,
-            labelSizeFactor: 0.1,
-            tooltipSize:50,
+            labelSizeFactor: 0.2,
+            // tooltipSize:50,
             legend: [
               Vlegend(
                 isSquare: true,

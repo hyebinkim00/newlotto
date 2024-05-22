@@ -13,7 +13,7 @@ class BirthDayPage extends GetView<BirthDayController> {
         // 그림자를 제거
         centerTitle: true,
         title: Text(
-          '내 생일로 보는 오늘의 번호',
+          '오늘의 번호',
           style: TextStyle(color: Colors.black),
         ),
         leading: IconButton(
@@ -30,9 +30,16 @@ class BirthDayPage extends GetView<BirthDayController> {
             width: double.infinity,
             child: Column(
               children: [
-                Text('오늘의 번호'),
+
+                Container(
+                  decoration: BoxDecoration(borderRadius:
+                  BorderRadius.circular(2)),
+                  child: Text('오늘 내 생일에 맞는 행운의 번호는?'),
+                )
+
                 // 생일이랑 오늘 날짜를 계산해서 생일마다 하루동안은 같은수
-                Padding(
+
+                ,Padding(
                   padding: const EdgeInsets.only(left: 5.0,right: 5.0),
                   child: TextField(
                       controller: controller.textEdit,

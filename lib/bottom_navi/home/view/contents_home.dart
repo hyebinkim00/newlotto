@@ -10,22 +10,22 @@ class Contents extends StatelessWidget {
     '랜덤 번호 만들기',
     '최근당첨번호\n확률분석',
     '생일로 보는\n오늘의 번호',
-    '돌림판으로 뽑아보는\n오늘의 번호',
+    '돌림판으로 보는\n오늘의 번호',
   ];
   List<IconData> iconDataList = [
-    Icons.play_circle_rounded,
-    Icons.remove_circle,
-    Icons.edit,
-    Icons.edit
+    Icons.format_list_numbered,
+    Icons.calendar_today_outlined,
+    Icons.person_pin,
+    Icons.play_circle_rounded
   ];
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+          padding: const EdgeInsets.only(left: 10.0, top: 10.0, bottom: 10.0),
           child: Container(
               child: Text(
             '번호를 추천해드릴께요!',
@@ -79,27 +79,33 @@ class Contents extends StatelessWidget {
       width: 30,
       height: 30,
       child: Card(
-        color: Colors.amber,
+        color: Color(0xE7DEFF8B),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         shadowColor: Colors.black12,
         child: Center(
             child: Container(
                 decoration: BoxDecoration(
                   boxShadow: [
-                    BoxShadow(
-                      color: Colors.white.withOpacity(0.7),
-                      spreadRadius: 8,
-                      blurRadius: 7,
-                      offset: Offset(0, 2), // 그림자 위치 조정
-                    ),
+                    // BoxShadow(
+                    //   color: Colors.white.withOpacity(0.7),
+                    //   spreadRadius: 8,
+                    //   blurRadius: 7,
+                    //   offset: Offset(0, 2), // 그림자 위치 조정
+                    // ),
                   ],
                 ),
-                child: Text('${cardText[index]}',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500)))),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Icon(iconDataList[index]),
+                    Text('${cardText[index]}',
+                        textAlign: TextAlign.center
+                        ,style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500)),
+                  ],
+                ))),
       ),
     );
   }

@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
                         padding: const EdgeInsets.only(top:20),
                         child:
                           Obx(()=>
-                              Text('이번주 로또발표날까지\n ${controller.days}일 남았습니다!',
+                              Text('이번주 로또 발표 날까지\n ${controller.days}일 남았습니다!',
                                   textAlign: TextAlign.center,
                                 style: TextStyle(fontSize:25,fontWeight: FontWeight.bold),),)
                       ),

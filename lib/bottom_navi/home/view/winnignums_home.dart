@@ -27,7 +27,7 @@ class WinningNums extends StatelessWidget {
           // 오늘 날짜
         Column(
           children: [
-            Obx(() => Text('${controller.todays}',
+            Obx(() => Text('${controller.todays} 기준',
               style: TextStyle(fontSize: 17),
             )),
             SizedBox(height: 10,),

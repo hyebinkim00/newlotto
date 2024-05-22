@@ -49,6 +49,7 @@ class RecentAnalysisPage extends GetView<RecentAnalysisController> {
               // 최근 5주 (5개)  db query 에 limit 주기
               // 최근 10주 (10개)
               Container(
+                height: 250.h,
                 margin: EdgeInsets.all(10),
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
@@ -56,6 +57,7 @@ class RecentAnalysisPage extends GetView<RecentAnalysisController> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
                       '가장 많이 나온 숫자는',
