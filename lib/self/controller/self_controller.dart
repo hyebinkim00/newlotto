@@ -127,7 +127,7 @@ class SelfController extends GetxController {
                     child: Container(
                       color: Colors.white,
                       child: Center(
-                        // index번호 A ~ E
+                        // index번호 A ~ E // 아스키 코드
                         child: Text('${String.fromCharCode(index + 65)}'),
                       ),
                     ),

@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:newlotto/chart_content/charts/byPick/binding/byPickBinding.dart';
+import 'package:newlotto/chart_content/charts/byPick/view/pickandChartPage.dart';
 import 'package:newlotto/config/route_names.dart';
 import 'package:newlotto/home_contents/recent/binding/recentanalysis_binding.dart';
 import 'package:newlotto/home_contents/recent/view/recnet_page.dart';
@@ -77,5 +79,11 @@ class Constants {
       page: () => ByColorChartPage(),
       binding: byColorBinding(),
     ),
+    GetPage(
+      name: RouteNames.PICKCHART,
+      page: () => PickChartPage(),
+      binding: byPickBinding(),
+    ),
+
   ];
 }

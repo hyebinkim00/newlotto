@@ -30,14 +30,14 @@ class NumChartController extends GetxController{
     endNum.value = List.generate(selectedEnd.value, (index) => '${selectedEnd.value-index}');
 
   }
+
   void chartTest() async {
 
     List<String> chartNum = [];
     List<String> chartPer = [];
 
 
-    String url =
-        'https://www.dhlottery.co.kr/gameResult.do?method=statByNumber&sttDrwNo=${selectedStart}&edDrwNo=${selectedEnd}';
+    String url = 'https://www.dhlottery.co.kr/gameResult.do?method=statByNumber&sttDrwNo=${selectedStart}&edDrwNo=${selectedEnd}';
 
     final response = await http.get(Uri.parse(url));
     final document = htmlParser.parse(cp949.decodeString(response.body));

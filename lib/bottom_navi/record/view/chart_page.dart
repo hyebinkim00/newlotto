@@ -54,52 +54,61 @@ class RecordPage extends StatelessWidget {
                           Icon(
                             Icons.insert_chart_outlined_rounded,
                             color: Colors.white,
-                            size: 70,
+                            size: 50,
                           ),
-                          Text('다양한 방법으로 확률을 알아보세요!',style: TextStyle(color: Colors.white),)
+                          Expanded(child: Text('다양한 방법으로 확률을 분석해드릴께요!',style: TextStyle(color: Colors.white),softWrap: true,))
                         ],
                       ),
                     ),
-                    GridView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      // to disable GridView's scrolling
-                      shrinkWrap: true,
-                      // You won't see infinite size error
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: 1.5, // 가로:세로 비율 설정
-                          crossAxisCount: 2),
-                      itemBuilder: (BuildContext context, int index) {
-                        return GestureDetector(
-                          onTap: () async {
-                            switch (index) {
-                              case 0:
-                                // 번호별 VerticalChart
-                                Get.toNamed(RouteNames.NUMCHART);
-                                break;
-                              case 1:
-                                // 색상 Pie
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(builder: (context) => PieChartSample2()),
-                                // );
-                                Get.toNamed(RouteNames.COLORCHART);
-                                break;
-                              case 2:
-                                // 연속번호
-                                Get.toNamed(RouteNames.BIRTHDAY);
-                                break;
-                              case 3:
-                                Get.toNamed(RouteNames.SPINNING);
-                                break;
-                            }
-                            //
-                            // await Future.delayed(Duration(seconds: 1)); // 1초간 기다립니다.
-                            // FlutterLocalNotification.showNotification();
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: GridView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          // to disable GridView's scrolling
+                          shrinkWrap: true,
+                          // You won't see infinite size error
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: 4, // 아이템의 가로:세로 비율을 설정합니다.
+                            crossAxisCount: 1, // 수직 방향으로 아이템을 하나씩 배치합니다.
+                            mainAxisSpacing: 7.0, // 아이템 간의 수직 간격을 설정합니다.
+                          ),
+                          // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          //     childAspectRatio: 1.5, // 가로:세로 비율 설정
+                          //     crossAxisCount: 2),
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              onTap: () async {
+                                switch (index) {
+                                  case 0:
+                                    // 번호별 VerticalChart
+                                    Get.toNamed(RouteNames.NUMCHART);
+                                    break;
+                                  case 1:
+                                    // 색상 Pie
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(builder: (context) => PieChartSample2()),
+                                    // );
+                                    Get.toNamed(RouteNames.COLORCHART);
+                                    break;
+                                  case 2:
+                                    // 연속번호
+                                    Get.toNamed(RouteNames.PICKCHART);
+                                    break;
+                                  case 3:
+                                    Get.toNamed(RouteNames.SPINNING);
+                                    break;
+                                }
+                                //
+                                // await Future.delayed(Duration(seconds: 1)); // 1초간 기다립니다.
+                                // FlutterLocalNotification.showNotification();
+                              },
+                              child: myMenu(index),
+                            );
                           },
-                          child: myMenu(index),
-                        );
-                      },
-                      itemCount: cardText.length,
+                          itemCount: cardText.length,
+                        ),
+                      ),
                     )
                     // 번호 별 통계
                     // 구간별 통계
@@ -115,7 +124,7 @@ class RecordPage extends StatelessWidget {
       width: 30,
       height: 30,
       child: Card(
-        color: AppColors.contentChart,
+        color: AppColors.contentColorBlue,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         shadowColor: Colors.black12,
         child: Row(

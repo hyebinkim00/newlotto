@@ -46,6 +46,10 @@ class byColorController extends GetxController{
     String url =
         'https://www.dhlottery.co.kr/gameResult.do?method=statByNumber&sttDrwNo=${selectedStart}&edDrwNo=${selectedEnd}&sltBonus=0';
 
+
+    // sltBonus 0 이면 보너스 미포함 1이면 포함
+    // 색상 통계는 보너스 미포함이 기본
+
     final response = await http.get(Uri.parse(url));
     final document = htmlParser.parse(cp949.decodeString(response.body));
 
@@ -63,6 +67,7 @@ class byColorController extends GetxController{
   }
 
 
+ // statByColor 은 나중에 그려져서 못가져옴 -->  직접 확률 구하는걸로 바꿈
 
   void sum5 (List<int> lists){
     // Piechart 퍼센트 구하기
